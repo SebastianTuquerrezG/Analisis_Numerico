@@ -38,12 +38,28 @@ void DatosBiseccion(string str_f);
 */
 void DatosReglaFalsa(string str_f);
 
+/**
+ * @brief Solicitud de datos para calcular la funcion ingresada dentro del intervalo dado utilizando el metodo de newton_raphson
+ * @param str_f Texto de la funcion a evaluar
+ */
 void DatosNewtonRaphson(string str_f);
 
+/**
+ * @brief Solicitud de datos para calcular la funcion ingresada dentro del intervalo dado utilizando el metodo de la secante
+ * @param str_f Texto de la funcion a evaluar
+ */
 void DatosSecante(string str_f);
 
+/**
+ * @brief Solicitud de datos para calcular la funcion ingresada dentro del intervalo dado utilizando el metodo de newton generalizado
+ * @param str_f Texto de la funcion a evaluar
+ */
 void DatosNewtonGeneralizado(string str_f);
 
+/**
+ * @brief Solicitud de datos para calcular la funcion ingresada dentro del intervalo dado utilizando el metodo de muller
+ * @param str_f Texto de la funcion a evaluar
+ */
 void DatosMuller(string str_f);
 
 int main (int argc, char *argv[]) {
@@ -53,12 +69,13 @@ int main (int argc, char *argv[]) {
 	do {
 		system("cls");
 		cout << "\n";
-		cout << "================MENU================" << endl;
-		cout << "1. Calculo de una raiz de f(x) = x^2 - cos(x) utilizando el metodo de biseccion." << endl;
-		cout << "2. Calculo de una raiz de f(x) = x^2 - cos(x) utilizando el metodo de regla falsa." << endl;
-		cout << "3. Calculo de una raiz de f(x) = x^3 + 4x^2 - 10, utilizando el metodo de biseccion." << endl;
-		cout << "4. Calculo de una raiz de f(x) = x^3 + 4x^2 - 10, utilizando el metodo de regla falsa." << endl;
-		cout << "5. Salir." << endl;
+		cout << "=================MENU=================" << endl;
+		cout << "|| 1.Metodo de Biseccion           ||" << endl;
+		cout << "|| 2.Metodo de la Regla Falsa      ||" << endl;
+		cout << "|| 3.Metodo de Newton Raphson      ||" << endl;
+		cout << "|| 4.Metodo de la Secante          ||" << endl;
+        cout << "|| 5.Metodo de Newton Generalizado ||" << endl;
+		cout << "|| 6.Salir                         ||" << endl;
 		cout << "Ingrese su eleccion (1-5): ";
 		
 		if (!(cin >> opcion)) {

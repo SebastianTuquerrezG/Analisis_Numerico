@@ -11,6 +11,8 @@
  * @copyright Copyright (c) 2023
  */
 
+#include <string>
 
+#include "Expression.h"
 
 #endif //RAICES_CRQUINAYAS_JTUQUERREZ_MULLER_H

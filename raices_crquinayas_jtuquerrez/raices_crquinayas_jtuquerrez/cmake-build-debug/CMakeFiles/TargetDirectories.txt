@@ -1,0 +1,3 @@
+C:/Users/sebas/projects/Analisis_Numerico/raices_crquinayas_jtuquerrez/raices_crquinayas_jtuquerrez/cmake-build-debug/CMakeFiles/raices_crquinayas_jtuquerrez.dir
+C:/Users/sebas/projects/Analisis_Numerico/raices_crquinayas_jtuquerrez/raices_crquinayas_jtuquerrez/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/sebas/projects/Analisis_Numerico/raices_crquinayas_jtuquerrez/raices_crquinayas_jtuquerrez/cmake-build-debug/CMakeFiles/rebuild_cache.dir

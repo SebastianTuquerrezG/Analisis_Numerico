@@ -11,4 +11,4 @@ add_executable(raices_crquinayas_jtuquerrez
         main.cpp
         newton_raphson.h
         reglafalsa.h
-        solucion.h newton_generalizado.h secante.h)
+        solucion.h newton_generalizado.h secante.h muller.h)

@@ -112,7 +112,8 @@
 				4,
 				5,
 				6,
-				7
+				7,
+				8
 			]
 		},
 		{
@@ -164,6 +165,11 @@
 		{
 			"backtrace" : 1,
 			"path" : "secante.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "muller.h",
 			"sourceGroupIndex" : 0
 		}
 	],

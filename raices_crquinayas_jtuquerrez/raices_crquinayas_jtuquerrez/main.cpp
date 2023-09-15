@@ -44,7 +44,7 @@ void DatosSecante(string str_f);
 
 void DatosNewtonGeneralizado(string str_f);
 
-
+void DatosMuller(string str_f);
 
 int main (int argc, char *argv[]) {
 	int opcion;

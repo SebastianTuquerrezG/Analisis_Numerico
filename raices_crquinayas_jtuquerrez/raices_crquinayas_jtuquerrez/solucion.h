@@ -1,6 +1,16 @@
 #ifndef SOLUCION_H
 #define SOLUCION_H
 
+/**
+ * @file solucion.h
+ * @author Joan Sebastian Tuquerrez Gomez (jtuquerrez@unicauca.edu.co)
+ * @brief libreria para imprimir las soluciones de los metodos numericos
+ * @version 1.0.0
+ * @date 2023-08-12
+ *
+ * @copyright Copyright (c) 2023
+ */
+
 #include <cfloat>
 #include <cmath>
 #include <iostream>

@@ -1,6 +1,16 @@
 #ifndef REGLAFALSA_H
 #define REGLAFALSA_H
 
+/**
+ * @file reglafalsa.h
+ * @author Joan Sebastian Tuquerrez Gomez (jtuquerrez@unicauca.edu.co)
+ * @brief libreria que implementa el metodo de la regla falsa
+ * @version 1.0.0
+ * @date 2023-08-28
+ *
+ * @copyright Copyright (c) 2023
+ */
+
 #include <string>
 
 #include "Expression.h"

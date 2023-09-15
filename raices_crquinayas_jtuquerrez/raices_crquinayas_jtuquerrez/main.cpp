@@ -1,3 +1,13 @@
+/**
+ * @file main.cpp
+ * @author Joan Sebastian Tuquerrez Gomez (jtuquerrez@unicauca.edu.co)
+ * @brief Programa principal de los metodos numericos para resolver ecuaciones de una sola variable
+ * @version 1.0.0
+ * @date 2023-09-15
+ *
+ * @copyright Copyright (c) 2023
+ */
+
 #include<iostream>
 #include <string>
 #include <cstdlib>
@@ -27,6 +37,14 @@ void DatosBiseccion(string str_f);
 * @param str_f Texto de la funcion a evaluar
 */
 void DatosReglaFalsa(string str_f);
+
+void DatosNewtonRaphson(string str_f);
+
+void DatosSecante(string str_f);
+
+void DatosNewtonGeneralizado(string str_f);
+
+
 
 int main (int argc, char *argv[]) {
 	int opcion;

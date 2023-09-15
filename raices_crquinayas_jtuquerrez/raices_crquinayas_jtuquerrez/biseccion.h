@@ -1,5 +1,16 @@
 #ifndef BISECCION_H
 #define BISECCION_H
+
+/**
+ * @file biseccion.h
+ * @author Joan Sebastian Tuquerrez Gomez (jtuquerrez@unicauca.edu.co)
+ * @brief libreria que implementa la logica del metodo de biseccion
+ * @version 1.0.0
+ * @date 2023-08-25
+ *
+ * @copyright Copyright (c) 2023
+ */
+
 #include <iomanip>
 #include <iostream>
 #include <limits>

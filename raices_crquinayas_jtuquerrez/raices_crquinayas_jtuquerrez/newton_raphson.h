@@ -1,6 +1,16 @@
 #ifndef NEWTON_RAPHSON_H
 #define NEWTON_RAPHSON_H
 
+/**
+ * @file newton_raphson.h
+ * @author Joan Sebastian Tuquerrez Gomez (jtuquerrez@unicauca.edu.co)
+ * @brief libreria que implementa el metodo de newton_raphson
+ * @version 1.0.0
+ * @date 2023-09-01
+ *
+ * @copyright Copyright (c) 2023
+ */
+
 #include <string>
 
 #include "Expression.h"

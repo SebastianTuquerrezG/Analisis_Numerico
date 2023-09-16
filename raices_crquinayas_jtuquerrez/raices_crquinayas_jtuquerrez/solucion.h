@@ -42,7 +42,16 @@ namespace raices {
 		double xNueva;/*!< Valor anterior */
 		double erp;/*!< Error relativo porcentual entre los dos valores */
 	};
-	
+
+    /**
+	* @brief Verifica sie el valor dado puede considerarse cero
+	* @param val Valor a verificar
+	* @return Verdadero si el valor esta por debajo del limite de underflow
+	*/
+    bool es_cero(double val) {
+        return (fabs(val) <= DBL_EPSILON);
+    }
+
 	/**
 	* @brief Solucion a un metodo numerico para encontrar una raiz
 	*/

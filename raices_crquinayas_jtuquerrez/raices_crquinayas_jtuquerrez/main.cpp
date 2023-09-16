@@ -11,6 +11,7 @@
 #include<iostream>
 #include <string>
 #include <cstdlib>
+#include <vector>
 
 #include "biseccion.h"
 #include "newton_raphson.h"
@@ -22,6 +23,8 @@ using std::cout;
 using std::endl;
 using std::string;
 using std::system;
+using std::vector;
+using std::string;
 using raices::newton_raphson;
 using raices::biseccion;
 using raices::reglafalsa;
@@ -65,7 +68,15 @@ void DatosMuller(string str_f);
 int main (int argc, char *argv[]) {
 	int opcion;
 	char aux;
-	
+	vector<string> vectorFunciones;
+
+    vectorFunciones.emplace_back("e^~x - ln(x)");
+    vectorFunciones.emplace_back("x^3 + 4*(x^2) - 10");
+    vectorFunciones.emplace_back("(e^(~x)) + x^2 - 2");
+    vectorFunciones.emplace_back("(e^(~(x^2))) - x");
+    vectorFunciones.emplace_back("(x-3)*(x-1)*(x-1)");
+    vectorFunciones.emplace_back("(e^(-x^2)) - x");
+
 	do {
 		system("cls");
 		cout << "\n";
@@ -88,6 +99,7 @@ int main (int argc, char *argv[]) {
 		cout << "\n";
 		switch (opcion) {
 		case 1:
+            cout <<
 			DatosBiseccion("x^2 - cos(x)");
 			break;
 		case 2:
@@ -99,7 +111,7 @@ int main (int argc, char *argv[]) {
 		case 4:
 			DatosReglaFalsa("x^3 + 4*x^2 - 10");
 			break;
-		case 5:
+		case 6:
 			cout << "Saliendo del programa..." << endl;
 			break;
 		default:

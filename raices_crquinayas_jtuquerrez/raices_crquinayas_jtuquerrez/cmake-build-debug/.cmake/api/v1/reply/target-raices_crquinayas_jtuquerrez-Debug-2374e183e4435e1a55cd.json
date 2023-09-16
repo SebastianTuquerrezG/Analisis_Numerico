@@ -45,17 +45,14 @@
 			"compileCommandFragments" : 
 			[
 				{
-					"fragment" : "-g -fdiagnostics-color=always"
-				},
-				{
-					"fragment" : "-std=gnu++14"
+					"fragment" : "-g -std=gnu++14 -fdiagnostics-color=always"
 				}
 			],
 			"includes" : 
 			[
 				{
 					"backtrace" : 2,
-					"path" : "C:/Users/sebas/projects/Analisis_Numerico/raices_crquinayas_jtuquerrez/raices_crquinayas_jtuquerrez/."
+					"path" : "C:/Users/SebasGX/Documents/U/Semestre 7/Repo/Analisis_Numerico/raices_crquinayas_jtuquerrez/raices_crquinayas_jtuquerrez/."
 				}
 			],
 			"language" : "CXX",

@@ -1,0 +1,3 @@
+C:\Users\SebasGX\AppData\Local\Programs\CLion\bin\cmake\win\x64\bin\cmake.exe -E rm -f CMakeFiles\raices_crquinayas_jtuquerrez.dir/objects.a
+C:\Users\SebasGX\AppData\Local\Programs\CLion\bin\mingw\bin\ar.exe qc CMakeFiles\raices_crquinayas_jtuquerrez.dir/objects.a @CMakeFiles\raices_crquinayas_jtuquerrez.dir\objects1.rsp
+C:\Users\SebasGX\AppData\Local\Programs\CLion\bin\mingw\bin\g++.exe -g -Wl,--whole-archive CMakeFiles\raices_crquinayas_jtuquerrez.dir/objects.a -Wl,--no-whole-archive -o raices_crquinayas_jtuquerrez.exe -Wl,--out-implib,libraices_crquinayas_jtuquerrez.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\raices_crquinayas_jtuquerrez.dir\linkLibs.rsp

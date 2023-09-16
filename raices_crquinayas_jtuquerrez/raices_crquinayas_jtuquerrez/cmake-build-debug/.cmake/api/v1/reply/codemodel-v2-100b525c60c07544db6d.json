@@ -39,7 +39,7 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "raices_crquinayas_jtuquerrez::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-raices_crquinayas_jtuquerrez-Debug-742793d408318ca59874.json",
+					"jsonFile" : "target-raices_crquinayas_jtuquerrez-Debug-2374e183e4435e1a55cd.json",
 					"name" : "raices_crquinayas_jtuquerrez",
 					"projectIndex" : 0
 				}
@@ -49,12 +49,12 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "C:/Users/sebas/projects/Analisis_Numerico/raices_crquinayas_jtuquerrez/raices_crquinayas_jtuquerrez/cmake-build-debug",
-		"source" : "C:/Users/sebas/projects/Analisis_Numerico/raices_crquinayas_jtuquerrez/raices_crquinayas_jtuquerrez"
+		"build" : "C:/Users/SebasGX/Documents/U/Semestre 7/Repo/Analisis_Numerico/raices_crquinayas_jtuquerrez/raices_crquinayas_jtuquerrez/cmake-build-debug",
+		"source" : "C:/Users/SebasGX/Documents/U/Semestre 7/Repo/Analisis_Numerico/raices_crquinayas_jtuquerrez/raices_crquinayas_jtuquerrez"
 	},
 	"version" : 
 	{
 		"major" : 2,
-		"minor" : 4
+		"minor" : 5
 	}
 }

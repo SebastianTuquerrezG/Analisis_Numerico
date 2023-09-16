@@ -66,16 +66,20 @@ void DatosNewtonGeneralizado(string str_f);
 void DatosMuller(string str_f);
 
 int main (int argc, char *argv[]) {
-	int opcion;
+	int opcionMetodo, opcionFuncion;
 	char aux;
 	vector<string> vectorFunciones;
 
-    vectorFunciones.emplace_back("e^~x - ln(x)");
-    vectorFunciones.emplace_back("x^3 + 4*(x^2) - 10");
-    vectorFunciones.emplace_back("(e^(~x)) + x^2 - 2");
-    vectorFunciones.emplace_back("(e^(~(x^2))) - x");
-    vectorFunciones.emplace_back("(x-3)*(x-1)*(x-1)");
-    vectorFunciones.emplace_back("(e^(-x^2)) - x");
+    vectorFunciones.emplace_back("e^~x - ln(x),-(e^~x) - (1/x),e^~x + (1/(x^2))");
+    vectorFunciones.emplace_back("x^3 + 4*(x^2) - 10,3*(x^2) + 8*x,6*x + 8");
+    vectorFunciones.emplace_back("(e^(~x)) + x^2 - 2,-(e^(~x)) + 2*x,e^(~x) + 2");
+    vectorFunciones.emplace_back("(e^(~(x^2))) - x,-2*x*e^(~(x^2)) - 1,-2*e^(~(x^2)) + 4*x^2*e^(~(x^2))");
+    vectorFunciones.emplace_back("(x-3)*(x-1)*(x-1),3*(x^2) - 10*x + 7,6*x - 10");
+    vectorFunciones.emplace_back("2*(e^~x) - sen(x),-2*(e^~x) - cos(x),2*(e^~x) + sen(x)");
+    vectorFunciones.emplace_back("x^3 - 2*(x^2) - x + 1,3*(x^2) - 4*x - 1,6*x - 4");
+    vectorFunciones.emplace_back("(x^10) - 1,10*(x^9),90*(x^8)");
+    vectorFunciones.emplace_back("x^6 - 15*(x^4) + 14*(x^3) + 36*(x^2) - 24*x - 32,6*(x^5) - 60*(x^3) + 42*(x^2) + 72*x - 24,30*(x^4) - 180*(x^2) + 84*x + 72");
+    vectorFunciones.emplace_back("2000 * ln(150000 / (150000 - 2700*x)) - (9.81 * x) - 750,(18000/(500-(9*x)))-(981/100),(162000/(500-(9*x)^2))");
 
 	do {
 		system("cls");
@@ -87,30 +91,32 @@ int main (int argc, char *argv[]) {
 		cout << "|| 4.Metodo de la Secante          ||" << endl;
         cout << "|| 5.Metodo de Newton Generalizado ||" << endl;
 		cout << "|| 6.Salir                         ||" << endl;
+        cout << vectorFunciones[0] << endl;
 		cout << "Ingrese su eleccion (1-5): ";
-		
-		if (!(cin >> opcion)) {
-			cout << "Entrada no valida. Por favor, ingrese un numero valido." << endl;
-			cin.clear();
-			cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-			continue;
-		}
+
+        if (!(cin >> opcionMetodo)) {
+            cout << "Entrada no valida. Por favor, ingrese un numero valido." << endl;
+            cin.clear();
+            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            continue;
+        }
+
+        cout << "\n";
+        int contador = 1;
+        for (const string & funcion : vectorFunciones) {
+            size_t pos = funcion.find(",");
+            string funcionCortada = funcion.substr(0, pos);
+            cout << "Funcion " << contador << ": " << funcionCortada << endl;
+            contador++;
+        }
+        cout << "Ingrese la funcion a evaluar (1-11): ";
+        cin >> opcionFuncion;
+
 		
 		cout << "\n";
-		switch (opcion) {
-		case 1:
-            cout <<
-			DatosBiseccion("x^2 - cos(x)");
-			break;
-		case 2:
-			DatosReglaFalsa("x^2 - cos(x)");
-			break;
-		case 3:
-			DatosBiseccion("x^3 + 4*x^2 - 10");
-			break;
-		case 4:
-			DatosReglaFalsa("x^3 + 4*x^2 - 10");
-			break;
+		switch (opcionMetodo) {
+        case 1:
+            break;
 		case 6:
 			cout << "Saliendo del programa..." << endl;
 			break;
@@ -122,7 +128,7 @@ int main (int argc, char *argv[]) {
 		cout << "Presione una tecla para continuar....." << endl;
 		cin.get(aux);
 		cin.get(aux);
-	} while (opcion != 5 ); 
+	} while (opcionMetodo != 5 );
 	
 	return 0;
 }

@@ -309,7 +309,10 @@ CMakeFiles/raices_crquinayas_jtuquerrez.dir/main.cpp.obj: C:/Users/SebasGX/Docum
   C:/Users/SebasGX/AppData/Local/Programs/CLion/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/shared_mutex \
   C:/Users/SebasGX/Documents/U/Semestre\ 7/Repo/Analisis_Numerico/raices_crquinayas_jtuquerrez/raices_crquinayas_jtuquerrez/solucion.h \
   C:/Users/SebasGX/Documents/U/Semestre\ 7/Repo/Analisis_Numerico/raices_crquinayas_jtuquerrez/raices_crquinayas_jtuquerrez/newton_raphson.h \
-  C:/Users/SebasGX/Documents/U/Semestre\ 7/Repo/Analisis_Numerico/raices_crquinayas_jtuquerrez/raices_crquinayas_jtuquerrez/reglafalsa.h
+  C:/Users/SebasGX/Documents/U/Semestre\ 7/Repo/Analisis_Numerico/raices_crquinayas_jtuquerrez/raices_crquinayas_jtuquerrez/reglafalsa.h \
+  C:/Users/SebasGX/Documents/U/Semestre\ 7/Repo/Analisis_Numerico/raices_crquinayas_jtuquerrez/raices_crquinayas_jtuquerrez/newton_generalizado.h \
+  C:/Users/SebasGX/Documents/U/Semestre\ 7/Repo/Analisis_Numerico/raices_crquinayas_jtuquerrez/raices_crquinayas_jtuquerrez/secante.h \
+  C:/Users/SebasGX/Documents/U/Semestre\ 7/Repo/Analisis_Numerico/raices_crquinayas_jtuquerrez/raices_crquinayas_jtuquerrez/muller.h
 
 
 C:/Users/SebasGX/AppData/Local/Programs/CLion/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/localefwd.h:
@@ -816,6 +819,8 @@ C:/Users/SebasGX/AppData/Local/Programs/CLion/bin/mingw/lib/gcc/x86_64-w64-mingw
 
 C:/Users/SebasGX/AppData/Local/Programs/CLion/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/typeindex:
 
+C:/Users/SebasGX/Documents/U/Semestre\ 7/Repo/Analisis_Numerico/raices_crquinayas_jtuquerrez/raices_crquinayas_jtuquerrez/newton_generalizado.h:
+
 C:/Users/SebasGX/AppData/Local/Programs/CLion/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/csignal:
 
 C:/Users/SebasGX/AppData/Local/Programs/CLion/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/cstring:
@@ -929,3 +934,7 @@ C:/Users/SebasGX/AppData/Local/Programs/CLion/bin/mingw/lib/gcc/x86_64-w64-mingw
 C:/Users/SebasGX/Documents/U/Semestre\ 7/Repo/Analisis_Numerico/raices_crquinayas_jtuquerrez/raices_crquinayas_jtuquerrez/solucion.h:
 
 C:/Users/SebasGX/Documents/U/Semestre\ 7/Repo/Analisis_Numerico/raices_crquinayas_jtuquerrez/raices_crquinayas_jtuquerrez/reglafalsa.h:
+
+C:/Users/SebasGX/Documents/U/Semestre\ 7/Repo/Analisis_Numerico/raices_crquinayas_jtuquerrez/raices_crquinayas_jtuquerrez/secante.h:
+
+C:/Users/SebasGX/Documents/U/Semestre\ 7/Repo/Analisis_Numerico/raices_crquinayas_jtuquerrez/raices_crquinayas_jtuquerrez/muller.h:

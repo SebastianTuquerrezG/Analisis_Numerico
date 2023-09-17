@@ -20,6 +20,7 @@ using std::string;
 
 using raices::solucion;
 using raices::calcular_erp;
+using raices::es_cero;
 
 namespace raices {
 	/**
@@ -42,7 +43,7 @@ namespace raices {
 			double xrAnt = xs - ((f(xs)*(xi-xs))/(f(xi)-f(xs)));
 			
 			//Validar si la primera aproximacion es la raiz
-			if ( fabs(f(xrAnt)) <= DBL_EPSILON ) {
+			if (es_cero(f(xrAnt)) ) {
 				//Guardar la raiz
 				sol.raiz = xrAnt;
 				return sol;

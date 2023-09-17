@@ -44,6 +44,13 @@ namespace raices{
 				ddf(strddFunc){
 			}
 
+            /**
+             * @brief Calcula la raiz de la funcion a partir de p0
+             * @param p0 Aproximacion inicial
+             * @param tol tolerancia (error relativo porcentual)
+             * @param n numero maximo de iteraciones
+             * @return solucion encontrada. La raiz es NAN si no se encuentra la solucion
+             */
 			solucion calcular(double p0, double tol, int n ){
 				solucion sol;
 
@@ -66,7 +73,7 @@ namespace raices{
 
 					p0 = p;
 				}
-					return sol;
+                return sol;
 			}
 
 		private:

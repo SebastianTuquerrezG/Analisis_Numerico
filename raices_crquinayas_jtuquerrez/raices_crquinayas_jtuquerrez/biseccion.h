@@ -23,9 +23,11 @@ using std::cout;
 using std::endl;
 using std::setprecision;
 using std::setw;
+using std::string;
 
 using raices::solucion;
 using raices::calcular_erp;
+using raices::es_cero;
 
 using std::string;
 
@@ -65,7 +67,7 @@ namespace raices {
 			double xAnt = (xa + xb)/2.0f;
 			
 			//Validar si la primera aproximacion es la raiz
-			if ( fabs(f(xAnt)) <= DBL_EPSILON ) {
+			if (es_cero(f(xAnt))) {
 				//Guardar la raiz
 				sol.raiz = xAnt;
 				return sol;
@@ -86,7 +88,7 @@ namespace raices {
 				//Adicionar la aproximacion
 				sol.adicionar({xAnt, xNueva, erp});
 				//Paso 5
-				if ( fabs(f(xNueva)) <= DBL_EPSILON  ||
+				if (es_cero(f(xNueva))  ||
 					erp < tol) {
 					//Guardar la raiz
 					sol.raiz = xNueva;

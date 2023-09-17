@@ -58,7 +58,7 @@ namespace raices {
 	struct solucion {
 		double raiz = NAN; /*!< Raiz encontrada, NAN si no se pudo hallar */
 		vector<aproximacion> aproximaciones; /*!< Vector de aproximaciones */
-		int iteraciones;
+		int iteraciones = 0; /*!< Cantidad de iteraciones realizadas */
 		
 		/**
 		* @brief Adiciona una nueva aproximacion

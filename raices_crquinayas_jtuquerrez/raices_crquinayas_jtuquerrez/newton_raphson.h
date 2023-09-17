@@ -19,6 +19,7 @@
 using std::string;
 using raices::solucion;
 using raices::calcular_erp;
+using raices::es_cero;
 
 namespace raices {
 	/** 
@@ -45,16 +46,15 @@ namespace raices {
 				solucion sol;
 				
 				//Paso 1
-				int i = 1;
+				int & i = sol.iteraciones = 1;
 				//Paso 2
 				
-				//Validar si el usuario especificifico una raiz
-				if ( fabs(f(p0)) <= DBL_EPSILON ) {
+				/*Validar si el usuario especificifico una raiz
+				if (es_cero(f(p0))) {
 					//Guardar la raiz
 					sol.raiz = p0;
-					// TODO sol.iteraciones = i;
 					return sol;
-				}
+				}*/
 			
 				//Paso 2
 				while (i < n) {
@@ -68,11 +68,10 @@ namespace raices {
 					//Adicionar la aproximacion
 					sol.adicionar({p0, p, erp});
 					
-					if ( fabs(f(p)) <= DBL_EPSILON  ||
+					if (es_cero(f(p)) ||
 						erp < tol ) {
 						//Guardar la raiz
 						sol.raiz = p;
-						//TODO sol.iteraciones = i;
 						return sol;
 					}
 					//Paso 5

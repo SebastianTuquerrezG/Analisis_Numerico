@@ -62,7 +62,6 @@ namespace raices {
 					erp < tol ) {
 					//Guardar la raiz
 					sol.raiz = x2;
-					//TODO sol.iteraciones = i;
 					return sol;
 				}
 

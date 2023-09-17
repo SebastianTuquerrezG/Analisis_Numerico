@@ -10,13 +10,15 @@
 
 #include<iostream>
 #include <string>
-#include <cstdlib>
 #include <vector>
 
 #include "biseccion.h"
 #include "newton_raphson.h"
 #include "reglafalsa.h"
 #include "Expression.h"
+#include "newton_generalizado.h"
+#include "secante.h"
+#include "muller.h"
 
 using std::cin;
 using std::cout;
@@ -25,9 +27,15 @@ using std::string;
 using std::system;
 using std::vector;
 using std::string;
+using std::size_t;
+using std::numeric_limits;
+using std::streamsize;
 using raices::newton_raphson;
 using raices::biseccion;
 using raices::reglafalsa;
+using raices::newton_generalizado;
+using raices::secante;
+using raices::muller;
 
 /**
 * @brief Solicitud de datos para calcular de la funcion ingresada dentro del intervalo dado utilizando el metodo de biseccion
@@ -45,7 +53,7 @@ void DatosReglaFalsa(string str_f);
  * @brief Solicitud de datos para calcular la funcion ingresada dentro del intervalo dado utilizando el metodo de newton_raphson
  * @param str_f Texto de la funcion a evaluar
  */
-void DatosNewtonRaphson(string str_f);
+void DatosNewtonRaphson(string str_f, string str_df);
 
 /**
  * @brief Solicitud de datos para calcular la funcion ingresada dentro del intervalo dado utilizando el metodo de la secante
@@ -57,7 +65,7 @@ void DatosSecante(string str_f);
  * @brief Solicitud de datos para calcular la funcion ingresada dentro del intervalo dado utilizando el metodo de newton generalizado
  * @param str_f Texto de la funcion a evaluar
  */
-void DatosNewtonGeneralizado(string str_f);
+void DatosNewtonGeneralizado(string str_f, string str_df, string str_ddf);
 
 /**
  * @brief Solicitud de datos para calcular la funcion ingresada dentro del intervalo dado utilizando el metodo de muller
@@ -90,14 +98,15 @@ int main (int argc, char *argv[]) {
 		cout << "|| 3.Metodo de Newton Raphson      ||" << endl;
 		cout << "|| 4.Metodo de la Secante          ||" << endl;
         cout << "|| 5.Metodo de Newton Generalizado ||" << endl;
-		cout << "|| 6.Salir                         ||" << endl;
+        cout << "|| 6.Metodo de Muller              ||" << endl;
+		cout << "|| 7.Salir                         ||" << endl;
         cout << vectorFunciones[0] << endl;
 		cout << "Ingrese su eleccion (1-5): ";
 
         if (!(cin >> opcionMetodo)) {
             cout << "Entrada no valida. Por favor, ingrese un numero valido." << endl;
             cin.clear();
-            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
             continue;
         }
 
@@ -110,14 +119,56 @@ int main (int argc, char *argv[]) {
             contador++;
         }
         cout << "Ingrese la funcion a evaluar (1-11): ";
-        cin >> opcionFuncion;
+        if(!(cin >> opcionFuncion)){
+        cout << "Entrada no valida. Por favor, ingrese un numero valido." << endl;
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            continue;
+        }
 
-		
-		cout << "\n";
+        string str_f = vectorFunciones[opcionFuncion - 1];
+        string funcion, derivada, segundaDerivada;
+
+        size_t pos1 = str_f.find(",");
+        if (pos1 != string::npos) {
+            funcion = str_f.substr(0, pos1);
+
+            size_t pos2 = str_f.find(",", pos1 + 1);
+            if (pos2 != string::npos) {
+                derivada = str_f.substr(pos1 + 1, pos2 - pos1 - 1);
+
+                segundaDerivada = str_f.substr(pos2 + 1);
+            } else {
+                derivada = str_f.substr(pos1 + 1);
+                segundaDerivada = "No disponible";
+            }
+        } else {
+            funcion = str_f;
+            derivada = "No disponible";
+            segundaDerivada = "No disponible";
+        }
+
+        cout << "\n";
 		switch (opcionMetodo) {
         case 1:
+            DatosBiseccion(funcion);
             break;
-		case 6:
+        case 2:
+            DatosReglaFalsa(funcion);
+            break;
+        case 3:
+            DatosNewtonRaphson(funcion,derivada);
+            break;
+        case 4:
+            DatosSecante(funcion);
+            break;
+        case 5:
+            DatosNewtonGeneralizado(funcion,derivada,segundaDerivada);
+            break;
+        case 6:
+            DatosMuller(funcion);
+            break;
+		case 7:
 			cout << "Saliendo del programa..." << endl;
 			break;
 		default:
@@ -128,7 +179,7 @@ int main (int argc, char *argv[]) {
 		cout << "Presione una tecla para continuar....." << endl;
 		cin.get(aux);
 		cin.get(aux);
-	} while (opcionMetodo != 5 );
+	} while (opcionMetodo != 6 );
 	
 	return 0;
 }
@@ -180,5 +231,3 @@ void DatosReglaFalsa(string str_f) {
 	
 	sol.imprimir();
 }
-
-

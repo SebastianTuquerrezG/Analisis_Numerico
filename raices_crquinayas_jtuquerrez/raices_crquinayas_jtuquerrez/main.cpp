@@ -41,19 +41,19 @@ using raices::muller;
 * @brief Solicitud de datos para calcular de la funcion ingresada dentro del intervalo dado utilizando el metodo de biseccion
 * @param str_f Texto de la funcion a evaluar
 */
-void DatosBiseccion(string str_f);
+void DatosBiseccion(const string& str_f);
 
 /**
 * @brief Solicitud de datos para calcular de la funcion ingresada dentro del intervalo dado utilizando el metodo de regla falsa
 * @param str_f Texto de la funcion a evaluar
 */
-void DatosReglaFalsa(string str_f);
+void DatosReglaFalsa(const string& str_f);
 
 /**
  * @brief Solicitud de datos para calcular la funcion ingresada dentro del intervalo dado utilizando el metodo de newton_raphson
  * @param str_f Texto de la funcion a evaluar
  */
-void DatosNewtonRaphson(string str_f, string str_df);
+void DatosNewtonRaphson(const string& str_f, string str_df);
 
 /**
  * @brief Solicitud de datos para calcular la funcion ingresada dentro del intervalo dado utilizando el metodo de la secante
@@ -73,7 +73,7 @@ void DatosNewtonGeneralizado(string str_f, string str_df, string str_ddf);
  */
 void DatosMuller(string str_f);
 
-int main (int argc, char *argv[]) {
+int main (__attribute__((unused)) int argc, __attribute__((unused)) char *argv[]) {
 	int opcionMetodo, opcionFuncion;
 	char aux;
 	vector<string> vectorFunciones;
@@ -113,7 +113,7 @@ int main (int argc, char *argv[]) {
         cout << "\n";
         int contador = 1;
         for (const string & funcion : vectorFunciones) {
-            size_t pos = funcion.find(",");
+            size_t pos = funcion.find(',');
             string funcionCortada = funcion.substr(0, pos);
             cout << "Funcion " << contador << ": " << funcionCortada << endl;
             contador++;
@@ -129,11 +129,11 @@ int main (int argc, char *argv[]) {
         string str_f = vectorFunciones[opcionFuncion - 1];
         string funcion, derivada, segundaDerivada;
 
-        size_t pos1 = str_f.find(",");
+        size_t pos1 = str_f.find(',');
         if (pos1 != string::npos) {
             funcion = str_f.substr(0, pos1);
 
-            size_t pos2 = str_f.find(",", pos1 + 1);
+            size_t pos2 = str_f.find(',', pos1 + 1);
             if (pos2 != string::npos) {
                 derivada = str_f.substr(pos1 + 1, pos2 - pos1 - 1);
 
@@ -184,7 +184,7 @@ int main (int argc, char *argv[]) {
 	return 0;
 }
 
-void DatosBiseccion(string str_f) {
+void DatosBiseccion(const string& str_f) {
 	double xa, xb, tol;
 	int n;
 	
@@ -208,7 +208,7 @@ void DatosBiseccion(string str_f) {
 	sol.imprimir();
 }
 
-void DatosReglaFalsa(string str_f) {
+void DatosReglaFalsa(const string& str_f) {
 	double xi, xs, tol;
 	int n;
 	
@@ -230,4 +230,98 @@ void DatosReglaFalsa(string str_f) {
 	solucion sol = rf.calcular(xi, xs, tol, n);
 	
 	sol.imprimir();
+}
+
+void DatosNewtonRaphson(const string& str_f, string str_df) {
+    double x0, tol;
+    int n;
+
+    cout << "Metodo de Newton Raphson" << endl;
+    cout << "Funcion a evaluar: " << str_f << endl;
+    cout << "Ingrese el valor inicial: ";
+    cin >> x0;
+    cout << "Ingrese la tolerancia (en porcentaje): ";
+    cin >> tol;
+    cout << "Ingrese el maximo numero de iteraciones: ";
+    cin >> n;
+
+    //Crear una instancia de newton_raphson pasando
+    //la funcion como parametro
+    newton_raphson nr(str_f, str_df);
+
+    solucion sol = nr.calcular(x0, tol, n);
+
+    sol.imprimir();
+}
+
+void DatosSecante(const string& str_f) {
+    double x0, x1, tol;
+    int n;
+
+    cout << "Metodo de la secante" << endl;
+    cout << "Funcion a evaluar: " << str_f << endl;
+    cout << "Ingrese el valor inicial x0: ";
+    cin >> x0;
+    cout << "Ingrese el valor inicial x1: ";
+    cin >> x1;
+    cout << "Ingrese la tolerancia (en porcentaje): ";
+    cin >> tol;
+    cout << "Ingrese el maximo numero de iteraciones: ";
+    cin >> n;
+
+    //Crear una instancia de secante pasando
+    //la funcion como parametro
+    secante sec(str_f);
+
+    solucion sol = sec.calcular(x0, x1, tol, n);
+
+    sol.imprimir();
+}
+
+void DatosNewtonGeneralizado(const string& str_f, string str_df, string str_ddf) {
+    double x0, tol;
+    int n;
+
+    cout << "Metodo de Newton Generalizado" << endl;
+    cout << "Funcion a evaluar: " << str_f << endl;
+    cout << "Ingrese el valor inicial x0: ";
+    cin >> x0;
+    cout << "Ingrese la tolerancia (en porcentaje): ";
+    cin >> tol;
+    cout << "Ingrese el maximo numero de iteraciones: ";
+    cin >> n;
+
+    //Crear una instancia de newton_generalizado pasando
+    //la funcion como parametro
+    newton_generalizado ng(str_f, str_df, str_ddf);
+
+    solucion sol = ng.calcular(x0, tol, n);
+
+    sol.imprimir();
+}
+
+void DatosMuller(const string& str_f) {
+    double x0, x1, x2, tol;
+    int n;
+
+    cout << "Metodo de Muller" << endl;
+    cout << "Funcion a evaluar: " << str_f << endl;
+    cout << "Ingrese el valor inicial x0: ";
+    cin >> x0;
+    cout << "Ingrese el valor inicial x1: ";
+    cin >> x1;
+    cout << "Ingrese el valor inicial x2: ";
+    cin >> x2;
+    cout << "Ingrese la tolerancia (en porcentaje): ";
+    cin >> tol;
+    cout << "Ingrese el maximo numero de iteraciones: ";
+    cin >> n;
+
+    //Crear una instancia de muller pasando
+    //la funcion como parametro
+    muller mul(str_f);
+
+    solucion sol = mul.calcular(x0, x1, x2, tol, n);
+
+    sol.imprimir();
 }

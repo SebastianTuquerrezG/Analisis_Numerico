@@ -101,7 +101,7 @@ namespace raices{
         }
 
     private:
-        Expression f;
+        Expression f; /*!< Evaluador de la funcion */
     };
 }
 

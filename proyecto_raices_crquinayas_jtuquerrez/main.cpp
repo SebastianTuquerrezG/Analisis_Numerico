@@ -79,8 +79,8 @@ int main (__attribute__((unused)) int argc, __attribute__((unused)) char *argv[]
     int opcionMetodo, opcionFuncion;
     vector<string> vectorFunciones;
 
-    vectorFunciones.emplace_back("FUNCION EJEMPLO 1");
-    vectorFunciones.emplace_back("FUNCION EJEMPLO 2");
+    vectorFunciones.emplace_back("x - ((10^6 - 0.2*10^6*(√x))/10^5),1 + (1/√x),-(1/(2*x*√x))");
+    vectorFunciones.emplace_back("cos(x) - 0.284*x^3 + 3.355*x^2 -12.183*x + 12.0395,-sin(x) - 0.852*x^2 + 6.71*x - 12.183, -cos(x) - 1.704*x + 6.71");
 
     do {
         cout << "\n";

@@ -79,7 +79,7 @@ int main (__attribute__((unused)) int argc, __attribute__((unused)) char *argv[]
     int opcionMetodo, opcionFuncion;
     vector<string> vectorFunciones;
 
-    vectorFunciones.emplace_back("x - ((10^6 - 0.2*10^6*(√x))/10^5),1 + (1/√x),-(1/(2*x*√x))");
+    vectorFunciones.emplace_back("x - ((10^6 - 0.2*10^6*(sqrt(x)))/10^5),1 + (1/(sqrt(x))),-(1/(2*x*(sqrt(x))))");
     vectorFunciones.emplace_back("cos(x) - 0.284*x^3 + 3.355*x^2 -12.183*x + 12.0395,-sin(x) - 0.852*x^2 + 6.71*x - 12.183, -cos(x) - 1.704*x + 6.71");
 
     do {
@@ -92,13 +92,19 @@ int main (__attribute__((unused)) int argc, __attribute__((unused)) char *argv[]
         cout << "|| 5.Metodo de Newton Generalizado ||" << endl;
         cout << "|| 6.Metodo de Muller              ||" << endl;
         cout << "|| 7.Salir                         ||" << endl;
-        cout << "Ingrese su eleccion (1-5): ";
+        cout << "Ingrese su eleccion (1-6): ";
 
         if (!(cin >> opcionMetodo)) {
             cout << "Entrada no valida. Por favor, ingrese un numero valido." << endl;
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
             continue;
+        }
+
+        cout << "\n";
+        if (opcionMetodo == 7) {
+            cout << "Saliendo del programa..." << endl;
+            return EXIT_SUCCESS;
         }
 
         cout << "\n";
@@ -109,6 +115,7 @@ int main (__attribute__((unused)) int argc, __attribute__((unused)) char *argv[]
             cout << "Funcion " << contador << ": " << funcionCortada << endl;
             contador++;
         }
+
         cout << "Ingrese la funcion a evaluar (1-11): ";
         if(!(cin >> opcionFuncion)){
             cout << "Entrada no valida. Por favor, ingrese un numero valido." << endl;
@@ -158,9 +165,6 @@ int main (__attribute__((unused)) int argc, __attribute__((unused)) char *argv[]
                 break;
             case 6:
                 DatosMuller(funcion);
-                break;
-            case 7:
-                cout << "Saliendo del programa..." << endl;
                 break;
             default:
                 cout << "Opcion no valida. Por favor, ingrese una opcion valida (1-5)." << endl;

@@ -47,12 +47,13 @@ namespace raices{
         solucion calcular(double x0, double x1, double x2, double tol, int n){
             solucion sol;
 
+            int & i = sol.iteraciones = 2;
+
             double h1 = x1 - x0;
             double h2 = x2 - x1;
             double delta1 = (f(x1) - f(x0)) / h1;
             double delta2 = (f(x2) - f(x1)) / h2;
             double a = (delta2 - delta1) / (h2 + h1);
-            int i = 2;
 
             if (es_cero(f(x0))){
                 sol.raiz = x0;
@@ -67,7 +68,7 @@ namespace raices{
 
             while(i <= n){
                 double b = delta2 + (h2 * a);
-                double D = sqrt(pow(b, 2) - (4 * f(x2) * a));
+                double D = sqrt(pow(b, 2.0f) - (4.0f * f(x2) * a));
                 double E;
 
                 if (fabs(b - D) < fabs(b + D)){
@@ -76,7 +77,7 @@ namespace raices{
                     E = b - D;
                 }
 
-                double h = (-2 * f(x2)) / E;
+                double h = (-2.0f * f(x2)) / E;
                 double p = x2 + h;
 
                 double erp = calcular_erp(p, x2);

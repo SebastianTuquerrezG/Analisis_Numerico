@@ -57,7 +57,7 @@ namespace raices{
             int & i = sol.iteraciones = 1;
 
             while(i < n){
-                double p = p0 - ((f(p0)*df(p0))/(pow(df(p0), 2) - (f(p0)*ddf(p0))));
+                double p = p0 - ((f(p0)*df(p0))/(pow(df(p0), 2.0f) - (f(p0)*ddf(p0))));
 
                 double erp = calcular_erp(p, p0);
 

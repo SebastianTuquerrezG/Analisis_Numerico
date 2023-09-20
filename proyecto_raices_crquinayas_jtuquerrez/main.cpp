@@ -37,7 +37,7 @@ using raices::newton_generalizado;
 using raices::secante;
 using raices::muller;
 
-const double tol = 1e-6;
+const double tol = 1e-6; /*!< Tolerancia (error relativo porcentual) */
 
 /**
 * @brief Solicitud de datos para calcular de la funcion ingresada dentro del intervalo dado utilizando el metodo de biseccion
@@ -116,7 +116,7 @@ int main (__attribute__((unused)) int argc, __attribute__((unused)) char *argv[]
             contador++;
         }
 
-        cout << "Ingrese la funcion a evaluar (1-11): ";
+        cout << "Ingrese la funcion a evaluar (1-2): ";
         if(!(cin >> opcionFuncion)){
             cout << "Entrada no valida. Por favor, ingrese un numero valido." << endl;
             cin.clear();

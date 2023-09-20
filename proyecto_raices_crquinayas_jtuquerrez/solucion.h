@@ -72,7 +72,10 @@ namespace raices {
             if (std::isnan(raiz)) {
                 cout << "No se pudo obtener la raiz con los datos dados"<<endl;
             }else {
-                cout << "La raiz es: " << raiz <<endl;
+                cout << "La raiz es: " << raiz << endl;
+            }
+            cout << "No. iteraciones: " << iteraciones << endl;
+            if (aproximaciones.size() > 0){
                 cout << "Aproximaciones: "<< endl;
                 cout << setw(20) << "1er aproximacion" << setw(20) << "2da aproximacion" << setw(20) << "Epr" << setw(20) << "No. iteracion" << endl;
                 for (unsigned int i = 0; i< aproximaciones.size(); i++) {
@@ -83,7 +86,7 @@ namespace raices {
                          << setprecision(10)
                          << aproximaciones[i].xNueva
                          << setw(20)
-                         <<setprecision(10)
+                         << setprecision(10)
                          << aproximaciones[i].erp
                          << setw(20)
                          << i+1

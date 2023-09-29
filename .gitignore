@@ -6,6 +6,7 @@
 *.lo
 *.o
 *.obj
+*.log
 
 # Precompiled Headers
 *.gch
@@ -32,3 +33,5 @@
 *.app
 
 # intellij
+**/.idea/
+**/cmake-build-debug/

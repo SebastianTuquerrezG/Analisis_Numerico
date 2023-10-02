@@ -2,6 +2,7 @@
 #define REGRESION_H
 
 #include <iostream>
+#include <iomanip>
 #include <string>
 #include <utility>
 #include <vector>
@@ -12,8 +13,24 @@ using std::vector;
 using std::cout;
 using std::endl;
 using std::move;
+using std::setw;
 
 namespace regresion{
+
+    /**
+     * @brief Repite una cadena de caracteres
+     * @param s Cadena a repetir
+     * @param n Cantidad de repeticiones
+     * @return Concatenacion de s n veces
+     */
+    string str_repeat(const string& s, int n){
+        string ret;
+        for(int i = 0; i < n; i++){
+            ret += s;
+        }
+
+        return ret;
+    }
     /**
      * @brief Solucion mediante Regresion Lineal Simple
      */
@@ -31,6 +48,7 @@ namespace regresion{
          *
          */
          void imprimir(){
+             string aceptable = ((syx < sy)? " La aproximacion se condidera aceptable ": "La aproximacion no se considera aceptable ");
              cout << " Recta de regresion: "
                  << "y = " << b1 << "*x "
                  << ((b0 >= 0.0f)? " + " : " - ")
@@ -41,6 +59,8 @@ namespace regresion{
                  << endl
                  << " Error estandar de aproximacion: "
                  << syx
+                 << endl
+                 << aceptable
                  << endl
                  << " Coeficiente de determinacion: "
                  << r2
@@ -57,10 +77,32 @@ namespace regresion{
      */
     void imprimir_tabla(
             vector<double> X,
-            vector<double> y,
-            string x_label = "X",
-            string y_label = "Y"){
-        // TODO : Imprimir la tabla
+            vector<double> Y,
+            string x_label = "",
+            string y_label = ""){
+        if(x_label.length() == 0 || y_label.length() == 0){
+            x_label = "X";
+            y_label = "Y";
+        }
+
+        size_t x_width = x_label.length() + 4;
+        size_t y_width = y_label.length() + 4;
+        size_t delineacion = x_width + y_width + 2;
+        cout << setw(x_width)
+        << x_label
+        << setw(y_width)
+        << y_label
+        << endl
+        << str_repeat("=", delineacion)
+        << endl;
+        for(size_t i = 0; i< X.size(); i++){
+            cout << setw(x_width)
+            << X[i]
+            << setw(y_width)
+            << Y[i]
+            <<endl;
+        }
+        cout << str_repeat("=", delineacion) << endl;
     }
 
     class lineal_simple{

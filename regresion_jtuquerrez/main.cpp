@@ -1,12 +1,19 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <map>
+#include <functional>
 
 #include "regresion.h"
 
 using std::cout;
 using std::endl;
 using std::vector;
+using std::string;
+using std::cin;
+using std::map;
+
+using FuncPtr = std::function<void()>;
 
 using regresion::solucion_lineal;
 using regresion::lineal_simple;
@@ -26,7 +33,7 @@ void caso_regresion(const vector<double>& x,
                     const string& x_label = "",
                     const string& y_label = "");
 /**
- * @brief
+ * @brief Caso 1: Regresion lineal simple
  */
 void caso_1_regresion();
 
@@ -40,12 +47,61 @@ void caso_snatch_damas();
  */
 void caso_clean_and_jerk();
 
+/**
+ * @brief Caso 1: Empresa industrial gastos por ventas
+ */
+void caso_1_empresa_industrial();
+
+/**
+ * @brief Caso 2: Empresa industrial gastos por ventas
+ */
+void caso_2_empresa_industrial();
+
+/**
+ * @brief Caso 1: Produccion de trigo toneladas por precio de kilo
+ */
+void caso_produccion_trigo();
+
+/**
+ * @brief Caso 1: Bugs Project errores por lineas de codigo
+ */
+void caso_bugs_project();
+
+/**
+ * @brief Sale del programa
+ */
+void salir();
+
 int main() {
-    // TODO: investigar IOTA
-    //caso_1_regresion();
-    //caso_1_snatch_damas();
-    caso_clean_and_jerk();
-    return 0;
+    map<string , FuncPtr> casos = {
+        {"Caso Rregresion", caso_1_regresion},
+        {"Caso Snatch Damas", caso_snatch_damas},
+        {"Caso Clean and Jerk", caso_clean_and_jerk},
+        {"Caso 1 Empresa Industrial", caso_1_empresa_industrial},
+        {"Caso 2 Empresa Industrial", caso_2_empresa_industrial},
+        {"Caso Produccion Trigo", caso_produccion_trigo},
+        {"Caso Bugs Project", caso_bugs_project},
+        {"Salir", salir}
+    };
+
+    int opcion = 0;
+    do {
+        cout << "Seleccione un caso:" << endl;
+        int i = 1;
+        for (auto& caso : casos) {
+            cout << i << ". " << caso.first << endl;
+            i++;
+        }
+        cout << "Opcion: ";
+        cin >> opcion;
+        if (opcion < 1 || opcion > casos.size()) {
+            cout << "Opcion invalida" << endl;
+            continue;
+        }
+        auto it = casos.begin();
+        std::advance(it, opcion - 1);
+        it->second();
+    } while (opcion == casos.size() + 1);
 }
 
 void caso_1_regresion(){
@@ -86,4 +142,21 @@ void caso_regresion(const vector<double>& x,
 
     //Imprimir la solucion
     sol.imprimir();
+}
+
+void caso_1_empresa_industrial(){
+}
+
+void caso_2_empresa_industrial(){
+}
+
+void caso_produccion_trigo(){
+}
+
+void caso_bugs_project(){
+}
+
+void salir(){
+    cout << "Saliendo del programa. Hasta luego." << endl;
+    exit(0);
 }

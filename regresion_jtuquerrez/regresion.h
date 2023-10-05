@@ -79,16 +79,22 @@ namespace regresion{
             vector<double> X,
             vector<double> Y,
             string x_label = "",
-            string y_label = ""){
+            string y_label = "",
+            string title = "",
+            vector<double> opcional = vector<double>()){
         if(x_label.length() == 0 || y_label.length() == 0){
             x_label = "X";
             y_label = "Y";
+            title = " ";
         }
 
         size_t x_width = x_label.length() + 4;
         size_t y_width = y_label.length() + 4;
-        size_t delineacion = x_width + y_width + 2;
-        cout << setw(x_width)
+        size_t title_width = title.length() + 4;
+        size_t delineacion = x_width + y_width + title_width + 3;
+        cout << setw(title_width)
+        << title
+        << setw(x_width)
         << x_label
         << setw(y_width)
         << y_label
@@ -96,7 +102,10 @@ namespace regresion{
         << str_repeat("=", delineacion)
         << endl;
         for(size_t i = 0; i< X.size(); i++){
-            cout << setw(x_width)
+
+            cout << setw(title_width)
+            << (opcional.size() > i ? opcional[i] : i+1) // Si opcional no tiene un valor en esta posición, usa 0.0
+            << setw(x_width)
             << X[i]
             << setw(y_width)
             << Y[i]

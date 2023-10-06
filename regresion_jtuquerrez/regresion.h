@@ -69,6 +69,66 @@ namespace regresion{
     };
 
     /**
+     * @brief Solucion a una regresion linealiza mediante la funcion potencia
+     */
+    struct solucion_potencia{
+        double c; /*!< Coeficiente de la potencia */
+        double a; /*!< Facto del exponente de la potencia */
+        solucion_lineal lineal; /*!< Solucion de la regresion lineal */
+
+        /**
+        *
+        */
+        void imprimir(){
+            string aceptable = ((lineal.syx < lineal.sy)? " La aproximacion se condidera aceptable ": "La aproximacion no se considera aceptable ");
+            cout << " Funcion Potencia: "
+                 << "y = " << c << "* x^" << a
+                 << endl
+                 << " Desviacion estandar: "
+                 << lineal.sy
+                 << endl
+                 << " Error estandar de aproximacion: "
+                 << lineal.syx
+                 << endl
+                 << aceptable
+                 << endl
+                 << " Coeficiente de determinacion: "
+                 << lineal.r2
+                 << endl;
+        }
+    };
+
+    /**
+     * @brief Solucion a una regresion linealiza mediante la funcion exponencial
+     */
+    struct solucion_exponencial {
+        double c; /*!< Coeficiente de la potencia */
+        double a; /*!< Facto del exponente de la potencia */
+        solucion_lineal lineal; /*!< Solucion de la regresion lineal */
+
+        /**
+       *
+       */
+        void imprimir(){
+            string aceptable = ((lineal.syx < lineal.sy)? " La aproximacion se condidera aceptable ": "La aproximacion no se considera aceptable ");
+            cout << " Funcion Exponencial: "
+                 << "y = " << c << "* e^" << a << "* x"
+                 << endl
+                 << " Desviacion estandar: "
+                 << lineal.sy
+                 << endl
+                 << " Error estandar de aproximacion: "
+                 << lineal.syx
+                 << endl
+                 << aceptable
+                 << endl
+                 << " Coeficiente de determinacion: "
+                 << lineal.r2
+                 << endl;
+        }
+    };
+
+    /**
      * Imprime una tabla de datos
      * @param X  variable independiente
      * @param y variable dependiente
@@ -172,6 +232,100 @@ namespace regresion{
             }
 
             sol.r2 = (sol.st - sol.sr) / sol.st;
+            return sol;
+        }
+
+    private:
+        vector<double> x; /*!< Variable independiente */
+        vector<double> y; /*!< Variable dependiente */
+    };
+
+    /**
+     * @brief Regresion linealizada mediante funcion potencia
+     */
+    class potencia{
+    public:
+        /**
+         * @brief Crea una nueva instancia de regresion mediante funcion potencia
+         */
+        potencia(vector<double> p_x, vector<double> p_y):x(p_x), y(p_y){
+        }
+
+        /**
+         * @brief Calcula la regresion linealizada mediante la funcion potencia
+         * @return Solucion linealiza
+         */
+        solucion_potencia calcular() {
+            solucion_potencia sol;
+            vector<double> X(x);
+            vector<double> Y(y);
+
+            //Transformar los datos
+            for(unsigned int i = 0; i < X.size(); i++){
+                X[i] = log10(X[i]);
+                Y[i] = log10(Y[i]);
+            }
+
+            //Imprimir los datos
+
+            //Crear un modelo de regresion lineal con los datos transformados
+            lineal_simple ls(X, Y);
+
+            //Calcular la regresion lineal con los datos transformados
+            sol.lineal = ls.calcular();
+
+            //Obtener el valor de a
+            sol.a = sol.lineal.b1;
+
+            //Obtener el valor de c
+            sol.c = pow(10.0f, sol.lineal.b0);
+
+            return sol;
+        }
+
+    private:
+        vector<double> x; /*!< Variable independiente */
+        vector<double> y; /*!< Variable dependiente */
+    };
+
+    /**
+    * @brief Regresion linealizada mediante funcion potencia
+    */
+    class exponencial{
+    public:
+        /**
+         * @brief Crea una nueva instancia de regresion mediante funcion exponencial
+         */
+        exponencial(vector<double> p_x, vector<double> p_y):x(p_x), y(p_y){
+        }
+
+        /**
+         * @brief Calcula la regresion linealizada mediante la funcion exponencial
+         * @return Solucion linealiza
+         */
+        solucion_exponencial calcular() {
+            solucion_exponencial sol;
+            vector<double> Y(y);
+
+            //Transformar los datos
+            for(unsigned int i = 0; i < Y.size(); i++){
+                Y[i] = log(Y[i]);
+            }
+
+            //Imprimir los datos
+
+            //Crear un modelo de regresion lineal con los datos transformados
+            lineal_simple ls(x, Y);
+
+            //Calcular la regresion lineal con los datos transformados
+            sol.lineal = ls.calcular();
+
+            //Obtener el valor de a
+            sol.a = sol.lineal.b1;
+
+            //Obtener el valor de c
+            sol.c = exp(sol.lineal.b0);
+
             return sol;
         }
 

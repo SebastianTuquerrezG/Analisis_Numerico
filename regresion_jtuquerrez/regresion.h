@@ -8,12 +8,16 @@
 #include <vector>
 #include <cmath>
 
+#include "util.h"
+
 using std::string;
 using std::vector;
 using std::cout;
 using std::endl;
 using std::move;
 using std::setw;
+
+using util::gauss;
 
 namespace regresion{
 
@@ -124,6 +128,42 @@ namespace regresion{
                  << endl
                  << " Coeficiente de determinacion: "
                  << lineal.r2
+                 << endl;
+        }
+    };
+
+
+    struct solucion_cuadratica{
+        double a0; /*!< Termino independiente del polinomio cuadratico */
+        double a1; /*!< Coeficiente de x del polinomio */
+        double a2; /*!< Coeficiente x^2 del polinomio */
+        double st; /*!< Sumatoria de la diferencia cuadratica entre el valor medido y el promedio */
+        double sy; /*!< Desviacion estandar */
+        double sr; /*!< Sumatoria de la diferencia cuadratica entre cada y con el y estimado */
+        double syx; /*!< Error estandar de aproximacion */
+        double r2; /*!< Coeficiente de determinacion */
+        size_t n; /*!< Numero de datos */
+
+        /**
+       *
+       */
+        void imprimir(){
+            string aceptable = ((syx < sy)? " La aproximacion se condidera aceptable ": "La aproximacion no se considera aceptable ");
+            cout << " Polinomio de Regresion: "
+                 << "y = " << a2 << "x^2"
+                 << ((a1 > 0 )?" + ":" - ") << fabs(a1) << "x"
+                 << ((a0 > 0 )? " + ":" - ") << fabs(a0)
+                 << endl
+                 << " Desviacion estandar: "
+                 << sy
+                 << endl
+                 << " Error estandar de aproximacion: "
+                 << syx
+                 << endl
+                 << aceptable
+                 << endl
+                 << " Coeficiente de determinacion: "
+                 << r2
                  << endl;
         }
     };
@@ -329,6 +369,80 @@ namespace regresion{
             return sol;
         }
 
+    private:
+        vector<double> x; /*!< Variable independiente */
+        vector<double> y; /*!< Variable dependiente */
+    };
+
+    /**
+     * @brief Regresion cuadratica
+     */
+    class cuadratica {
+    public:
+        /**
+         * @brief Crea una nueva instancia de regresion cuadratica
+         * @param p_x Variable independiente
+         * @param p_y Variable dependiente
+         */
+        cuadratica(vector<double> p_x, vector<double> p_y):x(p_x), y(p_y){
+        }
+
+        /**
+         * @brief Calcula el polinomio de regresion de grado 2
+         * @return Polinomio de la solucion
+         */
+        solucion_cuadratica calcular() {
+            solucion_cuadratica sol;
+            double sum_x{0}, sum_x2{0}, sum_x3{0}, sum_x4{0};
+            double sum_y{0}, sum_xy{0}, sum_x2y{0};
+            double y_prom;
+            sol.n = x.size();
+
+            if(sol.n <= 3){
+                return sol;
+            }
+
+            for(int i = 0; i < sol.n; i++){
+                sum_x += x[i];
+                sum_x2 += pow(x[i], 2.0f);
+                sum_x3 += pow(x[i], 3.0f);
+                sum_x4 += pow(x[i], 4.0f);
+                sum_y += y[i];
+                sum_xy += x[i] * y[i];
+                sum_x2y += pow(x[i], 2.0f) * y[i];
+            }
+
+            y_prom = sum_y / (double)sol.n;
+            sol.st = 0.0f;
+            for(size_t i = 0; i < sol.n; i++){
+                sol.st += pow(y[i] - y_prom, 2.0f);
+            }
+            sol.sy = sqrt(sol.st / (double)(sol.n - 1));
+
+            //Crear la matriz de coeficientes
+            vector<vector<double>> m{
+                    {static_cast<double>(sol.n) , sum_x, sum_x2, sum_y},
+                    {sum_x, sum_x2, sum_x3, sum_xy},
+                    {sum_x2, sum_x3, sum_x4, sum_x2y},
+            };
+
+            //Hallar a0, a1, y a2 mediante eliminacion de gauss
+            vector<double> coef = gauss(m);
+
+            sol.a0 = coef[0];
+            sol.a1 = coef[1];
+            sol.a2 = coef[2];
+
+            sol.sr = 0.0f;
+            for(size_t i = 0; i < sol.n; i++){
+                sol.sr += pow(y[i] - sol.a0 - (sol.a1*x[i]) - (sol.a2*pow(x[i], 2.0f)), 2.0f);
+            }
+            sol.syx = sqrt(sol.sr / (double)(sol.n - 3));
+
+            sol.r2 = (sol.st - sol.sr) / sol.st;
+
+            return sol;
+        }
     private:
         vector<double> x; /*!< Variable independiente */
         vector<double> y; /*!< Variable dependiente */

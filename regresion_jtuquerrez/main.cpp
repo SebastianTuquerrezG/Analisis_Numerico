@@ -18,10 +18,14 @@ using FuncPtr = std::function<void()>;
 using regresion::solucion_lineal;
 using regresion::solucion_potencia;
 using regresion::solucion_exponencial;
-using regresion::lineal_simple;
+using regresion::solucion_cuadratica;
+
 using regresion::imprimir_tabla;
+
+using regresion::lineal_simple;
 using regresion::exponencial;
 using regresion::potencia;
+using regresion::cuadratica;
 
 /**
  * @brief Ejecuta un caso de regresion lineal
@@ -78,6 +82,24 @@ void caso_regresion_exponencial(const vector<double>& x,
                                  const vector<double>& opcional = vector<double>());
 
 /**
+ * @brief Ejecuta un caso de regresion cuadratica
+ * @param x Valores de la variable independiente
+ * @param y Valores de la variable dependeiente
+ * @param title Titulo del caso
+ * @param x_label Etiqueta de la variable independiente para la tabla
+ * @param y_label Etiqueta de la variable dependiente para la tabla
+ * @param opcional_label Etiqueta opcional del contexto del caso
+ * @param opcional Valores opcionales del contexto del caso
+ */
+void caso_regresion_cuadratica(const vector<double>& x,
+                                const vector<double>& y,
+                                const string& title,
+                                const string& x_label = "",
+                                const string& y_label = "",
+                                const string& opcional_label = "",
+                                const vector<double>& opcional = vector<double>());
+
+/**
  * @brief Caso 1: Regresion lineal simple
  */
 void caso_1_regresion();
@@ -118,6 +140,11 @@ void caso_1_potencia();
 void caso_1_exponencial();
 
 /**
+ * @brief Caso 1 de funcion cuadratica
+ */
+void caso_1_cuadratica();
+
+/**
  * @brief Sale del programa
  */
 void salir();
@@ -132,6 +159,7 @@ int main() {
         {"Caso Bugs Project", caso_bugs_project},
         {"Caso Potencia", caso_1_potencia},
         {"Caso Exponencial", caso_1_exponencial},
+        {"Caso Cuadratica", caso_1_cuadratica},
         {"Salir", salir}
     };
 
@@ -243,6 +271,28 @@ void caso_regresion_exponencial(const vector<double>& x,
     cout << endl;
 }
 
+void caso_regresion_cuadratica(const vector<double>& x,
+                                const vector<double>& y,
+                                const string& title,
+                                const string& x_label,
+                                const string& y_label,
+                                const string& opcional_label,
+                                const vector<double>& opcional){
+    //imprimir salto de linea
+    cout << endl;
+    cout << title << endl;
+
+    imprimir_tabla(x, y, x_label, y_label, opcional_label, opcional);
+
+    cuadratica reg_cuadratica(x, y);
+
+    solucion_cuadratica sol = reg_cuadratica.calcular();
+
+    //Imprimir la solucion
+    sol.imprimir();
+    cout << endl;
+}
+
 void caso_1_exponencial(){
     string title = "Caso 1 Exponencial";
     vector<double> x = {12.0f, 41.0f, 93.0f, 147.0f, 204.0f, 264.0f, 373.0f, 509.0f, 773.0f};
@@ -257,6 +307,14 @@ void caso_1_potencia(){
     vector<double> y = {1.06f, 1.33f, 1.52f, 1.68f, 1.81f, 1.91f, 2.01f, 2.11f};
 
     caso_regresion_potencia(x, y, title);
+}
+
+void caso_1_cuadratica(){
+    string title = "Caso 1 Cuadratica";
+    vector<double> x = {0.0f, 1.0f, 2.0f, 3.0f, 4.0f, 5.0f};
+    vector<double> y = {2.1f, 7.7f, 13.6f, 27.2f, 40.9f, 61.1f};
+
+    caso_regresion_cuadratica(x, y, title);
 }
 
 void caso_empresa_industrial(){

@@ -35,3 +35,4 @@
 # intellij
 **/.idea/
 **/cmake-build-debug/
+**.log

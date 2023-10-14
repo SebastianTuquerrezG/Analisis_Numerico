@@ -33,7 +33,8 @@ void caso_1_newton(){
     //Imprimir el polinomio interpolante
     cout << "Polinomio interpolante: " << n.polinomio() << endl;
 
-    double x_int;
+    double x_int, y_int;
+    int opcion;
 
     cout << "Interpolacion por diferencias divididas de newton" << endl;
 
@@ -41,12 +42,19 @@ void caso_1_newton(){
     imprimir_tabla(x, y, "Temperatura (k)", "B (cm3/mol)");
 
     //Pedir valor de x a interpolar
-    do{
-        cout << "Introduzca el valor de x a interpolar: ";
-        cin >> x_int;
-    } while (x_int < x[0] || x_int > x[x.size() - 1]);
+    do {
+        do{
+            cout << "Introduzca el valor de x a interpolar: ";
+            cin >> x_int;
+        } while (x_int < x[0] || x_int > x[x.size() - 1]);
 
-    double y_int = n.interpolar(x_int);
+        y_int = n.interpolar(x_int);
 
-    cout << "El valor de y para x = " << x_int << " es: " << y_int << endl;
+        cout << "El valor de y para x = " << x_int << " es: " << y_int << endl;
+
+        cout << "Desea interpolar otro valor? (1 = si, 0 = no): ";
+    } while (cin >> opcion && opcion == 1);
+    cout << endl;
+    cout << "Fin del programa" << endl;
+    cin.get();
 }

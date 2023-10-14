@@ -55,7 +55,7 @@ namespace  interpolacion{
          * @return Valor de y interpolado
          */
         double interpolar(double x_int){
-            if (b.size() == 0){
+            if (b.empty()){
                 return NAN;
             }
 

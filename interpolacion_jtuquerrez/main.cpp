@@ -4,6 +4,7 @@
 #include "newton.h"
 #include "util.h"
 #include "lagrange.h"
+#include "spline3.h"
 
 using std::cout;
 using std::cin;
@@ -13,6 +14,7 @@ using std::setprecision;
 
 using interpolacion::newton;
 using interpolacion::lagrange;
+using interpolacion::spline3;
 using util::imprimir_tabla;
 
 /**
@@ -33,6 +35,11 @@ void caso_1_newton();
  */
 void caso_1_lagrange();
 
+/**
+ * @brief Caso 1 Trazadores Cubicos
+ */
+void caso_1_spline3();
+
 int main() {
     //caso_1_newton();
     caso_1_lagrange();
@@ -40,11 +47,7 @@ int main() {
 }
 
 void caso_interpolacion(vector<double> x, vector<double> y, int opcion) {
-    if (opcion == 1) {
-        caso_1_newton();
-    } else {
-        caso_1_lagrange();
-    }
+    if ()
 }
 
 void caso_1_newton(){
@@ -109,6 +112,42 @@ void caso_1_lagrange(){
         } while (x_int < x[0] || x_int > x[x.size() - 1]);
 
         y_int = l.interpolar(x_int);
+
+        cout << "El valor de y para x = " << x_int << " es: " << y_int << endl;
+
+        cout << "Desea interpolar otro valor? (1 = si, 0 = no): ";
+    } while (cin >> opcion && opcion == 1);
+    cout << endl;
+    cout << "Fin del programa" << endl;
+    cin.get();
+}
+
+void caso_1_spline3(){
+    vector<double> x = {3.0f, 4.5f, 7.0f, 9.0f};
+    vector<double> y = {2.5f, 1.0f, 2.5f, 0.5f};
+
+    //Crear una instancia de newton
+    spline3 s3(x, y);
+
+    //Imprimir el polinomio interpolante
+    //cout << "Polinomio interpolante: " << l.polinomio() << endl;
+
+    double x_int, y_int;
+    int opcion;
+
+    cout << "Interpolacion por diferencias divididas de lagrange" << endl;
+
+    //Imprimir tabla de datos
+    imprimir_tabla(x, y, "Temperatura (k)", "B (cm3/mol)");
+
+    //Pedir valor de x a interpolar
+    do {
+        do{
+            cout << "Introduzca el valor de x a interpolar: ";
+            cin >> x_int;
+        } while (x_int < x[0] || x_int > x[x.size() - 1]);
+
+        y_int = s3.interpolar(x_int);
 
         cout << "El valor de y para x = " << x_int << " es: " << y_int << endl;
 

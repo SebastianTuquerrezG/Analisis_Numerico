@@ -94,12 +94,12 @@ void caso_1_lagrange(){
     lagrange l(x, y);
 
     //Imprimir el polinomio interpolante
-    //cout << "Polinomio interpolante: " << l.polinomio() << endl;
+    cout << "Polinomio interpolante: " << l.polinomio() << endl;
 
     double x_int, y_int;
     int opcion;
 
-    cout << "Interpolacion por diferencias divididas de lagrange" << endl;
+    cout << "Interpolacion mediante el metodo de lagrange" << endl;
 
     //Imprimir tabla de datos
     imprimir_tabla(x, y, "Temperatura (k)", "B (cm3/mol)");

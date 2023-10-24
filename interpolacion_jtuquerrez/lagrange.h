@@ -1,3 +1,9 @@
+/**
+ * @file lagrange.h
+ * @brief Interpolacion mediante el metodo de lagrange
+ * @author Sebastian Tuquerrez jtuquerrez@unicauca.edu.co
+ */
+
 #ifndef LAGRANGE_H
 #define LAGRANGE_H
 
@@ -16,9 +22,6 @@ using std::cin;
 using std::endl;
 
 namespace interpolacion{
-    /**
-     * @brief Interpolacion mediante el metodo de lagrange
-     */
     class lagrange{
     public:
         /**
@@ -28,6 +31,28 @@ namespace interpolacion{
          */
         lagrange(vector<double> p_x, vector<double> p_y):x(std::move(p_x)), y(std::move(p_y)){
 
+        };
+
+        //TODO: Error de interpolacion
+
+        string polinomio() {
+            ostringstream oss;
+
+            int n = x.size();
+
+            for (int i = 0; i < n; ++i) {
+                oss << y[i];
+                for (int j = 0; j < n; ++j) {
+                    if (i != j) {
+                        oss << "*(x - " << x[j] << ")/(" << x[i] << " - " << x[j] << ")";
+                    }
+                }
+                if (i != n - 1) {
+                    oss << " + ";
+                }
+            }
+
+            return oss.str();
         }
 
         /**

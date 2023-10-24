@@ -1,3 +1,8 @@
+/**
+ * @file newton.h
+ * @brief Interpolacion mediante el metodo de diferencias divididas de Newton
+ */
+
 #ifndef NEWTON_H
 #define NEWTON_H
 
@@ -15,9 +20,6 @@ using std::cin;
 using std::endl;
 
 namespace  interpolacion{
-    /**
-     * @brief Metodo de diferencias Divididas de Newton
-     */
     class newton{
     public:
         /**

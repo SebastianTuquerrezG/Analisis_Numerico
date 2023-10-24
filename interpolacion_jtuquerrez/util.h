@@ -1,3 +1,7 @@
+/**
+ * @file util.h
+ * @brief Funciones de utilidad
+ */
 #ifndef UTIL_H
 #define UTIL_H
 

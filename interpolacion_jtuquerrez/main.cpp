@@ -47,7 +47,7 @@ int main() {
 }
 
 void caso_interpolacion(vector<double> x, vector<double> y, int opcion) {
-    if ()
+
 }
 
 void caso_1_newton(){
@@ -111,7 +111,7 @@ void caso_1_lagrange(){
             cin >> x_int;
         } while (x_int < x[0] || x_int > x[x.size() - 1]);
 
-        y_int = l.interpolar(x_int);
+        y_int = l.interpolar(x_int,3);
 
         cout << "El valor de y para x = " << x_int << " es: " << y_int << endl;
 

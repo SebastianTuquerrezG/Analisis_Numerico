@@ -1,5 +1,10 @@
 #include <iostream>
 #include <vector>
+#include <iomanip>
+#include <string>
+#include <algorithm>
+#include <map>
+#include <functional>
 
 #include "newton.h"
 #include "util.h"
@@ -11,6 +16,10 @@ using std::cin;
 using std::endl;
 using std::vector;
 using std::setprecision;
+using std::string;
+using std::map;
+
+using FuncPtr = std::function<void()>;
 
 using interpolacion::newton;
 using interpolacion::lagrange;
@@ -18,12 +27,28 @@ using interpolacion::spline3;
 using util::imprimir_tabla;
 
 /**
- * @brief CASO INTERPOLACION
+ * @brief CASO INTERPOLACION mediante newton
  * @param x Vector de x
  * @param y Vector de y
  * @param opcion Opcion de interpolacion
  */
-void caso_interpolacion(vector<double> x, vector<double> y, int opcion) ;
+void caso_interpolacion_newton(vector<double> x, vector<double> y, int opcion) ;
+
+/**
+ * @brief CASO INTERPOLACION mediante lagrange
+ * @param x
+ * @param y
+ * @param opcion
+ */
+void caso_interpolacion_lagrange(vector<double> x, vector<double> y, int opcion) ;
+
+/**
+ * @brief CASO INTERPOLACION mediante trazadores cubicos
+ * @param x
+ * @param y
+ * @param opcion
+ */
+void caso_interpolacion_trazadores(vector<double> x, vector<double> y, int opcion) ;
 
 /**
  * @brief CASO 1newton - Diapositivas
@@ -40,14 +65,40 @@ void caso_1_lagrange();
  */
 void caso_1_spline3();
 
+/**
+ * @brief Salir del programa
+ */
+void salir();
+
 int main() {
-    //caso_1_newton();
-    //caso_1_lagrange();
-    caso_1_spline3();
-    return 0;
+    map<string , FuncPtr> casos = {
+            {"Caso Regresion", caso_1_newton},
+            {"Caso Lagrange", caso_1_lagrange},
+            {"Caso Trazadores Cubicos", caso_1_spline3},
+            {"Salir", salir}
+    };
+    cout << "Interpolacion" << endl;
+    int opcion;
+    do{
+        cout << "Seleccione una opcion: " << endl;
+        int i = 1;
+        for (auto &caso : casos) {
+            cout << i << ". " << caso.first << endl;
+            i++;
+        }
+        cout << "Opcion: ";
+        cin >> opcion;
+        if (opcion < 1 || opcion > casos.size()) {
+            cout << "Opcion invalida" << endl;
+            continue;
+        }
+        auto it = casos.begin();
+        std::advance(it, opcion - 1);
+        it->second();
+    } while (opcion != casos.size());
 }
 
-void caso_interpolacion(vector<double> x, vector<double> y, int opcion) {
+void caso_interpolacion_newton(vector<double> x, vector<double> y, int opcion) {
 
 }
 
@@ -87,6 +138,10 @@ void caso_1_newton(){
     cin.get();
 }
 
+void caso_interpolacion_lagrange(vector<double> x, vector<double> y, int opcion) {
+
+}
+
 void caso_1_lagrange(){
     vector<double> x = {100.0f, 200.0f, 300.0f, 400.0f, 500.0f};
     vector<double> y = {-160.0f, -35.0f, -4.2f, 9.0f, 16.9f};
@@ -123,6 +178,10 @@ void caso_1_lagrange(){
     cin.get();
 }
 
+void caso_interpolacion_trazadores(vector<double> x, vector<double> y, int opcion) {
+
+}
+
 void caso_1_spline3(){
     vector<double> x = {3.0f, 4.5f, 7.0f, 9.0f};
     vector<double> y = {2.5f, 1.0f, 2.5f, 0.5f};
@@ -157,4 +216,9 @@ void caso_1_spline3(){
     cout << endl;
     cout << "Fin del programa" << endl;
     cin.get();
+}
+
+void salir(){
+    cout << "Saliendo del programa. Hasta luego." << endl;
+    exit(0);
 }

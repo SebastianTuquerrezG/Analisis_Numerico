@@ -42,7 +42,8 @@ void caso_1_spline3();
 
 int main() {
     //caso_1_newton();
-    caso_1_lagrange();
+    //caso_1_lagrange();
+    caso_1_spline3();
     return 0;
 }
 
@@ -135,7 +136,7 @@ void caso_1_spline3(){
     double x_int, y_int;
     int opcion;
 
-    cout << "Interpolacion por diferencias divididas de lagrange" << endl;
+    cout << "Interpolacion mediante Trazadores cubicos" << endl;
 
     //Imprimir tabla de datos
     imprimir_tabla(x, y, "Temperatura (k)", "B (cm3/mol)");

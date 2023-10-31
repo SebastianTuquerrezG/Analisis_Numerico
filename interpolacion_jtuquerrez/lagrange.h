@@ -14,12 +14,16 @@
 #include <string>
 #include <iostream>
 
+#include "newton.h"
+
 using std::vector;
 using std::string;
 using std::ostringstream;
 using std::cout;
 using std::cin;
 using std::endl;
+
+using interpolacion::newton;
 
 namespace interpolacion{
     class lagrange{
@@ -88,7 +92,7 @@ namespace interpolacion{
          * @return Valor interpolado
          */
         double interpolar(double x_int){
-            return interpolar (x_int, 0, x.size() );
+            return interpolar (x_int, 0, x.size() - 1);
         }
 
         /**
@@ -98,53 +102,102 @@ namespace interpolacion{
          * @return Valor interpolado
          */
         double interpolar(double x_int, int grado){
-            int n_puntos = grado + 1, n = x.size(), pos_inicial = 0, pos_final = n - 1;
+            //Validar que x_int este dentro del rango de x
+            if (x_int < x[0] || x_int >= x[x.size() - 1]){
+                return NAN;
+            }
+
+            int n_puntos = grado + 1,
+                n = x.size(),
+                pos_ant = 0,
+                pos_sig = x.size() - 1,
+                pos_inicial = 0,
+                pos_final = n - 1,
+                pos_inicial_aux,
+                pos_final_aux;
             //TODO: Validar que el grado no sea mayor a n_puntos
             if (grado < 0 || grado >= n_puntos){
                 throw std::invalid_argument("Grado invalido");
             }
-            //TODO: Implementar la interpolacion con un grado menor que n
-            // 0. Encontrar la poscision anterior y siguiente de x_int dentro de los datos originales
-            // 1. Si n_puntos es par: tomar un solo intervalo:
-            //  1.1 posInicial = formula para saber cuantos puntos tomar por abajo de x_int y cuantos por encima, ?? anterior ?? n_puntos/2
-            //  1.2 posFinal = formula para saber cuantos puntos tomar por abajo de x_int y cuantos por encima,?? siguiente ?? n_puntos/2
-            //  1.3 return Interpolar(x_int, posInicial, posFinal)
-            //  1.4 retornar el valor interpolado
-            // 2. Si n_puntos es impar: tomar dos intervalos:
-            //  2.0 yinterpolado_1 = interpolar(x_int, posInicial que se debe calcular, posFinal que se debe calcular )
-            //  2.1 error_int_1 = crear rutina que calcula el error de interpolacion llamadaa cacular_error_int(parametros a definir)
-            //  2.2 yinterpolado_2 = interpolar(x_int, posInicial que se debe calcular, posFinal que se debe calcular)
-            //  2.3 error_int_2 = con cacular_error_int(parametros a definir)
-            //  2.4 si abs(error_int_1) < abs(error_int_2):
-            //    return yinterpolado_1
-            //  2.5 sino return yinterpolado_2
 
-            for (int i = 0; i < n - 1; ++i) {
-                if (x[i] <= x_int && x_int <= x[i + 1]) {
-                    pos_inicial = i;
-                    pos_final = i + 1;
+            //Encontrar la posicion anterior y siguiente de x_int dentro de los datos originales
+            for (int i = 0; i < x.size(); i++) {
+                if (x[i] <= x_int) {
+                    pos_ant = i;
+                } else if (x[i] > x_int) {
+                    pos_sig = i;
                     break;
                 }
             }
 
+            pos_inicial = pos_ant - n_puntos / 2;
+            pos_final = pos_sig + n_puntos / 2;
+            //Si n_puntos es par
             if (n_puntos % 2 == 0) {
                 return interpolar(x_int, pos_inicial, pos_final);
-            } else {
-                double y1 = interpolar(x_int, pos_inicial, pos_final);
-                double error1 = cacular_error_int(x_int, grado);
+            } else { //si n_puntos es impar
+                pos_inicial_aux = pos_inicial + 1;
+                pos_final_aux = pos_final - 1;
 
-                double y2, error2;
+                //Validar posiciones
+                if (pos_inicial_aux >= pos_final_aux || pos_final_aux >= n || pos_inicial_aux >= n || pos_inicial < 0 || pos_final >= n) {
+                    return interpolar(x_int, pos_inicial, pos_final);
+                }
 
-                if(pos_inicial > 0){
-                    y2 = interpolar(x_int, pos_inicial - 1, pos_final);
-                    error2 = cacular_error_int(x_int, grado);
-                    if (std::abs(error1) < std::abs(error2)) {
-                        return y1;
-                    } else {
-                        return y2;
-                    }
+                double y_int_1 = interpolar(x_int, pos_inicial, pos_final);
+                double y_int_2 = interpolar(x_int, pos_inicial_aux, pos_final_aux);
+
+                if (std::isnan(y_int_1)) {
+                    return y_int_2;
+                } else if(std::isnan(y_int_2)) {
+                    return y_int_1;
+                }
+
+                // y_int_1 o y_int_2 son diferente de nan
+                //TODO: Sacar los datos de x en el intervalo pos_inicial_aux, pos_final_aux con el dato adicional
+                // con un for del x grande (pos_inicial) sacr los datos a x1 (0), x1 es un subvector de x que tiene desde x[pos_inicial_aux] hasta x[pos_final_aux]
+                vector<double> x1 (x.begin() + pos_inicial, x.begin() + pos_final);
+
+                //TODO: Sacar los datos de y en el intervalo pos_inicial_aux, pos_final_aux con el dato adicional
+                vector<double> y1 (y.begin() + pos_inicial, y.begin() + pos_final);
+
+                vector<double> F1 = newton::calcular_coeficientes(x1, y1);
+
+                //TODO: Calcular el error
+                double prod_1 = 1.0f; //Ultimo coeficiente de F1
+
+                //TODO: Quitar el dato adicional del fin
+                F1.erase(F1.end());
+
+                //TODO: Calcular la productoria de R * (x_int - x1[0]) * (x_int - x1[1]) * ... * (x_int - x1[n_puntos - 1]) sin tener en cuenta el dato adicional
+                for (int i = 0; i < F1.size(); i++) {
+                    prod_1 *= (x_int - x1[i]);
+                }
+                double error_int_1 =  F1[F1.size() - 1] * prod_1 ;
+
+                vector<double> x2 (x.begin() + pos_inicial_aux, x.begin() + pos_final_aux);
+
+                //TODO: Sacar los datos de y en el intervalo pos_inicial_aux, pos_final_aux con el dato adicional
+                vector<double> y2 (y.begin() + pos_inicial_aux, y.begin() + pos_final_aux);
+
+                vector<double> F2 = newton::calcular_coeficientes(x2, y2);
+
+                //TODO: Calcular el error
+                double prod_2 = 1.0f; //Ultimo coeficiente de F1
+
+                //TODO: Quitar el dato adicional del inicio
+                F2.erase(F2.begin());
+
+                //TODO: Calcular la productoria de R * (x_int - x1[0]) * (x_int - x1[1]) * ... * (x_int - x1[n_puntos - 1]) sin tener en cuenta el dato adicional
+                for (int i = 0; i < F2.size(); i++) {
+                    prod_2 *= (x_int - x1[i]);
+                }
+                double error_int_2 =  F2[F2.size() - 1] * prod_2;
+
+                if (std::fabs(error_int_1) < std::fabs(error_int_2)) {
+                    return y_int_1;
                 } else {
-                    return y1;
+                    return y_int_2;
                 }
             }
         }
@@ -152,14 +205,24 @@ namespace interpolacion{
         /**
          * @brief Construye y evalua el polinomio interpolador de lagrange
          * @param x_int  valor a interpolar
+         * @param pos_inicial  posicion inicial del intervalo
+         * @param pos_final  posicion final del intervalo
          * @return Valor interpolado
          */
         double interpolar(double x_int, int pos_inicial, int pos_final){
             double resultado = 0.0f;
             int j, k, n = x.size();
 
-            if (pos_inicial >= pos_final || pos_final >= n || pos_inicial >= n)
+            if (pos_inicial < 0 || pos_inicial >= pos_final || pos_final >= n || pos_inicial >= n || x_int < x[pos_inicial] || x_int > x[pos_final])
                 throw std::invalid_argument("Posicion inicial o final invalida");
+
+            if(x_int == x[pos_inicial]){
+                return y[pos_inicial];
+            }
+
+            if(x_int == x[pos_final]){
+                return y[pos_final];
+            }
 
             for(j = pos_inicial; j < pos_final; j++){
                 double lj = 1.0f;

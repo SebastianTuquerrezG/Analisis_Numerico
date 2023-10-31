@@ -26,13 +26,16 @@ using interpolacion::lagrange;
 using interpolacion::spline3;
 using util::imprimir_tabla;
 
+double  x_int = 0.0f, y_int = 0.0f; //Variables globales
+int opcion_int = 0;
+
 /**
  * @brief CASO INTERPOLACION mediante newton
  * @param x Vector de x
  * @param y Vector de y
  * @param opcion Opcion de interpolacion
  */
-void caso_interpolacion_newton(vector<double> x, vector<double> y, int opcion) ;
+void caso_interpolacion_newton(vector<double> x, vector<double> y);
 
 /**
  * @brief CASO INTERPOLACION mediante lagrange
@@ -40,7 +43,7 @@ void caso_interpolacion_newton(vector<double> x, vector<double> y, int opcion) ;
  * @param y
  * @param opcion
  */
-void caso_interpolacion_lagrange(vector<double> x, vector<double> y, int opcion) ;
+void caso_interpolacion_lagrange(vector<double> x, vector<double> y);
 
 /**
  * @brief CASO INTERPOLACION mediante trazadores cubicos
@@ -48,7 +51,7 @@ void caso_interpolacion_lagrange(vector<double> x, vector<double> y, int opcion)
  * @param y
  * @param opcion
  */
-void caso_interpolacion_trazadores(vector<double> x, vector<double> y, int opcion) ;
+void caso_interpolacion_trazadores(vector<double> x, vector<double> y);
 
 /**
  * @brief CASO 1newton - Diapositivas
@@ -98,31 +101,15 @@ int main() {
     } while (opcion != casos.size());
 }
 
-void caso_interpolacion_newton(vector<double> x, vector<double> y, int opcion) {
-
-}
-
-void caso_1_newton(){
-    vector<double> x = {100.0f, 200.0f, 300.0f, 400.0f, 500.0f};
-    vector<double> y = {-160.0f, -35.0f, -4.2f, 9.0f, 16.9f};
-
-    //Crear una instancia de newton
+void caso_interpolacion_newton(vector<double> x, vector<double> y) {
     newton n(x, y);
 
-    //Imprimir el polinomio interpolante
-    cout << "Polinomio interpolante: " << n.polinomio() << endl;
-
-    double x_int, y_int;
-    int opcion;
+    cout << "Polinomio interpolante" << n.polinomio() << endl;
 
     cout << "Interpolacion por diferencias divididas de newton" << endl;
 
-    //Imprimir tabla de datos
-    imprimir_tabla(x, y, "Temperatura (k)", "B (cm3/mol)");
-
-    //Pedir valor de x a interpolar
     do {
-        do{
+        do {
             cout << "Introduzca el valor de x a interpolar: ";
             cin >> x_int;
         } while (x_int < x[0] || x_int > x[x.size() - 1]);
@@ -132,54 +119,59 @@ void caso_1_newton(){
         cout << "El valor de y para x = " << x_int << " es: " << y_int << endl;
 
         cout << "Desea interpolar otro valor? (1 = si, 0 = no): ";
-    } while (cin >> opcion && opcion == 1);
-    cout << endl;
-    cout << "Fin del programa" << endl;
-    cin.get();
+    } while (cin >> opcion_int && opcion_int == 1);
 }
 
-void caso_interpolacion_lagrange(vector<double> x, vector<double> y, int opcion) {
+void caso_1_newton(){
+    vector<double> x = {100.0f, 200.0f, 300.0f, 400.0f, 500.0f};
+    vector<double> y = {-160.0f, -35.0f, -4.2f, 9.0f, 16.9f};
 
+    caso_interpolacion_newton(x, y);
+}
+
+void caso_interpolacion_lagrange(vector<double> x, vector<double> y) {
+    lagrange l(x, y);
+
+    cout << "Polinomio interpolante" << l.polinomio() << endl;
+
+    cout << "Interpolacion por lagrange" << endl;
+
+    do {
+        do {
+            cout << "Introduzca el valor de x a interpolar: ";
+            cin >> x_int;
+        } while (x_int < x[0] || x_int > x[x.size() - 1]);
+
+        y_int = l.interpolar(x_int);
+
+        cout << "El valor de y para x = " << x_int << " es: " << y_int << endl;
+    } while (cin >> opcion_int && opcion_int == 1);
 }
 
 void caso_1_lagrange(){
     vector<double> x = {100.0f, 200.0f, 300.0f, 400.0f, 500.0f};
     vector<double> y = {-160.0f, -35.0f, -4.2f, 9.0f, 16.9f};
 
-    //Crear una instancia de newton
-    lagrange l(x, y);
+    caso_interpolacion_lagrange(x, y);
+}
 
-    //Imprimir el polinomio interpolante
-    cout << "Polinomio interpolante: " << l.polinomio() << endl;
+void caso_interpolacion_trazadores(vector<double> x, vector<double> y) {
+    spline3 s3(x, y);
 
-    double x_int, y_int;
-    int opcion;
+    cout << "Polinomio interpolante" << s3.polinomio() << endl;
 
-    cout << "Interpolacion mediante el metodo de lagrange" << endl;
+    cout << "Interpolacion por trazadores cubicos" << endl;
 
-    //Imprimir tabla de datos
-    imprimir_tabla(x, y, "Temperatura (k)", "B (cm3/mol)");
-
-    //Pedir valor de x a interpolar
     do {
         do{
             cout << "Introduzca el valor de x a interpolar: ";
             cin >> x_int;
         } while (x_int < x[0] || x_int > x[x.size() - 1]);
 
-        y_int = l.interpolar(x_int,3);
+        y_int = s3.interpolar(x_int);
 
         cout << "El valor de y para x = " << x_int << " es: " << y_int << endl;
-
-        cout << "Desea interpolar otro valor? (1 = si, 0 = no): ";
-    } while (cin >> opcion && opcion == 1);
-    cout << endl;
-    cout << "Fin del programa" << endl;
-    cin.get();
-}
-
-void caso_interpolacion_trazadores(vector<double> x, vector<double> y, int opcion) {
-
+    } while (cin >> opcion_int && opcion_int == 1);
 }
 
 void caso_1_spline3(){

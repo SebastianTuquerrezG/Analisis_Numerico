@@ -24,13 +24,26 @@ using util::imprimit_matriz;
 using util::str_repeat;
 
 namespace interpolacion{
+    /**
+     * @brief Interpolacion mediante trazadores cubico
+     */
     class spline3{
     public:
+        /**
+         * @brief Construye una nueva isntancia del metodo de trazadores cubicos
+         * @param p_x Vector de x
+         * @param p_y Vector de y
+         */
         spline3(vector<double> p_x, vector<double> p_y):x(std::move(p_x)), y(std::move(p_y)){
             //Calcular las segundas derivadas
             f2 = calcular_f2();
         }
 
+        /**
+         * @brief Interpola el valor de x_int usando todos los datos
+         * @param x_int
+         * @return
+         */
         double interpolar(double x_int){
             size_t i = 0;
             double f;
@@ -50,11 +63,30 @@ namespace interpolacion{
             }
 
             // Evaluar el polinomio del trazador en x_int
-            double c1 = (f2[i - 1]/(6.0f*(x[i] - x[i - 1])))*(pow(x[i] - x_int, 3.0f));
-            double c2 = (f2[i]/(6.0f*(x[i] - x[i - 1])))*(pow(x_int - x[i - 1], 3.0f));
-            double c3 = ((y[i - 1]/(x[i] - x[i - 1])) - (f2[i - 1]*(x[i] - x[i - 1]))/6.0f)*(x[i] - x_int);
-            double c4 = ((y[i]/(x[i] - x[i - 1])) - (f2[i]*(x[i] - x[i - 1]))/6.0f)*(x_int - x[i - 1]);
-            f = c1 + c2 + c3 + c4;
+            double c1 = (f2[i-1]/(6*(x[i]-x[i-1])));
+            double c2 = (f2[i]/(6*(x[i]-x[i-1])));
+            double c3 = ((y[i-1]/(x[i]-x[i-1])) - ((f2[i-1]*(x[i]-x[i-1]))/6));
+            double c4 = ((y[i]/(x[i]-x[i-1])) - ((f2[i]*(x[i]-x[i-1]))/6));
+
+            //Imprimir la funcion del trazador en el intervalo donde se encuentra x_int
+            cout << "Ecuacion del trazador en donde se encuentra x_int: " << endl << "f" << i << "(x)=";
+            if(c1!=0.0f) {
+                cout << c1 << "(" << x[i] << "-x)^3" << ((c2<0)?"":"+");
+            }
+
+            cout << c2 << "(x-" << x[i-1] << ")^3" << ((c3<0)?"":"+") << c3 << "(" << x[i] << "-x)";
+
+            if(c4!=0.0f) {
+                cout << ((c4<0)?"":"+") << c4 << "(x-" << x[i-1] << ")" << endl;
+            }else {
+                cout << endl;
+            }
+
+            c1 *= pow((x[i]-x_int), 3.0f);
+            c2 *= pow((x_int-x[i-1]), 3.0f);
+            c3 *= (x[i] - x_int);
+            c4 *= (x_int-x[i-1]);
+            f = c1+c2+c3+c4;
 
             return f;
         }

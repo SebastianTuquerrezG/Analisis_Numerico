@@ -135,14 +135,29 @@ void caso_bugs_project();
 void caso_1_potencia();
 
 /**
+ * @brief Caso 2 Prueba de frenado de un automovil con la funcion potencia
+ */
+void caso_frenado_potencia();
+
+/**
  * @brief Caso 1 de funcion exponencial
  */
 void caso_1_exponencial();
 
 /**
+ * @brief Caso 2 Prueba de frenado de un automovil con la funcion exponencial
+ */
+void caso_frenado_exponencial();
+
+/**
  * @brief Caso 1 de funcion cuadratica
  */
 void caso_1_cuadratica();
+
+/**
+ * @brief Caso 2 Prueba de frenado de un automovil con la funcion cuadratica
+ */
+void caso_frenado_cuadratica();
 
 /**
  * @brief Sale del programa
@@ -158,8 +173,11 @@ int main() {
         {"Caso Produccion Trigo", caso_produccion_trigo},
         {"Caso Bugs Project", caso_bugs_project},
         {"Caso Potencia", caso_1_potencia},
+        {"Caso Prueba Frenado con Potencia", caso_frenado_potencia},
         {"Caso Exponencial", caso_1_exponencial},
+        {"Caso Prueba Frenado con Exponencial", caso_frenado_exponencial},
         {"Caso Cuadratica", caso_1_cuadratica},
+        {"Caso Prueba Frenado con Cuadratica", caso_frenado_cuadratica},
         {"Salir", salir}
     };
 
@@ -181,6 +199,27 @@ int main() {
         std::advance(it, opcion - 1);
         it->second();
     } while (opcion != casos.size() + 1);
+}
+
+void caso_regresion_lineal(const vector<double>& x,
+                           const vector<double>& y,
+                           const string& title,
+                           const string& x_label,
+                           const string& y_label,
+                           const string& opcional_label,
+                           const vector<double>& opcional){
+    //imprimir salto de linea
+    cout << endl;
+    cout << title << endl;
+
+    imprimir_tabla(x, y, x_label, y_label, opcional_label, opcional);
+
+    lineal_simple ls(x, y);
+    solucion_lineal sol = ls.calcular();
+
+    //Imprimir la solucion
+    sol.imprimir();
+    cout << endl;
 }
 
 void caso_1_regresion(){
@@ -205,116 +244,6 @@ void caso_clean_and_jerk(){
     vector<double> y = {171.0f, 183.0f, 198.0f, 214.0f, 220.0f, 233.0f, 246.0f};
 
     caso_regresion_lineal(x, y, title, "Peso Corporal (Kg)", "Peso Levantado (Kg)");
-}
-
-void caso_regresion_lineal(const vector<double>& x,
-                           const vector<double>& y,
-                           const string& title,
-                           const string& x_label,
-                           const string& y_label,
-                           const string& opcional_label,
-                           const vector<double>& opcional){
-    //imprimir salto de linea
-    cout << endl;
-    cout << title << endl;
-
-    imprimir_tabla(x, y, x_label, y_label, opcional_label, opcional);
-
-    lineal_simple ls(x, y);
-    solucion_lineal sol = ls.calcular();
-
-    //Imprimir la solucion
-    sol.imprimir();
-    cout << endl;
-}
-
-void caso_regresion_potencia(const vector<double>& x,
-                             const vector<double>& y,
-                             const string& title,
-                             const string& x_label,
-                             const string& y_label,
-                             const string& opcional_label,
-                             const vector<double>& opcional){
-    //imprimir salto de linea
-    cout << endl;
-    cout << title << endl;
-
-    imprimir_tabla(x, y, x_label, y_label, opcional_label, opcional);
-
-    potencia reg_potencia(x, y);
-    solucion_potencia sol = reg_potencia.calcular();
-
-    //Imprimir la solucion
-    sol.imprimir();
-    cout << endl;
-}
-
-void caso_regresion_exponencial(const vector<double>& x,
-                                 const vector<double>& y,
-                                 const string& title,
-                                 const string& x_label,
-                                 const string& y_label,
-                                 const string& opcional_label,
-                                 const vector<double>& opcional){
-    //imprimir salto de linea
-    cout << endl;
-    cout << title << endl;
-
-    imprimir_tabla(x, y, x_label, y_label, opcional_label, opcional);
-
-    exponencial reg_exponencial(x, y);
-
-    solucion_exponencial sol = reg_exponencial.calcular();
-
-    //Imprimir la solucion
-    sol.imprimir();
-    cout << endl;
-}
-
-void caso_regresion_cuadratica(const vector<double>& x,
-                                const vector<double>& y,
-                                const string& title,
-                                const string& x_label,
-                                const string& y_label,
-                                const string& opcional_label,
-                                const vector<double>& opcional){
-    //imprimir salto de linea
-    cout << endl;
-    cout << title << endl;
-
-    imprimir_tabla(x, y, x_label, y_label, opcional_label, opcional);
-
-    cuadratica reg_cuadratica(x, y);
-
-    solucion_cuadratica sol = reg_cuadratica.calcular();
-
-    //Imprimir la solucion
-    sol.imprimir();
-    cout << endl;
-}
-
-void caso_1_exponencial(){
-    string title = "Caso 1 Exponencial";
-    vector<double> x = {12.0f, 41.0f, 93.0f, 147.0f, 204.0f, 264.0f, 373.0f, 509.0f, 773.0f};
-    vector<double> y = {930.0f, 815.0f, 632.0f, 487.0f, 370.0f, 265.0f, 147.0f, 76.0f, 17.0f};
-
-    caso_regresion_exponencial(x, y, title);
-}
-
-void caso_1_potencia(){
-    string title = "Caso 1 Potencia";
-    vector<double> x = {10.0f, 20.0f, 30.0f, 40.0f, 50.0f, 60.0f, 70.0f, 80.0f};
-    vector<double> y = {1.06f, 1.33f, 1.52f, 1.68f, 1.81f, 1.91f, 2.01f, 2.11f};
-
-    caso_regresion_potencia(x, y, title);
-}
-
-void caso_1_cuadratica(){
-    string title = "Caso 1 Cuadratica";
-    vector<double> x = {0.0f, 1.0f, 2.0f, 3.0f, 4.0f, 5.0f};
-    vector<double> y = {2.1f, 7.7f, 13.6f, 27.2f, 40.9f, 61.1f};
-
-    caso_regresion_cuadratica(x, y, title);
 }
 
 void caso_empresa_industrial(){
@@ -342,6 +271,119 @@ void caso_bugs_project(){
     vector<double> y = {6.0f, 7.0f, 11.0f, 21.0f, 19.0f, 15.0f, 27.0f, 26.0f, 36.0f, 34.0f, 44.0f, 49.0f};
 
     caso_regresion_lineal(x, y, title, "Tamaño de modulo en LDC (lineas de codigo)", "Cantidad de errores detectados");
+}
+
+void caso_regresion_potencia(const vector<double>& x,
+                             const vector<double>& y,
+                             const string& title,
+                             const string& x_label,
+                             const string& y_label,
+                             const string& opcional_label,
+                             const vector<double>& opcional){
+    //imprimir salto de linea
+    cout << endl;
+    cout << title << endl;
+
+    imprimir_tabla(x, y, x_label, y_label, opcional_label, opcional);
+
+    potencia reg_potencia(x, y);
+    solucion_potencia sol = reg_potencia.calcular();
+
+    //Imprimir la solucion
+    sol.imprimir();
+    cout << endl;
+}
+
+void caso_1_potencia(){
+    string title = "Caso 1 Potencia";
+    vector<double> x = {10.0f, 20.0f, 30.0f, 40.0f, 50.0f, 60.0f, 70.0f, 80.0f};
+    vector<double> y = {1.06f, 1.33f, 1.52f, 1.68f, 1.81f, 1.91f, 2.01f, 2.11f};
+
+    caso_regresion_potencia(x, y, title);
+}
+
+void caso_frenado_potencia() {
+    string title = "Prueba de Frenado de un Automovil nuevo";
+    vector<double> x = {35.0f, 50.0f, 65.0f, 70.0f, 80.0f, 95.0f, 110.0f};
+    vector<double> y = {15.0f, 25.0f, 36.0f, 46.0f, 59.0f, 86.0f, 112.0f};
+
+    caso_regresion_potencia(x, y, title);
+}
+
+void caso_regresion_exponencial(const vector<double>& x,
+                                 const vector<double>& y,
+                                 const string& title,
+                                 const string& x_label,
+                                 const string& y_label,
+                                 const string& opcional_label,
+                                 const vector<double>& opcional){
+    //imprimir salto de linea
+    cout << endl;
+    cout << title << endl;
+
+    imprimir_tabla(x, y, x_label, y_label, opcional_label, opcional);
+
+    exponencial reg_exponencial(x, y);
+
+    solucion_exponencial sol = reg_exponencial.calcular();
+
+    //Imprimir la solucion
+    sol.imprimir();
+    cout << endl;
+}
+
+void caso_1_exponencial(){
+    string title = "Caso 1 Exponencial";
+    vector<double> x = {12.0f, 41.0f, 93.0f, 147.0f, 204.0f, 264.0f, 373.0f, 509.0f, 773.0f};
+    vector<double> y = {930.0f, 815.0f, 632.0f, 487.0f, 370.0f, 265.0f, 147.0f, 76.0f, 17.0f};
+
+    caso_regresion_exponencial(x, y, title);
+}
+
+void caso_frenado_exponencial(){
+    string title = "Prueba de frenado de un automovil nuevo";
+    vector<double> x = {35.0f, 50.0f, 65.0f, 70.0f, 80.0f, 95.0f, 110.0f};
+    vector<double> y = {15.0f, 25.0f, 36.0f, 46.0f, 59.0f, 86.0f, 112.0f};
+
+    caso_regresion_exponencial(x, y, title);
+}
+
+void caso_regresion_cuadratica(const vector<double>& x,
+                                const vector<double>& y,
+                                const string& title,
+                                const string& x_label,
+                                const string& y_label,
+                                const string& opcional_label,
+                                const vector<double>& opcional){
+    //imprimir salto de linea
+    cout << endl;
+    cout << title << endl;
+
+    imprimir_tabla(x, y, x_label, y_label, opcional_label, opcional);
+
+    cuadratica reg_cuadratica(x, y);
+
+    solucion_cuadratica sol = reg_cuadratica.calcular();
+
+    //Imprimir la solucion
+    sol.imprimir();
+    cout << endl;
+}
+
+void caso_1_cuadratica(){
+    string title = "Caso 1 Cuadratica";
+    vector<double> x = {0.0f, 1.0f, 2.0f, 3.0f, 4.0f, 5.0f};
+    vector<double> y = {2.1f, 7.7f, 13.6f, 27.2f, 40.9f, 61.1f};
+
+    caso_regresion_cuadratica(x, y, title);
+}
+
+void caso_frenado_cuadratica() {
+    string title = "Prueba de frenado de un automovil nuevo";
+    vector<double> x = {35.0f, 50.0f, 65.0f, 70.0f, 80.0f, 95.0f, 110.0f};
+    vector<double> y = {15.0f, 25.0f, 36.0f, 46.0f, 59.0f, 86.0f, 112.0f};
+
+    caso_regresion_cuadratica(x, y, title);
 }
 
 void salir(){

@@ -52,6 +52,30 @@ namespace  interpolacion{
             return oss.str();
         }
 
+        double calcular_error_int(double x_int, int grado = 0){
+            double valor_interpolado, valor_real;
+            if (grado == 0){
+                valor_interpolado = interpolar(x_int);
+            } else{
+                valor_interpolado = interpolar(x_int, grado);
+            }
+
+            int pos = lower_bound(x.begin(), x.end(), x_int) - x.begin();
+            valor_real = y[pos];
+
+            return fabs(valor_real - valor_interpolado);
+        }
+
+        double calcular_error_int(double x_int, int pos_inicial, int pos_final){
+            double valor_interpolado, valor_real;
+            valor_interpolado = interpolar(x_int, pos_inicial, pos_final);
+
+            int pos = lower_bound(x.begin(), x.end(), x_int) - x.begin();
+            valor_real = y[pos];
+
+            return fabs(valor_real - valor_interpolado);
+        }
+
         /**
          * @brief Calcula el valor de y interpolado
          * @param x_int Valor de x a interpolar
@@ -96,8 +120,8 @@ namespace  interpolacion{
                 }
             }
 
-            pos_inicial = pos_ant - n_puntos / 2;
-            pos_final = pos_sig + n_puntos / 2;
+            pos_inicial = pos_ant - grado / 2;
+            pos_final = pos_sig + grado / 2;
             //Si n_puntos es par
             if (n_puntos % 2 == 0) {
                 return interpolar(x_int, pos_inicial, pos_final);
@@ -141,6 +165,12 @@ namespace  interpolacion{
                 }
                 double error_int_1 =  F1[F1.size() - 1] * prod_1 ;
 
+                //Imprimir primer intervalo
+                //Sacar los datos de x en el intervalo pos_inicial_aux, pos_final_aux con el dato adicional
+                cout << " Primer intervalo: " << endl;
+                cout << "   Posicion Inicial: " << pos_inicial << ", Posicion Final: " << pos_final << endl;
+                cout << "   Error1 (R1): " << error_int_1 << endl;
+
                 vector<double> x2 (x.begin() + pos_inicial_aux, x.begin() + pos_final_aux);
 
                 //Sacar los datos de y en el intervalo pos_inicial_aux, pos_final_aux con el dato adicional
@@ -160,10 +190,22 @@ namespace  interpolacion{
                 }
                 double error_int_2 =  F2[F2.size() - 1] * prod_2;
 
+                //Imprimir segundo intervalo
+                //Sacar los datos de x en el intervalo pos_inicial_aux, pos_final_aux con el dato adicional
+                cout << " Segundo intervalo: " << endl;
+                cout << "   Posicion Inicial: " << pos_inicial_aux << ", Posicion Final: " << pos_final_aux << endl;
+                cout << "   Error2 (R2): " << error_int_2 << endl;
+
+                //Imprimir las y de los intervalos
+                cout << "   y - inferior: " << y_int_1 << endl;
+                cout << "   y - superior: " << y_int_2 << endl;
+
+                //Imprimir el error superior e inferior de los intervalos
+
                 if (std::fabs(error_int_1) < std::fabs(error_int_2)) {
-                    return y_int_1;
-                } else {
                     return y_int_2;
+                } else {
+                    return y_int_1;
                 }
             }
             return NAN;

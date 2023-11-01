@@ -26,7 +26,7 @@ using interpolacion::lagrange;
 using interpolacion::spline3;
 using util::imprimir_tabla;
 
-double  x_int = 0.0f, y_int = 0.0f; //Variables globales
+double  x_int = 0.0f, y_int = 0.0f, error_sup, error_inf; //Variables globales
 int opcion_int = 0, grado;
 
 /**
@@ -113,6 +113,7 @@ int main() {
     cout << "Interpolacion" << endl;
     int opcion;
     do{
+        cout << endl;
         cout << "Seleccione una opcion: " << endl;
         int i = 1;
         for (auto &caso : casos) {
@@ -126,6 +127,7 @@ int main() {
             continue;
         }
         auto it = casos.begin();
+        cout << endl;
         std::advance(it, opcion - 1);
         it->second();
     } while (opcion != casos.size());
@@ -152,7 +154,7 @@ void caso_interpolacion_newton(vector<double> x,
         do {
             cout << "Introduzca el valor de x a interpolar: ";
             cin >> x_int;
-            cout << "Introduzca el grado del polinomio: "
+            cout << "Introduzca el grado del polinomio: <= "
                 << x.size() - 1 << ", o 0 para usar todos los datos" <<  endl;
             cin >> grado;
         } while (x_int < x[0] || x_int > x[x.size() - 1] || grado < 0 || grado > x.size() - 1);
@@ -161,10 +163,15 @@ void caso_interpolacion_newton(vector<double> x,
             y_int = n.interpolar(x_int);
         } else{
             y_int = n.interpolar(x_int, grado);
+            error_sup = n.calcular_error_int(x_int, 0, grado);
+            error_inf = n.calcular_error_int(x_int, 1, grado + 1);
         }
+
+        cout << " Error(Superior): " << error_sup << ", Error(Inferior): " << error_inf << endl;
 
         cout << "El valor de y para x = " << x_int << " es: " << y_int << endl;
 
+        cout << endl;
         cout << "Desea interpolar otro valor? (1 = si, 0 = no): ";
     } while (cin >> opcion_int && opcion_int == 1);
 }
@@ -204,7 +211,7 @@ void caso_interpolacion_lagrange(vector<double> x,
         do {
             cout << "Introduzca el valor de x a interpolar: ";
             cin >> x_int;
-            cout << "Introduzca el grado del polinomio: "
+            cout << "Introduzca el grado del polinomio: <= "
                     << x.size() - 1 << ", o 0 para usar todos los datos" <<  endl;
             cin >> grado;
         } while (x_int < x[0] || x_int > x[x.size() - 1] || grado < 0 || grado > x.size() - 1);
@@ -217,6 +224,7 @@ void caso_interpolacion_lagrange(vector<double> x,
 
         cout << "El valor de y para x = " << x_int << " es: " << y_int << endl;
 
+        cout << endl;
         cout << "Desea interpolar otro valor? (1 = si, 0 = no): ";
     } while (cin >> opcion_int && opcion_int == 1);
 }
@@ -255,6 +263,7 @@ void caso_interpolacion_trazadores(vector<double> x,
 
         cout << "El valor de y para x = " << x_int << " es: " << y_int << endl;
 
+        cout << endl;
         cout << "Desea interpolar otro valor? (1 = si, 0 = no): ";
     } while (cin >> opcion_int && opcion_int == 1);
 }

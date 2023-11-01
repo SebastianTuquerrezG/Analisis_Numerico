@@ -157,7 +157,11 @@ void caso_interpolacion_newton(vector<double> x,
             cin >> grado;
         } while (x_int < x[0] || x_int > x[x.size() - 1] || grado < 0 || grado > x.size() - 1);
 
-        y_int = n.interpolar(x_int);
+        if (grado == 0){
+            y_int = n.interpolar(x_int);
+        } else{
+            y_int = n.interpolar(x_int, grado);
+        }
 
         cout << "El valor de y para x = " << x_int << " es: " << y_int << endl;
 
@@ -205,7 +209,11 @@ void caso_interpolacion_lagrange(vector<double> x,
             cin >> grado;
         } while (x_int < x[0] || x_int > x[x.size() - 1] || grado < 0 || grado > x.size() - 1);
 
-        y_int = l.interpolar(x_int);
+        if (grado == 0){
+            y_int = l.interpolar(x_int);
+        } else{
+            y_int = l.interpolar(x_int, grado);
+        }
 
         cout << "El valor de y para x = " << x_int << " es: " << y_int << endl;
 

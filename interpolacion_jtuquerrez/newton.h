@@ -52,32 +52,12 @@ namespace  interpolacion{
             return oss.str();
         }
 
-        //TODO: Interpolar con polinomio de un n grado
-
         /**
          * @brief Calcula el valor de y interpolado
          * @param x_int Valor de x a interpolar
          * @return Valor de y interpolado
          */
         double interpolar(double x_int){
-            /*if (b.empty()){
-                return NAN;
-            }
-
-            ostringstream oss;
-            double f = b[0];
-
-            for (size_t i = 1; i < b.size(); i++){
-                double prod = 1;
-                for (size_t j = 0; j < i; j++) {
-                    prod *= (x_int - x[j]);
-                }
-
-                f += prod * b[i];
-            }
-
-            return f;
-            */
             return interpolar(x_int, 0, x.size() - 1);
         }
 
@@ -101,7 +81,7 @@ namespace  interpolacion{
                     pos_final = n - 1,
                     pos_inicial_aux,
                     pos_final_aux;
-            //TODO: Validar que el grado no sea mayor a n_puntos
+            //Validar que el grado no sea mayor a n_puntos
             if (grado < 0 || grado >= n_puntos){
                 throw std::invalid_argument("Grado invalido");
             }
@@ -140,22 +120,22 @@ namespace  interpolacion{
                 }
 
                 // y_int_1 o y_int_2 son diferente de nan
-                //TODO: Sacar los datos de x en el intervalo pos_inicial_aux, pos_final_aux con el dato adicional
+                //Sacar los datos de x en el intervalo pos_inicial_aux, pos_final_aux con el dato adicional
                 // con un for del x grande (pos_inicial) sacr los datos a x1 (0), x1 es un subvector de x que tiene desde x[pos_inicial_aux] hasta x[pos_final_aux]
                 vector<double> x1 (x.begin() + pos_inicial, x.begin() + pos_final);
 
-                //TODO: Sacar los datos de y en el intervalo pos_inicial_aux, pos_final_aux con el dato adicional
+                //Sacar los datos de y en el intervalo pos_inicial_aux, pos_final_aux con el dato adicional
                 vector<double> y1 (y.begin() + pos_inicial, y.begin() + pos_final);
 
                 vector<double> F1 = newton::calcular_coeficientes(x1, y1);
 
-                //TODO: Calcular el error
+                //Calcular el error
                 double prod_1 = 1.0f; //Ultimo coeficiente de F1
 
-                //TODO: Quitar el dato adicional del fin
+                //Quitar el dato adicional del fin
                 F1.erase(F1.end());
 
-                //TODO: Calcular la productoria de R * (x_int - x1[0]) * (x_int - x1[1]) * ... * (x_int - x1[n_puntos - 1]) sin tener en cuenta el dato adicional
+                //Calcular la productoria de R * (x_int - x1[0]) * (x_int - x1[1]) * ... * (x_int - x1[n_puntos - 1]) sin tener en cuenta el dato adicional
                 for (int i = 0; i < F1.size(); i++) {
                     prod_1 *= (x_int - x1[i]);
                 }
@@ -163,18 +143,18 @@ namespace  interpolacion{
 
                 vector<double> x2 (x.begin() + pos_inicial_aux, x.begin() + pos_final_aux);
 
-                //TODO: Sacar los datos de y en el intervalo pos_inicial_aux, pos_final_aux con el dato adicional
+                //Sacar los datos de y en el intervalo pos_inicial_aux, pos_final_aux con el dato adicional
                 vector<double> y2 (y.begin() + pos_inicial_aux, y.begin() + pos_final_aux);
 
                 vector<double> F2 = newton::calcular_coeficientes(x2, y2);
 
-                //TODO: Calcular el error
+                //Calcular el error
                 double prod_2 = 1.0f; //Ultimo coeficiente de F1
 
-                //TODO: Quitar el dato adicional del inicio
+                //Quitar el dato adicional del inicio
                 F2.erase(F2.begin());
 
-                //TODO: Calcular la productoria de R * (x_int - x1[0]) * (x_int - x1[1]) * ... * (x_int - x1[n_puntos - 1]) sin tener en cuenta el dato adicional
+                //Calcular la productoria de R * (x_int - x1[0]) * (x_int - x1[1]) * ... * (x_int - x1[n_puntos - 1]) sin tener en cuenta el dato adicional
                 for (int i = 0; i < F2.size(); i++) {
                     prod_2 *= (x_int - x1[i]);
                 }
@@ -191,19 +171,19 @@ namespace  interpolacion{
 
         double interpolar(double x_int, int pos_inicial, int pos_final){
             /*
-             * TODO: Validar que x_int este dentro del rango de x
-             * TODO: Validar que pos_inicial y pos_final esten dentro del rango de x
-             * TODO: Validar que pos_inicial sea menor que pos_final
-             * TODO: Validar que pos_inicial y pos_final sean mayores que 0
+             * Validar que x_int este dentro del rango de x
+             * Validar que pos_inicial y pos_final esten dentro del rango de x
+             * Validar que pos_inicial sea menor que pos_final
+             * Validar que pos_inicial y pos_final sean mayores que 0
              */
             if (x_int < x[pos_inicial] || x_int >= x[pos_final] || pos_inicial < 0 || pos_final >= x.size() || pos_inicial >= pos_final){
                 return NAN;
             }
 
             /*
-             * TODO: Crear subvectoes x e y del rango de pos_inicial a pos_final
-             * TODO: Llama al metodo calcular coeficientes con los subvectores
-             * */
+             * Crear subvectoes x e y del rango de pos_inicial a pos_final
+             * Llama al metodo calcular coeficientes con los subvectores
+             */
             vector<double> x1 (x.begin() + pos_inicial, x.begin() + pos_final);
             vector<double> y1 (y.begin() + pos_inicial, y.begin() + pos_final);
             vector<double> b_rango = calcular_coeficientes(x1, y1);

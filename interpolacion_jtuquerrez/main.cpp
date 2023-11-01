@@ -45,9 +45,9 @@ void caso_interpolacion_newton(vector<double> x,
 
 /**
  * @brief CASO INTERPOLACION mediante lagrange
- * @param x
- * @param y
- * @param opcion
+ * @param x Vector de x
+ * @param y Vector de y
+ * @param opcion Opcion de interpolacion
  */
 void caso_interpolacion_lagrange(vector<double> x,
                                  vector<double> y,
@@ -59,9 +59,9 @@ void caso_interpolacion_lagrange(vector<double> x,
 
 /**
  * @brief CASO INTERPOLACION mediante trazadores cubicos
- * @param x
- * @param y
- * @param opcion
+ * @param x Vector de x
+ * @param y Vector de y
+ * @param opcion Opcion de interpolacion
  */
 void caso_interpolacion_trazadores(vector<double> x,
                                    vector<double> y,
@@ -146,7 +146,7 @@ void caso_interpolacion_newton(vector<double> x,
 
     cout << title << endl;
 
-    cout << "Polinomio interpolante" << n.polinomio() << endl;
+    cout << "Polinomio interpolante: " << n.polinomio() << endl;
 
     imprimir_tabla(x, y, x_label, y_label, opcional_label, opcional);
 

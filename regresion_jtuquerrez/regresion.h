@@ -67,13 +67,13 @@ namespace regresion{
                  << " Desviacion Estandar Total(Sy): "
                  << sy
                  << endl
-                 << " Error estandar de aproximacion: "
+                 << " Error estandar de aproximacion(Syx): "
                  << syx
                  << endl
                  << aceptable
                  << endl
-                 << " Coeficiente de determinacion: "
-                 << r2
+                 << " Coeficiente de determinacion(R2): "
+                 << r2 << ", Es aceptable en un: " << r2 * 100 << "%" << endl
                  << endl;
          }
     };
@@ -94,16 +94,22 @@ namespace regresion{
             cout << " Funcion Potencia: "
                  << "y = " << c << "* x^" << a
                  << endl
-                 << " Desviacion estandar: "
+                 << " Error Estandar(St): "
+                 << lineal.st
+                 << endl
+                 << " Diferencia Cuadratica(Sr): "
+                 << lineal.sr
+                 << endl
+                 << " Desviacion Estandar Total(Sy): "
                  << lineal.sy
                  << endl
-                 << " Error estandar de aproximacion: "
+                 << " Error estandar de aproximacion(Syx): "
                  << lineal.syx
                  << endl
                  << aceptable
                  << endl
-                 << " Coeficiente de determinacion: "
-                 << lineal.r2
+                 << " Coeficiente de determinacion(R2): "
+                 << lineal.r2 << ", Es aceptable en un: " << lineal.r2 * 100 << "%" << endl
                  << endl;
         }
     };
@@ -124,16 +130,22 @@ namespace regresion{
             cout << " Funcion Exponencial: "
                  << "y = " << c << "* e^" << a << "* x"
                  << endl
-                 << " Desviacion estandar: "
+                 << " Error Estandar(St): "
+                 << lineal.st
+                 << endl
+                 << " Diferencia Cuadratica(Sr): "
+                 << lineal.sr
+                 << endl
+                 << " Desviacion Estandar Total(Sy): "
                  << lineal.sy
                  << endl
-                 << " Error estandar de aproximacion: "
+                 << " Error estandar de aproximacion(Syx): "
                  << lineal.syx
                  << endl
                  << aceptable
                  << endl
-                 << " Coeficiente de determinacion: "
-                 << lineal.r2
+                 << " Coeficiente de determinacion(R2): "
+                 << lineal.r2 << ", Es aceptable en un: " << lineal.r2 * 100 << "%"
                  << endl;
         }
     };
@@ -160,16 +172,22 @@ namespace regresion{
                  << ((a1 > 0 )?" + ":" - ") << fabs(a1) << "x"
                  << ((a0 > 0 )? " + ":" - ") << fabs(a0)
                  << endl
-                 << " Desviacion estandar: "
+                 << " Error Estandar(St): "
+                 << st
+                 << endl
+                 << " Diferencia Cuadratica(Sr): "
+                 << sr
+                 << endl
+                 << " Desviacion Estandar Total(Sy): "
                  << sy
                  << endl
-                 << " Error estandar de aproximacion: "
+                 << " Error estandar de aproximacion(Syx): "
                  << syx
                  << endl
                  << aceptable
                  << endl
-                 << " Coeficiente de determinacion: "
-                 << r2
+                 << " Coeficiente de determinacion(R2): "
+                 << r2 << ", Es aceptable en un: " << r2 * 100 << "%"
                  << endl;
         }
     };
@@ -313,6 +331,8 @@ namespace regresion{
             }
 
             //Imprimir los datos
+            cout << " Datos transformados: " << endl;
+            imprimir_tabla(X, Y, "log10(X)", "log10(Y)");
 
             //Crear un modelo de regresion lineal con los datos transformados
             lineal_simple ls(X, Y);
@@ -359,6 +379,8 @@ namespace regresion{
             }
 
             //Imprimir los datos
+            cout << " Datos transformados: " << endl;
+            imprimir_tabla(x, Y, "X", "ln(Y)");
 
             //Crear un modelo de regresion lineal con los datos transformados
             lineal_simple ls(x, Y);
@@ -408,6 +430,10 @@ namespace regresion{
                 return sol;
             }
 
+            //Imprimir el conjunto de ecuaciones:
+            cout << " Conjunto de ecuaciones: " << endl;
+            cout << setw(5) << "Xi" << " | " << setw(5) << "Yi" << " | " << setw(7) << "Xi^2" << " | " << setw(12) << "Xi^3" << " | " << setw(12) << "Xi^4" << " | " << setw(9) << "Xi*Yi" << " | " << setw(12) << "Xi^2*Yi" << endl;
+            cout << str_repeat("=", 80) << endl;
             for(int i = 0; i < sol.n; i++){
                 sum_x += x[i];
                 sum_x2 += pow(x[i], 2.0f);
@@ -416,7 +442,13 @@ namespace regresion{
                 sum_y += y[i];
                 sum_xy += x[i] * y[i];
                 sum_x2y += pow(x[i], 2.0f) * y[i];
+                cout << setw(5) << x[i] << " | " << setw(5) << y[i] << " | " << setw(7) << pow(x[i], 2.0f) << " | " << setw(12) << pow(x[i], 3.0f) << " | " << setw(12) << pow(x[i], 4.0f) << " | " << setw(9) << x[i] * y[i] << " | " << setw(12) << pow(x[i], 2.0f) * y[i] << endl;
             }
+
+            //Imprimir sumatorias
+            cout << str_repeat("=", 80) << endl;
+            cout << setw(5) << sum_x << " | " << setw(5) << sum_y << " | " << setw(7) << sum_x2 << " | " << setw(12) << sum_x3 << " | " << setw(12) << sum_x4 << " | " << setw(9) << sum_xy << " | " << setw(12) << sum_x2y << endl;
+            cout << endl;
 
             y_prom = sum_y / (double)sol.n;
             sol.st = 0.0f;
@@ -432,12 +464,50 @@ namespace regresion{
                     {sum_x2, sum_x3, sum_x4, sum_x2y},
             };
 
+            //Imprimir la matriz de coeficientes
+            cout << " Matriz de ecuaciones lineales simultaneas: " << endl;
+            cout << str_repeat("=", 80) << endl;
+            for (size_t i = 0; i < m.size(); i++) {
+                for (size_t j = 0; j < m[i].size(); j++) {
+                    if (j == 0) {
+                        cout << "a0*" << setw(12) << m[i][j]; // Imprime "a0" en lugar del primer valor
+                    } else if (j == 1) {
+                        cout << " + a1*" << setw(12) << m[i][j]; // Imprime "a1" en lugar del segundo valor
+                    } else if (j == 2) {
+                        cout << " + a2*" << setw(12) << m[i][j]; // Imprime "a2" en lugar del tercer valor
+                    } else if (j == m[i].size() - 1) {
+                        cout << " = " << setw(12) << m[i][j]; // Imprime "=" antes del último valor
+                    } else {
+                        cout << setw(12) << m[i][j];
+                    }
+                }
+                cout << endl;
+            }
+            cout << str_repeat("=", 80) << endl;
+            cout << endl;
+
             //Hallar a0, a1, y a2 mediante eliminacion de gauss
             vector<double> coef = gauss(m);
 
             sol.a0 = coef[0];
             sol.a1 = coef[1];
             sol.a2 = coef[2];
+
+            //Imprimir los coeficientes
+            cout << " Coeficientes del polinomio de regresion: " << endl;
+            cout << str_repeat("=", 80) << endl;
+            cout << " a0 = " << sol.a0 << endl;
+            cout << " a1 = " << sol.a1 << endl;
+            cout << " a2 = " << sol.a2 << endl;
+            cout << str_repeat("=", 80) << endl;
+            cout << endl;
+
+            //Imprimir el polinomio de regresion
+            cout << " Polinomio de regresion: " << endl;
+            cout << str_repeat("=", 80) << endl;
+            cout << " y = " << sol.a0 << " + " << sol.a1 << " * x + " << sol.a2 << " * x^2" << endl;
+            cout << str_repeat("=", 80) << endl;
+            cout << endl;
 
             sol.sr = 0.0f;
             for(size_t i = 0; i < sol.n; i++){

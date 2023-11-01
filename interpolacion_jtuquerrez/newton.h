@@ -230,6 +230,8 @@ namespace  interpolacion{
             vector<double> y1 (y.begin() + pos_inicial, y.begin() + pos_final);
             vector<double> b_rango = calcular_coeficientes(x1, y1);
 
+            cout << "Polinomio interpolante: " << polinomio_grado(b_rango, x1) << endl;
+
             if (b_rango.empty()){
                 return NAN;
             }
@@ -243,6 +245,22 @@ namespace  interpolacion{
                 f += prod * b_rango[i];
             }
             return f;
+        }
+
+        static string polinomio_grado(vector<double> b_rango, vector<double> x){
+            ostringstream oss;
+
+            oss << b_rango[0];
+
+            for (size_t i = 1; i < b_rango.size(); i++){
+                oss << ((b_rango[i] < 0) ? " - " : " + ")
+                    << fabs(b_rango[i]) << " ";
+                for (size_t j = 0; j < i; j++) {
+                    oss << "(x - " << x[j] << ")";
+                }
+            }
+
+            return oss.str();
         }
 
         /**

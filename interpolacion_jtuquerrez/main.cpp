@@ -243,8 +243,6 @@ void caso_interpolacion_trazadores(vector<double> x,
                                    const string& y_label,
                                    const string& opcional_label,
                                    const vector<double>& opcional) {
-    spline3 s3(x, y);
-
     cout << "Interpolacion por trazadores cubicos" << endl;
 
     cout << title << endl;
@@ -252,6 +250,8 @@ void caso_interpolacion_trazadores(vector<double> x,
     //cout << "Polinomio interpolante" << s3.polinomio() << endl;
 
     imprimir_tabla(x, y, x_label, y_label, opcional_label, opcional);
+
+    spline3 s3(x, y);
 
     do {
         do{

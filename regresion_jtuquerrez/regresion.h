@@ -58,7 +58,13 @@ namespace regresion{
                  << ((b0 >= 0.0f)? " + " : " - ")
                  << fabs(b0)
                  << endl
-                 << " Desviacion estandar: "
+                 << " Error Estandar(St): "
+                 << st
+                 << endl
+                 << " Diferencia Cuadratica(Sr): "
+                 << sr
+                 << endl
+                 << " Desviacion Estandar Total(Sy): "
                  << sy
                  << endl
                  << " Error estandar de aproximacion: "

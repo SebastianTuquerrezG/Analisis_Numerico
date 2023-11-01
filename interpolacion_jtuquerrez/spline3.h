@@ -32,29 +32,45 @@ namespace interpolacion{
         }
 
         double interpolar(double x_int){
-            //TODO: Determinar el intervalo i en donde se encuentra x_int
             size_t i = 0;
-            for(i = 0; i < x.size(); i++){
-                if(x_int < x[i]){
+            double f;
+
+            //Validr si el x_int esta en el intervalo de x
+            if(x_int < x[0] || x_int > x[x.size() - 1]){
+                cout << "El valor a interpolar no esta en el intervalo de x" << endl;
+                return NAN;
+            }
+
+            //Determinar el intervalo i en donde se encuentra x_int
+            for(i = 0; i < x.size() - 1; i++){
+                if(x_int >= x[i] && x_int <= x[i + 1]){
+                    i++;
                     break;
                 }
             }
 
-
-            //TODO:
             // Evaluar el polinomio del trazador en x_int
-            return NAN;
+            double c1 = (f2[i - 1]/(6.0f*(x[i] - x[i - 1])))*(pow(x[i] - x_int, 3.0f));
+            double c2 = (f2[i]/(6.0f*(x[i] - x[i - 1])))*(pow(x_int - x[i - 1], 3.0f));
+            double c3 = ((y[i - 1]/(x[i] - x[i - 1])) - (f2[i - 1]*(x[i] - x[i - 1]))/6.0f)*(x[i] - x_int);
+            double c4 = ((y[i]/(x[i] - x[i - 1])) - (f2[i]*(x[i] - x[i - 1]))/6.0f)*(x_int - x[i - 1]);
+            f = c1 + c2 + c3 + c4;
+
+            return f;
         }
     private:
-        vector<double> x;
-        vector<double> y;
-        vector<double> f2;
+        vector<double> x; /*!< Variable independiente */
+        vector<double> y; /*!< Variable dependiente */
+        vector<double> f2; /*!< Segundas derivadas */
+        /**
+         * @brief Calcular las segundas derivadas
+         * @return  vector<double> f2 Segundas derivadas
+         */
         vector<double> calcular_f2(){
             vector<double> f2;
 
             size_t n = x.size(), i;
             size_t intervalos = n - 1;
-            //TODO:
             // 1. Construir la matriz de coeficientes m
             // m es una matriz de banda, en donde:
             // En los puntos interiores, se tienen tres coeficientes
@@ -93,33 +109,42 @@ namespace interpolacion{
                 m[fila][intervalos] = ci;
             }
 
-            //Imprimir matriz
-
-            cout << "Coeficientes del sistema de ecuaciones"<< endl;
-            cout << str_repeat("_", 40) << endl;
-            //Eliminar la primera columna que contiene 0s
-            for(i = 0; i < intervalos - 1; i++){
+            //Imprimir el sistema de ecuaciones
+            cout << "Sistema de ecuaciones" << endl;
+            for(i = 0; i < m.size(); i++){
                 m[i].erase(m[i].begin());
             }
-            imprimit_matriz(m);
 
-            cout << str_repeat("_", 40) << endl;
-            //TODO:
+            cout << str_repeat("=", m[0].size()*8) << endl;
+            for(size_t i = 0; i<m.size(); i++) {
+                for(size_t j = 0; j<m[i].size(); j++) {
+                    if(j == m[i].size()-1) {
+                        cout << setw(4) << "|" << setw(13) << setprecision(6) << m[i][j];
+                    }
+                    else {
+                        cout << setw(6) << m[i][j];
+                    }
+                }
+                cout << endl;
+            }
+            cout << str_repeat("=", m[0].size()*8) << endl;
+
             // 2. Calcular f2, f2 = gauss
 
             f2 = gauss(m);
 
-            //Imprimir el vector resultado f2
-            cout << "Segundas derivadas" << endl;
-            for (int j = 0; j < f2.size(); ++j) {
-                cout << "f2[" << j << "] = " << f2[j] << endl;
-            }
-
-            //TODO:
             // 2.1 Inservar 0 al inicio y al final de f2
             //  (f2 en los extremos vale 0)
             f2.insert(f2.begin(), 0);
             f2.insert(f2.end(), 0);
+
+            cout << "Segundas derivadas" << endl;
+            cout << str_repeat("=", 30) << endl << endl;
+            for(i = 0; i<f2.size(); i++) {
+                cout << "f''(" << x[i] << ") = " << f2[i] << endl;
+            }
+            cout << str_repeat("=", 30) << endl << endl;
+            cout << endl;
 
             return f2;
         }

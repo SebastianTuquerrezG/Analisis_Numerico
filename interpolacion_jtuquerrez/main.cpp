@@ -177,8 +177,8 @@ void caso_interpolacion_newton(vector<double> x,
 }
 
 void caso_1_newton(){
-    vector<double> x = {100.0f, 200.0f, 300.0f, 400.0f, 500.0f};
-    vector<double> y = {-160.0f, -35.0f, -4.2f, 9.0f, 16.9f};
+    vector <double> x = {0.4f, 0.8f, 1.3f, 1.8f, 2.0f, 2.2f, 2.6f};
+    vector <double> y = {1.452360f, 1.995632f, 2.719678f, 3.273019f, 3.359425f, 3.316678f, 2.669452f};
 
     caso_interpolacion_newton(x, y, "Caso 1 Newton", "Temperatura (k)", "B (cm3/mol)");
 }

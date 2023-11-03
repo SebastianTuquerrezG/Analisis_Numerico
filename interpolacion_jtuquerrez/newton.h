@@ -12,12 +12,16 @@
 #include <sstream>
 #include <string>
 
+#include "util.h"
+
 using std::vector;
 using std::string;
 using std::ostringstream;
 using std::cout;
 using std::cin;
 using std::endl;
+
+using util::imprimir_tabla;
 
 namespace  interpolacion{
     class newton{
@@ -151,7 +155,17 @@ namespace  interpolacion{
                 //Sacar los datos de y en el intervalo pos_inicial_aux, pos_final_aux con el dato adicional
                 vector<double> y1 (y.begin() + pos_inicial, y.begin() + pos_final);
 
+                //Imprimir tabla
+                imprimir_tabla(x1,y1);
+
                 vector<double> F1 = newton::calcular_coeficientes(x1, y1);
+
+                //Imprimir los coeficientes
+                cout << "Coeficientes para el primer intervalo: " << endl;
+                for (size_t i = 0; i < F1.size(); i++){
+                    cout << F1[i] << " ";
+                }
+                cout << endl;
 
                 //Calcular el error
                 double prod_1 = 1.0f; //Ultimo coeficiente de F1
@@ -176,7 +190,15 @@ namespace  interpolacion{
                 //Sacar los datos de y en el intervalo pos_inicial_aux, pos_final_aux con el dato adicional
                 vector<double> y2 (y.begin() + pos_inicial_aux, y.begin() + pos_final_aux);
 
+                imprimir_tabla(x2, y2);
+
                 vector<double> F2 = newton::calcular_coeficientes(x2, y2);
+
+                cout << "Coeficientes para el segundo intervalo: " << endl;
+                for (size_t i = 0; i < F2.size(); i++){
+                    cout << F2[i] << ", " ;
+                }
+                cout << endl;
 
                 //Calcular el error
                 double prod_2 = 1.0f; //Ultimo coeficiente de F1

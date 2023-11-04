@@ -1,3 +1,13 @@
+/**
+ * @file main.cpp
+ * @author Sebastian Tuquerrez (jtuquerrez@unicauca.edu.co) - Cristian David Quinayas Rivera (crquinayas@unicauca.edu.co)
+ * @brief Archivo principal del programa de regresion mediante diferentes metodos
+ * @version 1.0.0
+ * @date 2023-11-03
+ *
+ * @copyright Copyright (c) 2023
+ */
+
 #include <iostream>
 #include <string>
 #include <vector>

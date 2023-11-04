@@ -1,3 +1,13 @@
+/**
+ * @file regresion.h
+ * @author Sebastian Tuquerrez (jtuquerrez@unicauca.edu.co) - Cristian David Quinayas Rivera (crquinayas@unicauca.edu.co)
+ * @brief Regresion lineal, cuadratica, exponencial y potencia
+ * @version 1.0.0
+ * @date 2023-11-03
+ *
+ * @copyright Copyright (c) 2023
+ */
+
 #ifndef REGRESION_H
 #define REGRESION_H
 
@@ -35,6 +45,7 @@ namespace regresion{
 
         return ret;
     }
+
     /**
      * @brief Solucion mediante Regresion Lineal Simple
      */
@@ -49,7 +60,7 @@ namespace regresion{
         size_t n; /*!< Numero de datos */
 
         /**
-         *
+         * @brief Imprime la solucion de la regresion lineal
          */
          void imprimir(){
              string aceptable = ((syx < sy)? " La aproximacion se condidera aceptable ": "La aproximacion no se considera aceptable ");
@@ -87,7 +98,7 @@ namespace regresion{
         solucion_lineal lineal; /*!< Solucion de la regresion lineal */
 
         /**
-        *
+        * @brief Imprime la solucion de la regresion potencial
         */
         void imprimir(){
             string aceptable = ((lineal.syx < lineal.sy)? " La aproximacion se condidera aceptable ": "La aproximacion no se considera aceptable ");
@@ -123,7 +134,7 @@ namespace regresion{
         solucion_lineal lineal; /*!< Solucion de la regresion lineal */
 
         /**
-       *
+       * @brief Imprime la solucion de la regresion exponencial
        */
         void imprimir(){
             string aceptable = ((lineal.syx < lineal.sy)? " La aproximacion se condidera aceptable ": "La aproximacion no se considera aceptable ");
@@ -150,7 +161,9 @@ namespace regresion{
         }
     };
 
-
+    /**
+     * @brief Solucion mediante regresion cuadratica
+     */
     struct solucion_cuadratica{
         double a0; /*!< Termino independiente del polinomio cuadratico */
         double a1; /*!< Coeficiente de x del polinomio */
@@ -163,7 +176,7 @@ namespace regresion{
         size_t n; /*!< Numero de datos */
 
         /**
-       *
+       * @brief Imprime la solucion de la regresion cuadratica
        */
         void imprimir(){
             string aceptable = ((syx < sy)? " La aproximacion se condidera aceptable ": "La aproximacion no se considera aceptable ");
@@ -238,10 +251,13 @@ namespace regresion{
         cout << str_repeat("=", delineacion) << endl;
     }
 
+    /**
+     * @brief Regresion lineal simple
+     */
     class lineal_simple{
     public:
         /**
-         *
+         * @brief Crea una nueva instancia de regresion lineal simple
          */
         lineal_simple(vector<double> p_x, vector<double> p_y):x(p_x), y(p_y){
         }

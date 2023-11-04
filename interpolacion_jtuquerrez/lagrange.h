@@ -1,7 +1,11 @@
 /**
  * @file lagrange.h
- * @brief Interpolacion mediante el metodo de lagrange
- * @author Sebastian Tuquerrez jtuquerrez@unicauca.edu.co
+ * @author Sebastian Tuquerrez (jtuquerrez@unicauca.edu.co) - Cristian David Quinayas Rivera (crquinayas@unicauca.edu.co)
+ * @brief Interpolacion mediante lagrange
+ * @version 1.0.0
+ * @date 2023-11-03
+ *
+ * @copyright Copyright (c) 2023
  */
 
 #ifndef LAGRANGE_H
@@ -26,6 +30,9 @@ using std::endl;
 using interpolacion::newton;
 
 namespace interpolacion{
+    /**
+     * @brief Interpolacion mediante lagrange
+     */
     class lagrange{
     public:
         /**
@@ -64,7 +71,10 @@ namespace interpolacion{
             return std::abs(valor_interpolado - valor_real);
         }
 
-
+        /**
+         * @brief Imprime el polinomio de lagrange
+         * @return Polinomio de lagrange
+         */
         string polinomio() {
             ostringstream oss;
 

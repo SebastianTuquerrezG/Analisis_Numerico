@@ -1,7 +1,13 @@
 /**
  * @file util.h
- * @brief Funciones de utilidad
+ * @author Sebastian Tuquerrez (jtuquerrez@unicauca.edu.co) - Cristian David Quinayas Rivera (crquinayas@unicauca.edu.co)
+ * @brief Funciones de utilidad para el proyecto
+ * @version 1.0.0
+ * @date 2023-11-03
+ *
+ * @copyright Copyright (c) 2023
  */
+
 #ifndef UTIL_H
 #define UTIL_H
 
@@ -123,7 +129,10 @@ namespace util{
         return resultado;
     }
 
-
+    /**
+     * @brief Imprime una matriz 2x2
+     * @param m Matriz a imprimir
+     */
     void imprimit_matriz(vector<vector<double>> m){
         for(size_t i = 0; i < m.size(); i++){
             for(size_t j = 0; j < m[i].size(); j++){

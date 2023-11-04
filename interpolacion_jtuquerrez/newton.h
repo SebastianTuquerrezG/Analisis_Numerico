@@ -1,6 +1,11 @@
 /**
  * @file newton.h
- * @brief Interpolacion mediante el metodo de diferencias divididas de Newton
+ * @author Sebastian Tuquerrez (jtuquerrez@unicauca.edu.co) - Cristian David Quinayas Rivera (crquinayas@unicauca.edu.co)
+ * @brief Clase que implementa el metodo de interpolacion de Newton
+ * @version 1.0.0
+ * @date 2023-11-03
+ *
+ * @copyright Copyright (c) 2023
  */
 
 #ifndef NEWTON_H
@@ -20,6 +25,9 @@ using std::cin;
 using std::endl;
 
 namespace  interpolacion{
+    /**
+     * @brief Clase que implementa el metodo de interpolacion de Newton
+     */
     class newton{
     public:
         /**
@@ -52,6 +60,12 @@ namespace  interpolacion{
             return oss.str();
         }
 
+        /**
+         * @brief Calcula el error de interpolacion
+         * @param x_int Valor de x a interpolar
+         * @param grado Grado del polinomio
+         * @return Error de interpolacion
+         */
         double calcular_error_int(double x_int, int grado = 0){
             double valor_interpolado, valor_real;
             if (grado == 0){
@@ -66,6 +80,13 @@ namespace  interpolacion{
             return fabs(valor_real - valor_interpolado);
         }
 
+        /**
+         * @brief Calcula el error de interpolacion
+         * @param x_int Valor de x a interpolar
+         * @param pos_inicial posicion inicial del intervalo
+         * @param pos_final posicion final del intervalo
+         * @return Error de interpolacion
+         */
         double calcular_error_int(double x_int, int pos_inicial, int pos_final){
             double valor_interpolado, valor_real;
             valor_interpolado = interpolar(x_int, pos_inicial, pos_final);
@@ -211,6 +232,13 @@ namespace  interpolacion{
             return NAN;
         }
 
+        /**
+         * @brief Intepolar el valor de x_int con vectores de x e y con un rango de posiciones
+         * @param x_int Valor a interpolar sobre el cual se calcula el polinomio p(x)
+         * @param pos_inicial Posicion inicial del rango de los vectores
+         * @param pos_final Posicion final del rango de los vectores
+         * @return Valor interpolado
+         */
         double interpolar(double x_int, int pos_inicial, int pos_final){
             /*
              * Validar que x_int este dentro del rango de x
@@ -247,6 +275,12 @@ namespace  interpolacion{
             return f;
         }
 
+        /**
+         * @brief Construye y retorna el polinomio con un rango de posiciones para los vectores
+         * @param b_rango Vector de coeficientes
+         * @param x Vector de valores de x
+         * @return Polinomio
+         */
         static string polinomio_grado(vector<double> b_rango, vector<double> x){
             ostringstream oss;
 
@@ -265,6 +299,9 @@ namespace  interpolacion{
 
         /**
          * @brief Calcula los coeficientes b0, b1, b2, ... del polinomio
+         * @param x Vector de valores de x
+         * @param y Vector de valores de y
+         * @return Vector de coeficientes
          */
         static vector<double> calcular_coeficientes(vector<double> x, vector<double> y){
             size_t i, j;

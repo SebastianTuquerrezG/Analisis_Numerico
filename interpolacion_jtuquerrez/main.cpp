@@ -1,3 +1,13 @@
+/**
+ * @file main.cpp
+ * @author Sebastian Tuquerrez (jtuquerrez@unicauca.edu.co) - Cristian David Quinayas Rivera (crquinayas@unicauca.edu.co)
+ * @brief Programa principal para la interpolacion de datos mediante los metodos de newton, lagrange y trazadores cubicos
+ * @version 1.0.0
+ * @date 2023-11-03
+ *
+ * @copyright Copyright (c) 2023
+ */
+
 #include <iostream>
 #include <vector>
 #include <iomanip>
@@ -243,25 +253,24 @@ void caso_interpolacion_trazadores(vector<double> x,
                                    const string& y_label,
                                    const string& opcional_label,
                                    const vector<double>& opcional) {
+    double x_inicial, x_final;
     cout << "Interpolacion por trazadores cubicos" << endl;
 
     cout << title << endl;
 
-    //cout << "Polinomio interpolante" << s3.polinomio() << endl;
-
     imprimir_tabla(x, y, x_label, y_label, opcional_label, opcional);
-
-    spline3 s3(x, y);
 
     do {
         do{
-            cout << "Introduzca el valor de x a interpolar: ";
-            cin >> x_int;
-        } while (x_int < x[0] || x_int > x[x.size() - 1]);
+            cout << "Ingrese el valor inferior del segmento: ";
+            cin >> x_inicial;
+            cout << "Ingrese el valor  superior del segmento: ";
+            cin >> x_final;
+        } while ((find(x.begin(), x.end(), x_inicial) == x.end()) || (find(x.begin(), x.end(), x_final) == x.end()));
 
-        y_int = s3.interpolar(x_int);
+        spline3 s3(x, y);
 
-        cout << "El valor de y para x = " << x_int << " es: " << y_int << endl;
+        s3.interpolar(x_inicial, x_final);
 
         cout << endl;
         cout << "Desea interpolar otro valor? (1 = si, 0 = no): ";
@@ -277,7 +286,7 @@ void caso_1_spline3(){
 
 void caso_2_spline3() {
     vector<double> x = {43.0f, 50.0f, 56.0f, 60.0f, 63.0f, 69.0f, 74.0f};
-    vector<double> y = {0.041301f, 0.100248f, 0.124555, 0.128347f, 0.125552f, 0.108262f, 0.085188f};
+    vector<double> y = {0.041301f, 0.100248f, 0.124555f, 0.128347f, 0.125552f, 0.108262f, 0.085188f};
 
     caso_interpolacion_trazadores(x, y, "Caso 2 Proyecto Trazadores Cubicos");
 }

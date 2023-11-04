@@ -1,3 +1,13 @@
+/**
+ * @file util.h
+ * @author Sebastian Tuquerrez (jtuquerrez@unicauca.edu.co) - Cristian David Quinayas Rivera (crquinayas@unicauca.edu.co)
+ * @brief Clases / Funciones utiles
+ * @version 1.0.0
+ * @date 2023-11-03
+ *
+ * @copyright Copyright (c) 2023
+ */
+
 #ifndef UTIL_H
 #define UTIL_H
 

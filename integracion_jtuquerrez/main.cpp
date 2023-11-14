@@ -26,10 +26,7 @@ using util::imprimir_tabla;
  * @param n cantidad de segmentos
  */
 void caso_trapecio(string title,
-                      string str_fn,
-                      double a,
-                      double b,
-                      int n);
+                      string str_fn);
 
 void caso_1_trapecio();
 
@@ -64,11 +61,16 @@ int main() {
 }
 
 void caso_trapecio(string title,
-                      string str_fn,
-                      double a,
-                      double b,
-                      int n) {
+                      string str_fn) {
+    double a, b, n;
     cout << title << ":" << " por trapecio." << endl;
+
+    cout << "Ingrese el limite inferior: " << endl;
+    cin >> a;
+    cout << "Ingrese el limite superior: " << endl;
+    cin >> b;
+    cout << "Ingrese la cantidad de segmentos: " << endl;
+    cin >> n;
 
     //Instancia de trapecio
     trapecio t(str_fn);
@@ -93,10 +95,7 @@ void caso_trapecio(string title,
 
 void caso_1_trapecio() {
     caso_trapecio("Caso 1. e^(x^2)",
-                  "e^(x^2)",
-                  0.0f,
-                  1.0f,
-                  10);
+                  "e^(x^2)");
 }
 
 void salir(){

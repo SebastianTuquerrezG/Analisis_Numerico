@@ -1,14 +1,18 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include <cmath>
-#include <sstream>
+#include <functional>
 
 #include "Trapecio.h"
 #include "util.h"
 
 using std::cout;
+using std::string;
+using std::vector;
+using std::cin;
 using std::endl;
+
+using FuncPtr = std::function<void()>;
 
 using integracion::trapecio;
 using util::imprimir_tabla;
@@ -29,9 +33,34 @@ void caso_trapecio(string title,
 
 void caso_1_trapecio();
 
+void salir();
+
 int main() {
-    caso_1_trapecio();
-    return 0;
+    map<string, FuncPtr> casos = {
+        {"Caso 1. e^(x^2)", caso_1_trapecio},
+        {"Salir", salir}
+    };
+    cout << "Integracion" << endl;
+    int opcion;
+    do{
+        cout << endl;
+        cout << "Seleccione una opcion: " << endl;
+        int i = 1;
+        for (auto &caso : casos) {
+            cout << i << ". " << caso.first << endl;
+            i++;
+        }
+        cout << "Opcion: ";
+        cin >> opcion;
+        if (opcion < 1 || opcion > casos.size()) {
+            cout << "Opcion invalida" << endl;
+            continue;
+        }
+        auto it = casos.begin();
+        cout << endl;
+        std::advance(it, opcion - 1);
+        it->second();
+    } while (opcion != casos.size());
 }
 
 void caso_trapecio(string title,
@@ -39,7 +68,7 @@ void caso_trapecio(string title,
                       double a,
                       double b,
                       int n) {
-    cout << title << endl;
+    cout << title << ":" << " por trapecio." << endl;
 
     //Instancia de trapecio
     trapecio t(str_fn);
@@ -68,4 +97,9 @@ void caso_1_trapecio() {
                   0.0f,
                   1.0f,
                   10);
+}
+
+void salir(){
+    cout << "Saliendo del programa. Hasta luego." << endl;
+    exit(0);
 }

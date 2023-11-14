@@ -51,7 +51,7 @@ namespace integracion {
              */
              double calcular(double a, double b, int n){
                 if (n == 0) return NAN;
-                if(a >= b) std::swap(a , b);
+                if(a > b) std::swap(a , b);
 
                 vector<double> x;
                 vector<double> y;
@@ -74,7 +74,7 @@ namespace integracion {
 
                 double sum = 0.0f;
 
-                for (size_t i = 0; i < n; i++) {
+                for (size_t i = 1; i < n; i++) {
                     sum += y[i];
                 }
 

@@ -13,8 +13,11 @@
 
 #include <iostream>
 #include <iomanip>
+#include <utility>
 #include <vector>
 #include <iomanip>
+
+#include "Expression.h"
 
 using std::cout;
 using std::endl;
@@ -139,6 +142,37 @@ namespace util{
                 cout << ((j > 0) ? " " : "")  <<  m[i][j] << " ";
             }
             cout << endl;
+        }
+    }
+
+    /**
+     * @brief Construye una tabla de datos espaciados uniformemente
+     * @param x Referencia al vector donde se almacenaran los valores de x
+     * @param y Referencia al vector donde se almacenaran los valores de y
+     * @param a Limite inferior
+     * @param b Limite Superior
+     * @param n Cantidad de Segmentos
+     * @param f_str Texto de la funcion
+     */
+    void crear_tabla(vector<double> &x,
+                     vector<double> &y,
+                     double a,
+                     double b,
+                     int n,
+                     string f_str){
+        Expression f(std::move(f_str));
+
+        x.resize(n + 1);
+        y.resize(n + 1);
+
+        //Calcular el paso
+        double h = (b - a) / (double) n;
+        double xi = a;
+
+        for (int i = 0; i <= n; i++) {
+            x[i] = xi;
+            y[i] = f(xi);
+            xi += h;
         }
     }
 }

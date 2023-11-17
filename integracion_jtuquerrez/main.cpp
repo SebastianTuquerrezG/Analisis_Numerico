@@ -4,6 +4,7 @@
 #include <functional>
 
 #include "Trapecio.h"
+#include "SimpsonTercio.h"
 #include "util.h"
 
 using std::cout;
@@ -15,7 +16,9 @@ using std::endl;
 using FuncPtr = std::function<void()>;
 
 using integracion::trapecio;
+using integracion::simpson13;
 using util::imprimir_tabla;
+using util::crear_tabla;
 
 /**
  * @brief Integracion usando el metodo del trapecio
@@ -30,11 +33,17 @@ void caso_trapecio(string title,
 
 void caso_1_trapecio();
 
+void caso_simpson13(string title,
+                      string str_fn);
+
+void caso_1_simpson13();
+
 void salir();
 
 int main() {
     map<string, FuncPtr> casos = {
-        {"Caso 1. e^(x^2)", caso_1_trapecio},
+        {"Caso 1. e^(x^2) trapecio", caso_1_trapecio},
+        {"Caso 1. e^(x^2) simpson13", caso_1_simpson13},
         {"Salir", salir}
     };
     cout << "Integracion" << endl;
@@ -78,7 +87,7 @@ void caso_trapecio(string title,
     vector<double> x;
     vector<double> y;
 
-    t.crear_tabla(x, y, a, b, n);
+    crear_tabla(x, y, a, b, n, str_fn);
 
     //Imprime la tabla
     imprimir_tabla(x, y, "X", "Y", title);
@@ -95,6 +104,43 @@ void caso_trapecio(string title,
 
 void caso_1_trapecio() {
     caso_trapecio("Caso 1. e^(x^2)",
+                  "e^(x^2)");
+}
+
+void caso_simpson13(string title,
+                      string str_fn) {
+    double a, b, n;
+    cout << title << ":" << " por simpson 1/3." << endl;
+
+    cout << "Ingrese el limite inferior: " << endl;
+    cin >> a;
+    cout << "Ingrese el limite superior: " << endl;
+    cin >> b;
+    cout << "Ingrese la cantidad de segmentos: " << endl;
+    cin >> n;
+
+    simpson13 s13(str_fn);
+
+    vector<double> x;
+    vector<double> y;
+
+    crear_tabla(x, y, a, b, n, str_fn);
+
+    //Imprime la tabla
+    imprimir_tabla(x, y, "X", "Y", title);
+
+    //Calcular el valor de la integral
+    double valor = s13.calcular(a, b, n);
+
+    cout << "Valor de la integral: "
+         << "entre: "
+         << a << " y "
+         << b << " = "
+         << valor << endl;
+}
+
+void caso_1_simpson13(){
+    caso_simpson13("Caso 1. e^(x^2)",
                   "e^(x^2)");
 }
 

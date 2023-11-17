@@ -7,9 +7,12 @@
 #include <cmath>
 
 #include "Expression.h"
+#include "util.h"
 
 using std::string;
 using std::vector;
+
+using util::crear_tabla;
 
 namespace integracion {
     /**
@@ -19,28 +22,9 @@ namespace integracion {
         public:
             /**
              * @brief Constructor de la clase
-             * @param str_fn Funcion a integrar
+             * @param p_fn Funcion a integrar
              */
-            explicit trapecio(string str_fn):f(str_fn){    }
-
-            void crear_tabla(vector<double> &x,
-                             vector<double> &y,
-                             double a,
-                             double b,
-                             int n){
-                x.resize(n + 1);
-                y.resize(n + 1);
-
-                //Calcular el paso
-                double h = (b - a) / (double) n;
-                double xi = a;
-
-                for (int i = 0; i <= n; i++) {
-                    x[i] = xi;
-                    y[i] = f(xi);
-                    xi += h;
-                }
-            }
+            explicit trapecio(string p_fn):str_fn(p_fn){    }
 
             /**
              * @brief Calcula la integral
@@ -56,7 +40,7 @@ namespace integracion {
                 vector<double> x;
                 vector<double> y;
 
-                crear_tabla(x, y, a, b, n);
+                crear_tabla(x, y, a, b, n, str_fn);
 
                 return calcular(x, y);
             }
@@ -75,15 +59,15 @@ namespace integracion {
                 double sum = 0.0f;
 
                 for (size_t i = 1; i < n; i++) {
-                    sum += y[i];
+                    sum += fabs(y[i]);
                 }
 
-                double coef = y[0] + (2.0f*sum) + y[n];
+                double coef = fabs(y[0]) + (2.0f*sum) + fabs(y[n]);
 
                 return (x[n] - x[0]) * (coef / (2.0f*n));
             }
     private:
-        Expression f; /*< Evaluador de la funcion */
+        string str_fn; /*< Evaluador de la funcion */
     };
 }
 

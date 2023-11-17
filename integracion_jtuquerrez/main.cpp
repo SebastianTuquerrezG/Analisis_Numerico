@@ -5,6 +5,7 @@
 
 #include "Trapecio.h"
 #include "SimpsonTercio.h"
+#include "Simpson38.h"
 #include "util.h"
 
 using std::cout;
@@ -17,6 +18,7 @@ using FuncPtr = std::function<void()>;
 
 using integracion::trapecio;
 using integracion::simpson13;
+using integracion::simpson38;
 using util::imprimir_tabla;
 using util::crear_tabla;
 
@@ -38,12 +40,18 @@ void caso_simpson13(string title,
 
 void caso_1_simpson13();
 
+void caso_simpson38(string title,
+                      string str_fn);
+
+void caso_1_simpson38();
+
 void salir();
 
 int main() {
     map<string, FuncPtr> casos = {
         {"Caso 1. e^(x^2) trapecio", caso_1_trapecio},
         {"Caso 1. e^(x^2) simpson13", caso_1_simpson13},
+        {"Caso 1. e^(x^2) simpson38", caso_1_simpson38},
         {"Salir", salir}
     };
     cout << "Integracion" << endl;
@@ -141,6 +149,43 @@ void caso_simpson13(string title,
 
 void caso_1_simpson13(){
     caso_simpson13("Caso 1. e^(x^2)",
+                  "e^(x^2)");
+}
+
+void caso_simpson38(string title,
+                      string str_fn) {
+    double a, b, n;
+    cout << title << ":" << " por simpson 3/8." << endl;
+
+    cout << "Ingrese el limite inferior: " << endl;
+    cin >> a;
+    cout << "Ingrese el limite superior: " << endl;
+    cin >> b;
+    cout << "Ingrese la cantidad de segmentos: " << endl;
+    cin >> n;
+
+    simpson38 s38(str_fn);
+
+    vector<double> x;
+    vector<double> y;
+
+    crear_tabla(x, y, a, b, n, str_fn);
+
+    //Imprime la tabla
+    imprimir_tabla(x, y, "X", "Y", title);
+
+    //Calcular el valor de la integral
+    double valor = s38.calcular(a, b, n);
+
+    cout << "Valor de la integral: "
+         << "entre: "
+         << a << " y "
+         << b << " = "
+         << valor << endl;
+}
+
+void caso_1_simpson38(){
+    caso_simpson38("Caso 1. e^(x^2)",
                   "e^(x^2)");
 }
 

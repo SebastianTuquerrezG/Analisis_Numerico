@@ -8,4 +8,5 @@ add_executable(integracion_jtuquerrez main.cpp
         Trapecio.h
         util.h
         SimpsonTercio.h
-        Simpson38.h)
+        Simpson38.h
+        Simpson.h)

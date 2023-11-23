@@ -68,6 +68,10 @@ namespace integracion {
             }
     private:
         string str_fn; /*< Evaluador de la funcion */
+
+        double errorNoPolinomico(){
+
+        }
     };
 }
 

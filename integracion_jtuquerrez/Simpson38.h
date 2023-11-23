@@ -74,6 +74,10 @@ namespace integracion{
         }
     private:
         string str_fn;
+
+        double errorNoPolinomico(){
+
+        }
     };
 }
 

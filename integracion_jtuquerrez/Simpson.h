@@ -38,9 +38,9 @@ namespace integracion{
                             vector<double> &y) {
                 size_t n = x.size() - 1;
                 if(n % 2 == 0){
-                    return simpson38::calcular(x, y);
-                } else if (n % 3 == 0 && n % 2 != 0){
                     return simpson13::calcular(x, y);
+                } else if (n % 3 == 0 && n % 2 != 0){
+                    return simpson38::calcular(x, y);
                 }
 
                 // Calcular el índice de división

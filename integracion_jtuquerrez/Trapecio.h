@@ -24,7 +24,7 @@ namespace integracion {
              * @brief Constructor de la clase
              * @param p_fn Funcion a integrar
              */
-            explicit trapecio(string p_fn):str_fn(p_fn){    }
+            explicit trapecio(string p_fn, string p_dfn):str_fn(p_fn), str_dfn(p_dfn){    }
 
             /**
              * @brief Calcula la integral
@@ -64,13 +64,37 @@ namespace integracion {
 
                 double coef = fabs(y[0]) + (2.0f*sum) + fabs(y[n]);
 
-                return (x[n] - x[0]) * (coef / (2.0f*n));
+                double k = 0.0f;
+                double error = errorNoPolinomico(x[0], x[n], n, str_dfn);
+                double errorAux = error;
+                for(int i = 0; errorAux > 1.0f; i++){
+                    errorAux *= 10.0f;
+                    k = i;
+                }
+
+                if (error < 5* pow(10, -(k+1))){
+                    cout << "Error: " << error
+                         << " con sifras significativas k = " << k << endl;
+                } else {
+                    cout << "Supera al Error: " << error
+                         << " con sifras significativas k = " << k << endl;
+                }
+
+                return (x[n] - x[0]) * (coef / (2.0f*n)) + error;
             }
     private:
         string str_fn; /*< Evaluador de la funcion */
+        string str_dfn; /*< Evaluador de la derivada de la funcion */
 
-        double errorNoPolinomico(){
+        double errorNoPolinomico(double a, double b, size_t n, const string& derivada){
+            if (n == 0) return NAN;
+            if(a > b) std::swap(a , b);
 
+            double max = util::calcularMaximo(derivada, a, b);
+
+            double error = -1*(pow((b - a), 3) / (12.0f * n * n)) * max;
+
+            return fabs(error);
         }
     };
 }

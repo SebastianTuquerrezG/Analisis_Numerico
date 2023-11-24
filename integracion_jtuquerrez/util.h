@@ -175,6 +175,22 @@ namespace util{
             xi += h;
         }
     }
+
+    double calcularMaximo(string derivada, double a, double b){
+        Expression f(std::move(derivada));
+
+        double max = f(a);
+        double xi = a;
+        double h =  (b - a) / 100.0;
+
+        for (int i = 0; i <= b; i++) {
+            double y = f(xi);
+            if(y > max) max = y;
+            xi += h;
+        }
+
+        return fabs(max);
+    }
 }
 
 #endif

@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <utility>
 #include <vector>
 
 #include "Trapecio.h"
@@ -32,9 +33,12 @@ using util::crear_tabla;
  * @param n cantidad de segmentos
  */
 void caso_trapecio(string title,
-                      string str_fn);
+                      string str_fn,
+                      string str_dfn);
 
 void caso_1_trapecio();
+
+void caso_2_trapecio();
 
 void caso_simpson13(string title,
                       string str_fn);
@@ -56,6 +60,7 @@ void salir();
 int main() {
     map<string, FuncPtr> casos = {
         {"Caso 1. e^(x^2) trapecio", caso_1_trapecio},
+        {"Caso 2. sen(x)^2 trapecio", caso_2_trapecio},
         {"Caso 1. e^(x^2) simpson13", caso_1_simpson13},
         {"Caso 1. e^(x^2) simpson38", caso_1_simpson38},
         {"Caso 1. e^(x^2) simpson", caso_1_simpson},
@@ -85,7 +90,8 @@ int main() {
 }
 
 void caso_trapecio(string title,
-                      string str_fn) {
+                      string str_fn,
+                      string str_dfn) {
     double a, b, n;
     cout << title << ":" << " por trapecio." << endl;
 
@@ -97,7 +103,7 @@ void caso_trapecio(string title,
     cin >> n;
 
     //Instancia de trapecio
-    trapecio t(str_fn);
+    trapecio t(str_fn, std::move(str_dfn));
 
     vector<double> x;
     vector<double> y;
@@ -119,7 +125,14 @@ void caso_trapecio(string title,
 
 void caso_1_trapecio() {
     caso_trapecio("Caso 1. e^(x^2)",
-                  "e^(x^2)");
+                  "e^(x^2)", //2*e^(x^2)*x
+                  "4*(e^(x^2))*(x^2) + 2*(e^(x^2))");
+}
+
+void caso_2_trapecio() {
+    caso_trapecio("Caso 2. sin(x)^2",
+                  "sin(x)^2", //2*cos(x)*sen(x)
+                  "2*cos(2*x)");
 }
 
 void caso_simpson13(string title,

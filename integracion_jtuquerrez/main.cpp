@@ -49,9 +49,12 @@ void caso_1_simpson13();
 void caso_2_simpson13();
 
 void caso_simpson38(string title,
-                      string str_fn);
+                      string str_fn,
+                      string str_dfn);
 
 void caso_1_simpson38();
+
+void caso_2_simpson38();
 
 void caso_simpson(string title,
                     vector<double> &x,
@@ -68,6 +71,7 @@ int main() {
         {"Caso 1. e^(x^2) simpson13", caso_1_simpson13},
         {"Caso 2. sen(x)^2 simpson13", caso_2_simpson13},
         {"Caso 1. e^(x^2) simpson38", caso_1_simpson38},
+        {"Caso 2. sen(x)^2 simpson38", caso_2_simpson38},
         {"Caso 1. e^(x^2) simpson", caso_1_simpson},
         {"Salir", salir}
     };
@@ -186,7 +190,8 @@ void caso_2_simpson13(){
 }
 
 void caso_simpson38(string title,
-                      string str_fn) {
+                      string str_fn,
+                      string str_dfn) {
     double a, b, n;
     cout << title << ":" << " por simpson 3/8." << endl;
 
@@ -197,7 +202,7 @@ void caso_simpson38(string title,
     cout << "Ingrese la cantidad de segmentos: " << endl;
     cin >> n;
 
-    simpson38 s38(str_fn);
+    simpson38 s38(str_fn, std::move(str_dfn));
 
     vector<double> x;
     vector<double> y;
@@ -219,7 +224,14 @@ void caso_simpson38(string title,
 
 void caso_1_simpson38(){
     caso_simpson38("Caso 1. e^(x^2)",
-                  "e^(x^2)");
+                  "e^(x^2)",
+                   "16*(e^(x^2))*(x^4) + 48*(e^(x^2))*(x^2) + 12*(e^(x^2))");
+}
+
+void caso_2_simpson38(){
+    caso_simpson38("Caso 2. sin(x)^2",
+                  "sin(x)^2",
+                  "-8*cos(2*x)");
 }
 
 void caso_simpson(string title,

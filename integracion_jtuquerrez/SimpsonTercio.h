@@ -38,7 +38,7 @@ namespace integracion{
             return calcular(x, y, str_dfn);
         }
 
-        static double calcular(vector<double> &x,
+        double calcular(vector<double> &x,
                         vector<double> &y,
                         const string& str_dfn){
             size_t n = x.size() - 1;

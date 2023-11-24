@@ -76,6 +76,12 @@ namespace integracion{
                      << " con sifras significativas k = " << k - 1 << endl;
             }
 
+            int segmentosIdeales = calcularSegmentosIdeales(x[0], x[n], str_dfn);
+            while (segmentosIdeales % 2 != 0){
+                segmentosIdeales++;
+            }
+            cout << "Segmentos Ideales: " << segmentosIdeales << endl;
+
             return resultado + error;
         }
 
@@ -106,7 +112,7 @@ namespace integracion{
         string str_fn;
         string str_dfn;
 
-        static double errorNoPolinomico(double a, double b, size_t n, string str_dfn){
+        double errorNoPolinomico(double a, double b, size_t n, string str_dfn){
             if (n == 0) return NAN;
             if(a > b) std::swap(a , b);
 
@@ -115,6 +121,14 @@ namespace integracion{
             double error = -1*(pow((b-a)/n,5) / 90.0f) * max;
 
             return fabs(error);
+        }
+
+        int calcularSegmentosIdeales(double a, double b, string str_dfn){
+            double E = 1 * pow(10, -7);
+            double max = util::calcularMaximo(str_dfn, a, b);
+            double h = pow(b-a,5);
+            double resultado = pow((h/(90*E))*max, 0.2);
+            return (int) ceil(resultado);
         }
     };
 }

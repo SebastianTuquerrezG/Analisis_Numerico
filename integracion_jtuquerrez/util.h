@@ -3,7 +3,7 @@
  * @author Sebastian Tuquerrez (jtuquerrez@unicauca.edu.co) - Cristian David Quinayas Rivera (crquinayas@unicauca.edu.co)
  * @brief Funciones de utilidad para el proyecto
  * @version 1.0.0
- * @date 2023-11-03
+ * @date 2023-11-24
  *
  * @copyright Copyright (c) 2023
  */
@@ -27,7 +27,6 @@ using std::setprecision;
 using std::string;
 
 namespace util{
-
     /**
      * @brief Repite una cadena de caracteres
      * @param s Cadena a repetir
@@ -176,6 +175,13 @@ namespace util{
         }
     }
 
+    /**
+     * @brief Calcula el maximo de una derivada n
+     * @param derivada derivada n de la funcion
+     * @param a limite inferior
+     * @param b limite superior
+     * @return el punto maximo en el intervalo de la derivada
+     */
     double calcularMaximo(string derivada, double a, double b){
         Expression f(std::move(derivada));
 
@@ -192,6 +198,12 @@ namespace util{
         return fabs(max);
     }
 
+    /**
+     * @brief Calcula un punto en la derivada n
+     * @param derivada derivada n de la funcion
+     * @param punto punto a evaluar
+     * @return valor del punto en la derivada n
+     */
     double calcularPunto(string derivada, double punto){
         Expression f(std::move(derivada));
 

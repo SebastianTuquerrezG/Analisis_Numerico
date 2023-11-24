@@ -1,3 +1,12 @@
+/**
+ * @file main.cpp
+ * @author Sebastian Tuquerrez (jtuquerrez@unicauca.edu.co) - Cristian David Quinayas Rivera (crquinayas@unicauca.edu.co)
+ * @brief Programa principal para la integracion de funciones o tablas de datos, mediante trapecio, simpson 1/3, simpson 3/8 y Romberg
+ * @version 1.0.0
+ * @date 2023-11-24
+ *
+ * @copyright Copyright (c) 2023
+ */
 #include <iostream>
 #include <string>
 #include <utility>
@@ -28,42 +37,85 @@ using util::crear_tabla;
  * @brief Integracion usando el metodo del trapecio
  * @param title Titulo del caso
  * @param str_fn Funcion a integrar
- * @param a limite inferior
- * @param b limite superior
- * @param n cantidad de segmentos
+ * @param str_dfn Segunda derivada
  */
 void caso_trapecio(string title,
                       string str_fn,
                       string str_dfn);
 
+/**
+ * @brief Integracion de e^(x^2) por trapecio
+ */
 void caso_1_trapecio();
 
+/**
+ * @brief Integracion de sen(x)^2 por trapecio
+ */
 void caso_2_trapecio();
 
+/**
+ * @brief Integracion usando el metodo de simpson 1/3
+ * @param title Contexto del problema
+ * @param str_fn Funcion a integrar
+ * @param str_dfn Cuarta deriva
+ */
 void caso_simpson13(string title,
                       string str_fn,
                       string str_dfn);
 
+/**
+ * @brief Integracion de e^(x^2) por simpson 1/3
+ */
 void caso_1_simpson13();
 
+/**
+ * @brief Integracion de sen(x)^2 por simpson 1/3
+ */
 void caso_2_simpson13();
 
+/**
+ * @brief Integracion de 10+2*x-6*x^2+5*x^4 por simpson 1/3
+ */
 void caso_3_simpson13();
 
+/**
+ * @brief Integracion usando el metodo de simpson 3/8
+ * @param title Contexto del caso
+ * @param str_fn Funcion
+ * @param str_dfn Cuarta derivada
+ */
 void caso_simpson38(string title,
                       string str_fn,
                       string str_dfn);
 
+/**
+ * @brief Integracion de e^(x^2) por simpson 3/8
+ */
 void caso_1_simpson38();
 
+/**
+ * @brief Integracion de sen(x)^2 por simpson 3/8
+ */
 void caso_2_simpson38();
 
+/**
+ * @brief Integracion de tablas de datos combinando metodos
+ * @param title Contexto del caso
+ * @param x vector de valores de la variable independiente
+ * @param y vector de valores de la variable dependiente
+ */
 void caso_simpson(string title,
                     vector<double> &x,
                     vector<double> &y);
 
+/**
+ * @brief Integracion de tablas de datos caso 1
+ */
 void caso_1_simpson();
 
+/**
+ * @brief Salir del programa
+ */
 void salir();
 
 int main() {

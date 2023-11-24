@@ -1,3 +1,12 @@
+/**
+ * @file SimpsonTercio.h
+ * @author Sebastian Tuquerrez (jtuquerrez@unicauca.edu.co) - Cristian David Quinayas Rivera (crquinayas@unicauca.edu.co)
+ * @brief Libreria para la integracion de funciones  simpson 1/3
+ * @version 1.0.0
+ * @date 2023-11-24
+ *
+ * @copyright Copyright (c) 2023
+ */
 #ifndef SIMSONTERCIO_H
 #define SIMSONTERCIO_H
 
@@ -26,6 +35,13 @@ namespace integracion{
          */
         explicit simpson13(string p_fn, string p_dfn, int opcion):str_fn(p_fn), str_dfn(p_dfn), opcion(opcion){}
 
+        /**
+         * @brief Calcula la integral de la funcion
+         * @param a limite inferior
+         * @param b limite superior
+         * @param n cantidad de segmentos
+         * @return el valor de la integral
+         */
         double calcular(double a, double b, int n){
             if (n == 0 || n % 2 != 0) return NAN;
             if(a > b) std::swap(a , b);
@@ -38,6 +54,14 @@ namespace integracion{
             return calcularConError(x, y, str_dfn, opcion);
         }
 
+        /**
+         * @brief Calcula la integral de la funcion con error
+         * @param x vector de datos independientes x
+         * @param y vector de datos dependientes y
+         * @param str_dfn texto de la cuarta derivada de la funcion
+         * @param opcion tipo de funcion polinomico o no
+         * @return el valor de la integral ajustada
+         */
         double calcularConError(vector<double> &x,
                         vector<double> &y,
                         const string& str_dfn,
@@ -98,6 +122,12 @@ namespace integracion{
             return resultado + error;
         }
 
+        /**
+         * @brief Calcula el area de una tabla de datos dada
+         * @param x vector de valores independites x
+         * @param y vector de valores dependientes y
+         * @return el area con los datos de la tabla
+         */
         static double calcular(vector<double> &x,
                         vector<double> &y){
             size_t n = x.size() - 1;
@@ -122,10 +152,18 @@ namespace integracion{
             return resultado;
         }
     private:
-        string str_fn;
-        string str_dfn;
-        int opcion;
+        string str_fn; /*< Texto de la funcion */
+        string str_dfn; /*< Texto de la cuarta derivada de la funcion */
+        int opcion; /*< tipo de funcion polinomico o no */
 
+        /**
+         * @brief Calcula el error en una funcion no polinomica
+         * @param a limite inferior
+         * @param b limite superior
+         * @param n cantidad de segmentos
+         * @param str_dfn cuarta derivada de la funcion
+         * @return error no polinomico de la funcion
+         */
         double errorNoPolinomico(double a, double b, size_t n, string str_dfn){
             if (n == 0) return NAN;
             if(a > b) std::swap(a , b);
@@ -137,6 +175,14 @@ namespace integracion{
             return error;
         }
 
+        /**
+         * @brief Calcula el error de la integral en una funcion polinomica
+         * @param a limite inferior
+         * @param b limite superior
+         * @param n cantidad de segmentos
+         * @param str_dfn cuarta derivada de la funcion
+         * @return error de la integral de la funcion polinomica
+         */
         double errorPolinomico(double a, double b, size_t n, string str_dfn) {
             if (n == 0) return NAN;
             if (a > b) std::swap(a, b);
@@ -149,6 +195,13 @@ namespace integracion{
             return error;
         }
 
+        /**
+         * @brief Calcula el numero de segmentos ideales para obtener un error menor a 1 * 10^-7
+         * @param a limite inferior
+         * @param b limite superior
+         * @param str_dfn cuarta derivada de la funcion
+         * @return
+         */
         int calcularSegmentosIdeales(double a, double b, string str_dfn){
             double E = 1 * pow(10, -7);
             double max = util::calcularMaximo(str_dfn, a, b);

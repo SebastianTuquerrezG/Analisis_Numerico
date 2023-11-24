@@ -1,3 +1,12 @@
+/**
+ * @file Trapecio.
+ * @author Sebastian Tuquerrez (jtuquerrez@unicauca.edu.co) - Cristian David Quinayas Rivera (crquinayas@unicauca.edu.co)
+ * @brief Libreria para la integracion de funciones  mediante trapecio
+ * @version 1.0.0
+ * @date 2023-11-24
+ *
+ * @copyright Copyright (c) 2023
+ */
 #ifndef TRAPECIO_H
 #define TRAPECIO_H
 
@@ -23,6 +32,7 @@ namespace integracion {
             /**
              * @brief Constructor de la clase
              * @param p_fn Funcion a integrar
+             * @param p_dfn Segunda Derivada de la funcion
              */
             explicit trapecio(string p_fn, string p_dfn):str_fn(p_fn), str_dfn(p_dfn){    }
 
@@ -46,7 +56,7 @@ namespace integracion {
             }
 
             /**
-             * @brief Calcula la integral de una tabla de datos
+             * @brief Calcula la integral de una tabla de datos con error
              * @param x valores de la variable independiente
              * @param y valores de la variable dependiente
              * @return valor aproximado de la integral
@@ -73,19 +83,31 @@ namespace integracion {
                 }
 
                 if (error < 5* pow(10, -(k+1))){
-                    cout << "Error: " << error
-                         << " con sifras significativas k = " << k - 1<< endl;
+                    if(k == 0)
+                        cout << "Error: " << error << " con cifras significativas k = " << k << endl;
+                    else
+                        cout << "Error: " << error << " con cifras significativas k = " << k - 1 << endl;
                 } else {
-                    cout << "Supera al Error: " << error
-                         << " con sifras significativas k = " << k - 1<< endl;
+                    if (k == 0)
+                        cout << "Supera al Error: " << error << " con sifras significativas k = " << k << endl;
+                    else
+                        cout << "Supera al Error: " << error << " con sifras significativas k = " << k - 1 << endl;
                 }
 
                 return (x[n] - x[0]) * (coef / (2.0f*n)) + error;
             }
     private:
-        string str_fn; /*< Evaluador de la funcion */
-        string str_dfn; /*< Evaluador de la derivada de la funcion */
+        string str_fn; /*< Texto de la funcion */
+        string str_dfn; /*< Texto de la segunda derivada de la funcion */
 
+        /**
+         * @brief Calcula el error no polinomico de trapecio
+         * @param a limite inferior
+         * @param b limite superior
+         * @param n cantidad de segmentos
+         * @param derivada segunda derivada
+         * @return error no polinomico de la integracion a resolver
+         */
         double errorNoPolinomico(double a, double b, size_t n, const string& derivada){
             if (n == 0) return NAN;
             if(a > b) std::swap(a , b);

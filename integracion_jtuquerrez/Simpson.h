@@ -1,3 +1,12 @@
+/**
+ * @file Simpson.h
+ * @author Sebastian Tuquerrez (jtuquerrez@unicauca.edu.co) - Cristian David Quinayas Rivera (crquinayas@unicauca.edu.co)
+ * @brief Libreria para la integracion de tablas de datos median simpson 1/3 y simpson 3/8
+ * @version 1.0.0
+ * @date 2023-11-24
+ *
+ * @copyright Copyright (c) 2023
+ */
 #ifndef SIMPSON_H
 #define SIMPSON_H
 
@@ -32,7 +41,10 @@ namespace integracion{
             explicit simpson()= default;
 
             /**
-             *  @brief Calcula la integral
+             *  @brief Calcula la integral combinando metodos
+             *  @param x Valores independientes x
+             *  @param y Valores dependientes y
+             *  @return Valor de la integral
              */
             double calcular(vector<double> &x,
                             vector<double> &y) {
@@ -65,9 +77,14 @@ namespace integracion{
 
 
     private:
-            size_t calcularIndiceDivision(const vector<double>& x) {
-                return x.size() / 2;
-            }
+        /**
+         * @brief Calcula el índice de división la mitad de la tabla
+         * @param x vector de datos
+         * @return Indice de división
+         */
+        size_t calcularIndiceDivision(const vector<double>& x) {
+            return x.size() / 2;
+        }
     };
 }
 

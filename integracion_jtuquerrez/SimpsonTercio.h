@@ -24,7 +24,7 @@ namespace integracion{
          * @brief Constructor de la clase
          * @param p_fn Funcion a integrar
          */
-        explicit simpson13(string p_fn):str_fn(p_fn){}
+        explicit simpson13(string p_fn, string p_dfn):str_fn(p_fn), str_dfn(p_dfn){}
 
         double calcular(double a, double b, int n){
             if (n == 0 || n % 2 != 0) return NAN;
@@ -35,7 +35,48 @@ namespace integracion{
 
             crear_tabla(x, y, a, b, n, str_fn);
 
-            return calcular(x, y);
+            return calcular(x, y, str_dfn);
+        }
+
+        static double calcular(vector<double> &x,
+                        vector<double> &y,
+                        const string& str_dfn){
+            size_t n = x.size() - 1;
+            if(n <= 0 || n % 2 != 0) return NAN;
+
+            double
+            sum_pares = 0.0f,
+            sum_impares = 0.0f,
+            h = (x[n] - x[0]) / n,
+            resultado;
+
+            for(size_t i = 1; i < n; i++){
+                if(i % 2 == 0){
+                    sum_pares += fabs(y[i]);
+                } else {
+                    sum_impares += fabs(y[i]);
+                }
+            }
+
+            resultado = (h / 3.0f) * (fabs(y[0]) + 4.0f * sum_impares + 2.0f * sum_pares + fabs(y[n]));
+
+            double k = 0.0f;
+            double error = errorNoPolinomico(x[0], x[n], n, str_dfn);
+            double errorAux = error;
+            while (errorAux < 1.0f) {
+                errorAux *= 10.0f;
+                k++;
+            }
+
+            if (error < 5* pow(10, -(k+1))){
+                cout << "Error: " << error
+                     << " con sifras significativas k = " << k - 1 << endl;
+            } else {
+                cout << "Supera al Error: " << error
+                     << " con sifras significativas k = " << k - 1 << endl;
+            }
+
+            return resultado + error;
         }
 
         static double calcular(vector<double> &x,
@@ -44,10 +85,10 @@ namespace integracion{
             if(n <= 0 || n % 2 != 0) return NAN;
 
             double
-            sum_pares = 0.0f,
-            sum_impares = 0.0f,
-            h = (x[n] - x[0]) / n,
-            resultado = 0.0f;
+                    sum_pares = 0.0f,
+                    sum_impares = 0.0f,
+                    h = (x[n] - x[0]) / n,
+                    resultado;
 
             for(size_t i = 1; i < n; i++){
                 if(i % 2 == 0){
@@ -63,9 +104,17 @@ namespace integracion{
         }
     private:
         string str_fn;
+        string str_dfn;
 
-        double errorNoPolinomico(){
+        static double errorNoPolinomico(double a, double b, size_t n, string str_dfn){
+            if (n == 0) return NAN;
+            if(a > b) std::swap(a , b);
 
+            double max = util::calcularMaximo(str_dfn, a, b);
+
+            double error = -1*(pow((b-a)/n,5) / 90.0f) * max;
+
+            return fabs(error);
         }
     };
 }

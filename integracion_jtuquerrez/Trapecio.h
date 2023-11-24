@@ -67,17 +67,17 @@ namespace integracion {
                 double k = 0.0f;
                 double error = errorNoPolinomico(x[0], x[n], n, str_dfn);
                 double errorAux = error;
-                for(int i = 0; errorAux > 1.0f; i++){
+                while (errorAux < 1.0f) {
                     errorAux *= 10.0f;
-                    k = i;
+                    k++;
                 }
 
                 if (error < 5* pow(10, -(k+1))){
                     cout << "Error: " << error
-                         << " con sifras significativas k = " << k << endl;
+                         << " con sifras significativas k = " << k - 1<< endl;
                 } else {
                     cout << "Supera al Error: " << error
-                         << " con sifras significativas k = " << k << endl;
+                         << " con sifras significativas k = " << k - 1<< endl;
                 }
 
                 return (x[n] - x[0]) * (coef / (2.0f*n)) + error;

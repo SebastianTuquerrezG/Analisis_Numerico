@@ -20,6 +20,9 @@
 
 using std::string;
 using std::vector;
+using std::cout;
+using std::cin;
+using std::endl;
 
 using util::crear_tabla;
 
@@ -34,7 +37,9 @@ namespace integracion {
              * @param p_fn Funcion a integrar
              * @param p_dfn Segunda Derivada de la funcion
              */
-            explicit trapecio(string p_fn, string p_dfn):str_fn(p_fn), str_dfn(p_dfn){    }
+            explicit trapecio(string p_fn, string p_dfn, int opcion):str_fn(p_fn), str_dfn(p_dfn), opcion(opcion){    }
+
+            explicit trapecio(string p_fn, int opcion):str_fn(p_fn), opcion(opcion){    }
 
             /**
              * @brief Calcula la integral
@@ -52,7 +57,10 @@ namespace integracion {
 
                 crear_tabla(x, y, a, b, n, str_fn);
 
-                return calcular(x, y);
+                if(opcion == 1)
+                    return calcularConError(x, y);
+                else
+                    return calcular(x, y);
             }
 
             /**
@@ -61,7 +69,7 @@ namespace integracion {
              * @param y valores de la variable dependiente
              * @return valor aproximado de la integral
              */
-            double calcular(vector<double> &x,
+            double calcularConError(vector<double> &x,
                            vector<double> &y){
                 size_t n = x.size() - 1;
                 if(n <= 0) return NAN;
@@ -77,7 +85,7 @@ namespace integracion {
                 double k = 0.0f;
                 double error = errorNoPolinomico(x[0], x[n], n, str_dfn);
                 double errorAux = error;
-                while (errorAux < 1.0f) {
+                while (fabs(errorAux) < 1.0f) {
                     errorAux *= 10.0f;
                     k++;
                 }
@@ -96,9 +104,26 @@ namespace integracion {
 
                 return (x[n] - x[0]) * (coef / (2.0f*n)) + error;
             }
+
+            double calcular(vector <double> &x,
+                           vector <double> &y){
+                size_t n = x.size() - 1;
+                if(n <= 0) return NAN;
+
+                double sum = 0.0f;
+
+                for (size_t i = 1; i < n; i++) {
+                    sum += fabs(y[i]);
+                }
+
+                double coef = fabs(y[0]) + (2.0f*sum) + fabs(y[n]);
+
+                return (x[n] - x[0]) * (coef / (2.0f*n));
+            }
     private:
         string str_fn; /*< Texto de la funcion */
         string str_dfn; /*< Texto de la segunda derivada de la funcion */
+        int opcion;
 
         /**
          * @brief Calcula el error no polinomico de trapecio
@@ -113,8 +138,8 @@ namespace integracion {
             if(a > b) std::swap(a , b);
 
             double max = util::calcularMaximo(derivada, a, b);
-
-            double error = -1*(pow((b - a), 3) / (12.0f * n * n)) * max;
+            double h = (b - a) / n;
+            double error = -1.0f*(pow(h, 3.0f) / (12.0f)) * max;
 
             return error;
         }

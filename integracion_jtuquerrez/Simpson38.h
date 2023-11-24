@@ -97,7 +97,7 @@ namespace integracion{
             double k = 0.0f;
             double error = errorNoPolinomico(x[0], x[n], n, str_dfn);
             double errorAux = error;
-            while (errorAux < 1.0f) {
+            while (fabs(errorAux) < 1.0f) {
                 errorAux *= 10.0f;
                 k++;
             }

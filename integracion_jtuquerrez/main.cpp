@@ -7,6 +7,7 @@
  *
  * @copyright Copyright (c) 2023
  */
+#define _USE_MATH_DEFINES
 #include <iostream>
 #include <string>
 #include <utility>
@@ -16,6 +17,7 @@
 #include "SimpsonTercio.h"
 #include "Simpson38.h"
 #include "Simpson.h"
+#include "Romberg.h"
 #include "util.h"
 
 using std::cout;
@@ -30,6 +32,7 @@ using integracion::trapecio;
 using integracion::simpson13;
 using integracion::simpson38;
 using integracion::simpson;
+using integracion::Romberg;
 using util::imprimir_tabla;
 using util::crear_tabla;
 
@@ -113,6 +116,12 @@ void caso_simpson(string title,
  */
 void caso_1_simpson();
 
+void caso_romberg(string title,
+                  string str_fn,
+                  string str_dfn);
+
+void caso_1_romberg();
+
 /**
  * @brief Salir del programa
  */
@@ -128,6 +137,7 @@ int main() {
         {"Caso 1. e^(x^2) simpson38", caso_1_simpson38},
         {"Caso 2. sen(x)^2 simpson38", caso_2_simpson38},
         {"Caso 1. e^(x^2) simpson", caso_1_simpson},
+        {"Caso 1. sen(x)^2 romberg", caso_1_romberg},
         {"Salir", salir}
     };
     cout << "Integracion" << endl;
@@ -167,7 +177,7 @@ void caso_trapecio(string title,
     cin >> n;
 
     //Instancia de trapecio
-    trapecio t(str_fn, std::move(str_dfn));
+    trapecio t(str_fn, std::move(str_dfn), 1);
 
     vector<double> x;
     vector<double> y;
@@ -325,4 +335,36 @@ void caso_1_simpson(){
 void salir(){
     cout << "Saliendo del programa. Hasta luego." << endl;
     exit(0);
+}
+
+void caso_romberg(string title,
+                   string str_fn,
+                   string str_dfn) {
+
+    double a, b, k;
+    cout << title << ":" << " por trapecio." << endl;
+
+    cout << "Ingrese el limite inferior: " << endl;
+    cin >> a;
+    cout << "Ingrese el limite superior: " << endl;
+    cin >> b;
+    cout << "Ingrese la cantidad de aproximaciones: " << endl;
+    cin >> k;
+
+    //Instancia de trapecio
+    Romberg r(str_fn, std::move(str_dfn));
+
+    double valor = r.calcular(a, b, k);
+
+    cout << "Valor de la integral: "
+         << "entre: "
+         << a << " y "
+         << b << " = "
+         << valor << endl;
+}
+
+void caso_1_romberg(){
+    caso_romberg("Caso 1. sen(x)^2",
+                 "(sin(x))^2",
+                 "2*cos(2*x)");
 }

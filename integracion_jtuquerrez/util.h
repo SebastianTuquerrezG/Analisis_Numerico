@@ -191,6 +191,14 @@ namespace util{
 
         return fabs(max);
     }
+
+    double calcularPunto(string derivada, double punto){
+        Expression f(std::move(derivada));
+
+        double max = f(punto);
+
+        return max;
+    }
 }
 
 #endif

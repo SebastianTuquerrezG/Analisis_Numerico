@@ -141,7 +141,7 @@ namespace integracion{
 
             double error = -1*((3*pow((b-a)/n,5)) / 80.0f) * max;
 
-            return fabs(error);
+            return error;
         }
 
         int calcularSegmentosIdeales(double a, double b, string str_dfn){

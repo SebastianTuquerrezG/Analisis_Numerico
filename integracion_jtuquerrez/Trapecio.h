@@ -94,7 +94,7 @@ namespace integracion {
 
             double error = -1*(pow((b - a), 3) / (12.0f * n * n)) * max;
 
-            return fabs(error);
+            return error;
         }
     };
 }

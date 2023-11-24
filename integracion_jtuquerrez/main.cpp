@@ -48,6 +48,8 @@ void caso_1_simpson13();
 
 void caso_2_simpson13();
 
+void caso_3_simpson13();
+
 void caso_simpson38(string title,
                       string str_fn,
                       string str_dfn);
@@ -70,6 +72,7 @@ int main() {
         {"Caso 2. sen(x)^2 trapecio", caso_2_trapecio},
         {"Caso 1. e^(x^2) simpson13", caso_1_simpson13},
         {"Caso 2. sen(x)^2 simpson13", caso_2_simpson13},
+        {"Caso 3. 10+2*x-6*x^2+5*x^4 simpson13", caso_3_simpson13},
         {"Caso 1. e^(x^2) simpson38", caso_1_simpson38},
         {"Caso 2. sen(x)^2 simpson38", caso_2_simpson38},
         {"Caso 1. e^(x^2) simpson", caso_1_simpson},
@@ -148,8 +151,11 @@ void caso_simpson13(string title,
                       string str_fn,
                       string str_dfn) {
     double a, b, n;
+    int opcion;
     cout << title << ":" << " por simpson 1/3." << endl;
 
+    cout << "Es polinomica si(1), o no(2)?" << endl;
+    cin >> opcion;
     cout << "Ingrese el limite inferior: " << endl;
     cin >> a;
     cout << "Ingrese el limite superior: " << endl;
@@ -157,7 +163,7 @@ void caso_simpson13(string title,
     cout << "Ingrese la cantidad de segmentos: " << endl;
     cin >> n;
 
-    simpson13 s13(str_fn, std::move(str_dfn));
+    simpson13 s13(str_fn, std::move(str_dfn), opcion);
 
     vector<double> x;
     vector<double> y;
@@ -187,6 +193,12 @@ void caso_2_simpson13(){
     caso_simpson13("Caso 2. sin(x)^2", //2*cos(x)*sen(x), 2*cos(2*x)
                   "sin(x)^2", //-4*sin(2*x)
                   "-8*cos(2*x)");
+}
+
+void caso_3_simpson13(){
+    caso_simpson13("Caso 3. 10+2*x-6*x^2+5*x^4",
+                   "10+2*x-6*x^2+5*x^4",
+                   "120");
 }
 
 void caso_simpson38(string title,

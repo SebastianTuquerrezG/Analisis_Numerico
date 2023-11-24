@@ -24,7 +24,7 @@ namespace integracion{
          * @brief Constructor de la clase
          * @param p_fn Funcion a integrar
          */
-        explicit simpson13(string p_fn, string p_dfn):str_fn(p_fn), str_dfn(p_dfn){}
+        explicit simpson13(string p_fn, string p_dfn, int opcion):str_fn(p_fn), str_dfn(p_dfn), opcion(opcion){}
 
         double calcular(double a, double b, int n){
             if (n == 0 || n % 2 != 0) return NAN;
@@ -35,12 +35,13 @@ namespace integracion{
 
             crear_tabla(x, y, a, b, n, str_fn);
 
-            return calcular(x, y, str_dfn);
+            return calcularConError(x, y, str_dfn, opcion);
         }
 
-        double calcular(vector<double> &x,
+        double calcularConError(vector<double> &x,
                         vector<double> &y,
-                        const string& str_dfn){
+                        const string& str_dfn,
+                        int opcion){
             size_t n = x.size() - 1;
             if(n <= 0 || n % 2 != 0) return NAN;
 
@@ -59,21 +60,27 @@ namespace integracion{
             }
 
             resultado = (h / 3.0f) * (fabs(y[0]) + 4.0f * sum_impares + 2.0f * sum_pares + fabs(y[n]));
+            double error;
+            if(opcion == 2){
+                double k = 0.0f;
+                error = errorNoPolinomico(x[0], x[n], n, str_dfn);
+                double errorAux = error;
+                while (errorAux < 1.0f) {
+                    errorAux *= 10.0f;
+                    k++;
+                }
 
-            double k = 0.0f;
-            double error = errorNoPolinomico(x[0], x[n], n, str_dfn);
-            double errorAux = error;
-            while (errorAux < 1.0f) {
-                errorAux *= 10.0f;
-                k++;
-            }
+                if (error < 5* pow(10, -(k+1))){
+                    cout << "Error: " << error
+                         << " con sifras significativas k = " << k - 1 << endl;
+                } else {
+                    cout << "Supera al Error: " << error
+                         << " con sifras significativas k = " << k - 1 << endl;
+                }
+            } else if(opcion == 1){
+                error = errorPolinomico(x[0], x[n], n, str_dfn);
 
-            if (error < 5* pow(10, -(k+1))){
-                cout << "Error: " << error
-                     << " con sifras significativas k = " << k - 1 << endl;
-            } else {
-                cout << "Supera al Error: " << error
-                     << " con sifras significativas k = " << k - 1 << endl;
+                cout << "Error polinomico: " << error << endl;
             }
 
             int segmentosIdeales = calcularSegmentosIdeales(x[0], x[n], str_dfn);
@@ -111,6 +118,7 @@ namespace integracion{
     private:
         string str_fn;
         string str_dfn;
+        int opcion;
 
         double errorNoPolinomico(double a, double b, size_t n, string str_dfn){
             if (n == 0) return NAN;
@@ -120,7 +128,19 @@ namespace integracion{
 
             double error = -1*(pow((b-a)/n,5) / 90.0f) * max;
 
-            return fabs(error);
+            return error;
+        }
+
+        double errorPolinomico(double a, double b, size_t n, string str_dfn) {
+            if (n == 0) return NAN;
+            if (a > b) std::swap(a, b);
+
+            double puntoMedio = (b + a)/2;
+            double p = util::calcularPunto(str_dfn, puntoMedio);
+            double h = (b - a) / n;
+            double error = -1*(pow(h, 4))*((b - a)/180)*p;
+
+            return error;
         }
 
         int calcularSegmentosIdeales(double a, double b, string str_dfn){

@@ -7,7 +7,7 @@
  *
  * @copyright Copyright (c) 2023
  */
-#define _USE_MATH_DEFINES
+#define USE_MATH_DEFINES
 #include <iostream>
 #include <string>
 #include <utility>
@@ -33,6 +33,7 @@ using integracion::simpson13;
 using integracion::simpson38;
 using integracion::simpson;
 using integracion::Romberg;
+using integracion::resultado_romberg;
 using util::imprimir_tabla;
 using util::crear_tabla;
 
@@ -338,8 +339,7 @@ void salir(){
 }
 
 void caso_romberg(string title,
-                   string str_fn,
-                   string str_dfn) {
+                   string str_fn) {
 
     double a, b, k;
     cout << title << ":" << " por trapecio." << endl;
@@ -352,15 +352,17 @@ void caso_romberg(string title,
     cin >> k;
 
     //Instancia de trapecio
-    Romberg r(str_fn, std::move(str_dfn));
+    Romberg r(str_fn);
 
-    double valor = r.calcular(a, b, k);
+    resultado_romberg res = r.calcular(a, b, k);
 
     cout << "Valor de la integral: "
          << "entre: "
          << a << " y "
-         << b << " = "
-         << valor << endl;
+         << b << " con "
+         << k << " aproximaciones = "
+         << std::setprecision(10) << res.valor << endl
+         << "Valor del error: " << res.error << endl;
 }
 
 void caso_1_romberg(){

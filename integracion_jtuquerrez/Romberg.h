@@ -1,5 +1,5 @@
-#ifndef INTEGRACION_JTUQUERREZ_ROMBERG_H
-#define INTEGRACION_JTUQUERREZ_ROMBERG_H
+#ifndef ROMBERG_H
+#define ROMBERG_H
 
 #include <iostream>
 #include <string>
@@ -18,11 +18,18 @@ using util::crear_tabla;
 
 namespace integracion{
     /**
+     * @brief Estructura para almacenar el resultado de la integracion de romberg
+     */
+    struct resultado_romberg{
+        double valor; /*!< Valor de la integral */
+        double error; /*!< Error de la integral */
+    };
+    /**
      * @brief Integracion mediante el metodo de Romberg
      */
     class Romberg {
     public:
-        Romberg(string p_fn, string p_dfn): str_fn(p_fn), str_dfn(p_dfn) {}
+        Romberg(string p_fn): str_fn(p_fn) {}
 
         /**
          * @brief Calcula la integral en el intervalo dado
@@ -31,10 +38,11 @@ namespace integracion{
          * @param k numero de aproximaciones
          * @return valor de la integral aproximada
          */
-        double calcular(double a, double b, int k){
+        resultado_romberg calcular(double a, double b, int k){
+            resultado_romberg res;
             int i, j, n = 1;
 
-            if(k <= 0) return NAN;
+            if(k <= 1) return res;
             if(a > b) std::swap(a , b);
 
             vector<vector<double>> m(k);
@@ -46,8 +54,6 @@ namespace integracion{
                 //Calcular el valor de la primera columna
                 m[i][0] = t.calcular(a, b, n);
 
-                cout << m[i][0] << endl; //print
-
                 n *= 2;
             }
 
@@ -55,16 +61,17 @@ namespace integracion{
             for(j = 1; j < k; j++){
                 for(i = 0; i < k - j; i++){
                     m[i][j] = ((pot/(pot-1))*m[i+1][j-1]) - ((1/(pot-1))*m[i][j-1]);
-
-                    cout << m[i][j] << endl; //print
                 }
                 pot *= 4.0f;
             }
-            return m[0][k - 1];
+
+            res.valor = m[0][k-1];
+            res.error = fabs((m[0][k-1] - m[0][k-2])/m[0][k-1]) * 100.0f;
+
+            return res;
         }
     private:
         string str_fn; /*!< Funcion a integrar */
-        string str_dfn;
     };
 }
 

@@ -10,4 +10,5 @@ add_executable(integracion_jtuquerrez main.cpp
         SimpsonTercio.h
         Simpson38.h
         Simpson.h
-        Romberg.h)
+        Romberg.h
+        Derivacion.h)

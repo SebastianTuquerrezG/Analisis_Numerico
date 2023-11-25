@@ -118,8 +118,7 @@ void caso_simpson(string title,
 void caso_1_simpson();
 
 void caso_romberg(string title,
-                  string str_fn,
-                  string str_dfn);
+                  string str_fn);
 
 void caso_1_romberg();
 
@@ -367,6 +366,5 @@ void caso_romberg(string title,
 
 void caso_1_romberg(){
     caso_romberg("Caso 1. sen(x)^2",
-                 "(sin(x))^2",
-                 "2*cos(2*x)");
+                 "(sin(x))^2");
 }

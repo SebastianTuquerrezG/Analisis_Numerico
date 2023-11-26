@@ -18,6 +18,7 @@
 #include "Simpson38.h"
 #include "Simpson.h"
 #include "Romberg.h"
+#include "Derivacion.h"
 #include "util.h"
 
 using std::cout;
@@ -33,6 +34,7 @@ using integracion::simpson13;
 using integracion::simpson38;
 using integracion::simpson;
 using integracion::Romberg;
+using derivacion::derivada;
 using integracion::resultado_romberg;
 using util::imprimir_tabla;
 using util::crear_tabla;
@@ -43,9 +45,7 @@ using util::crear_tabla;
  * @param str_fn Funcion a integrar
  * @param str_dfn Segunda derivada
  */
-void caso_trapecio(string title,
-                      string str_fn,
-                      string str_dfn);
+void caso_trapecio(string title, string str_fn, string str_dfn);
 
 /**
  * @brief Integracion de e^(x^2) por trapecio
@@ -63,9 +63,7 @@ void caso_2_trapecio();
  * @param str_fn Funcion a integrar
  * @param str_dfn Cuarta deriva
  */
-void caso_simpson13(string title,
-                      string str_fn,
-                      string str_dfn);
+void caso_simpson13(string title, string str_fn, string str_dfn);
 
 /**
  * @brief Integracion de e^(x^2) por simpson 1/3
@@ -88,9 +86,7 @@ void caso_3_simpson13();
  * @param str_fn Funcion
  * @param str_dfn Cuarta derivada
  */
-void caso_simpson38(string title,
-                      string str_fn,
-                      string str_dfn);
+void caso_simpson38(string title, string str_fn, string str_dfn);
 
 /**
  * @brief Integracion de e^(x^2) por simpson 3/8
@@ -108,9 +104,7 @@ void caso_2_simpson38();
  * @param x vector de valores de la variable independiente
  * @param y vector de valores de la variable dependiente
  */
-void caso_simpson(string title,
-                    vector<double> &x,
-                    vector<double> &y);
+void caso_simpson(string title, vector<double> &x, vector<double> &y);
 
 /**
  * @brief Integracion de tablas de datos caso 1
@@ -121,6 +115,10 @@ void caso_romberg(string title,
                   string str_fn);
 
 void caso_1_romberg();
+
+void caso_diferenciacion();
+
+void caso_1_diferenciacion();
 
 /**
  * @brief Salir del programa
@@ -138,6 +136,7 @@ int main() {
         {"Caso 2. sen(x)^2 simpson38", caso_2_simpson38},
         {"Caso 1. e^(x^2) simpson", caso_1_simpson},
         {"Caso 1. sen(x)^2 romberg", caso_1_romberg},
+        {"Diferenciacion numerica", caso_1_diferenciacion},
         {"Salir", salir}
     };
     cout << "Integracion" << endl;
@@ -367,4 +366,40 @@ void caso_romberg(string title,
 void caso_1_romberg(){
     caso_romberg("Caso 1. sen(x)^2",
                  "(sin(x))^2");
+}
+
+void caso_diferenciacion(string title, string str_fn) {
+    double xi, paso, resultado;
+    int diferencias, direccion, der;
+
+    derivada d(str_fn);
+
+    cout << title << endl;
+
+    cout << "Ingrese 1 para primera derivada o 2 para segunda derivada: " << endl;
+    cin >> der;
+    cout << "Ingrese el x donde desea derivar: " << endl;
+    cin >> xi;
+    cout << "Ingrese el paso: " << endl;
+    cin >> paso;
+    cout << "Ingrese la cantidad de diferencias: " << endl;
+    cin >> diferencias;
+    cout << "Ingrese la direccion (0 para Adelante, 1 para Atras o 2 para central): " << endl;
+    cin >> direccion;
+
+    switch (der) {
+        case 1:
+            resultado = d.primeraDerivada(xi, paso, diferencias, direccion);
+            break;
+        case 2:
+            resultado = d.segundaDerivada(xi, paso, diferencias, direccion);
+            break;
+    }
+
+    cout << "La derivada de la funcion evaluada en el punto x = " << xi << " es: " << resultado << endl;
+}
+
+void caso_1_diferenciacion(){
+    caso_diferenciacion("Caso 1. f(x) = - 0.1x^4 - 0.15x^3 - 0.5x^2 - 0.25x + 1.2",
+                 "~0.1*x^4 - 0.15*x^3 - 0.5*x^2 - 0.25*x + 1.2");
 }

@@ -84,6 +84,8 @@ namespace integracion{
             }
 
             resultado = (h / 3.0f) * (fabs(y[0]) + 4.0f * sum_impares + 2.0f * sum_pares + fabs(y[n]));
+
+            cout << "Resultado Inicial: " << resultado << endl;
             double error, k=0.0f;
             if(opcion == 2){
                 error = errorNoPolinomico(x[0], x[n], n, str_dfn);
@@ -101,16 +103,17 @@ namespace integracion{
                 k++;
             }
 
-            if (errorAux < 5* pow(10, -(k+1))){
+            double aux = 5* pow(10, -(k+1));
+            if (error < aux){
                 if(k == 0)
                     cout << "Error: " << error << " con cifras significativas k = " << k << endl;
                 else
                     cout << "Error: " << error << " con cifras significativas k = " << k - 1 << endl;
             } else {
                 if (k == 0)
-                    cout << "Supera al Error: " << error << " con sifras significativas k = " << k << endl;
+                    cout << "Supera al Error: " << aux << ", Error: " << error << " con sifras significativas k = " << k << endl;
                 else
-                    cout << "Supera al Error: " << error << " con sifras significativas k = " << k - 1 << endl;
+                    cout << "Supera al Error: " << aux << ", Error: " << error << " con sifras significativas k = " << k - 1 << endl;
             }
 
             int segmentosIdeales = calcularSegmentosIdeales(x[0], x[n], str_dfn);

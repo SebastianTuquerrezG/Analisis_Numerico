@@ -383,7 +383,7 @@ void caso_romberg(string title,
                    string str_fn) {
 
     double a, b, k;
-    cout << title << ":" << " por trapecio." << endl;
+    cout << title << ":" << " por Romberg." << endl;
 
     cout << "Ingrese el limite inferior: " << endl;
     cin >> a;

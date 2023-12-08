@@ -62,8 +62,8 @@ namespace util{
             title = " ";
         }
 
-        size_t x_width = x_label.length() + 6;
-        size_t y_width = y_label.length() + 10;
+        size_t x_width = x_label.length() + 12;
+        size_t y_width = y_label.length() + 12;
         size_t title_width = title.length() + 6;
         size_t delineacion = x_width + y_width + title_width + 5;
         cout << setw(title_width)

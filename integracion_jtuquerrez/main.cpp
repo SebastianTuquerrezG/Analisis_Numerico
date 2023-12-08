@@ -26,6 +26,7 @@ using std::string;
 using std::vector;
 using std::cin;
 using std::endl;
+using std::fixed;
 
 using FuncPtr = std::function<void()>;
 
@@ -147,6 +148,11 @@ void caso_diferenciacion(string title, string str_fn);
 void caso_1_diferenciacion();
 
 /**
+ * @brief Proyecto de diferenciación para la función f(x)=xsen(x)
+ */
+void caso_proyecto_diferenciacion();
+
+/**
  * @brief Salir del programa
  */
 void salir();
@@ -165,6 +171,7 @@ int main() {
         {"Diferenciacion numerica", caso_1_diferenciacion},
         {"Proyecto Simpson 1/3", caso_proyecto_simpson13},
         {"Proyecto Romberg", caso_proyecto_romberg},
+        {"Proyecto Diferenciacion", caso_proyecto_diferenciacion},
         {"Salir", salir}
     };
     cout << "Integracion" << endl;
@@ -448,10 +455,15 @@ void caso_diferenciacion(string title, string str_fn) {
             break;
     }
 
-    cout << "La derivada de la funcion evaluada en el punto x = " << xi << " es: " << resultado << endl;
+    cout << "La derivada de la funcion evaluada en el punto x = " << xi << " es: " << setprecision(5) << resultado << endl;
 }
 
 void caso_1_diferenciacion(){
     caso_diferenciacion("Caso 1. f(x) = - 0.1x^4 - 0.15x^3 - 0.5x^2 - 0.25x + 1.2",
                  "~0.1*x^4 - 0.15*x^3 - 0.5*x^2 - 0.25*x + 1.2");
+}
+
+void caso_proyecto_diferenciacion(){
+    caso_diferenciacion("Funcion a derivar: f(x) = xsen(x)",
+                        "x*sin(x)");
 }

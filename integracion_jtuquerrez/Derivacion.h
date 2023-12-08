@@ -12,8 +12,6 @@ using std::string;
 using std::vector;
 
 using util::imprimir_tabla;
-using util::crear_tabla;
-
 
 namespace derivacion {
     /**
@@ -55,24 +53,42 @@ namespace derivacion {
                 //Primeras diferencias
                 case 1:
                     if (direccion == adelante){
+                        vector<double> xVec = {xi, (xi+paso)};
+                        vector<double> yVec = {y, yip1};
+                        imprimir_tabla(xVec, yVec, "X", "Y", "Tabla:");
                         return (yip1 - y) / paso;
                     }
                     else if(direccion == atras) {
+                        vector<double> xVec = {(xi+paso), xi};
+                        vector<double> yVec = {yip1, y};
+                        imprimir_tabla(xVec, yVec, "X", "Y", "Tabla:");
                         return (y - yim1) / paso;
                     }
                     else {
+                        vector<double> xVec = {(xi-paso), xi, (xi+paso)};
+                        vector<double> yVec = {yim1, y, yip1};
+                        imprimir_tabla(xVec, yVec, "X", "Y", "Tabla:");
                         return (yip1 - yim1) / (2.0f * paso);
                     }
 
                 //Segundas diferencias
                 case 2:
                     if (direccion == adelante) {
+                        vector<double> xVec = {xi, (xi+paso), (xi+(2.0f*paso))};
+                        vector<double> yVec = {y, yip1, yip2};
+                        imprimir_tabla(xVec, yVec, "X", "Y", "Tabla:");
                         return ((-1.0f * yip2) + (4.0f * yip1) - (3.0f * y)) / (2.0f * paso);
                     }
                     else if(direccion == atras) {
+                        vector<double> xVec = {(xi-(2.0f*paso)), (xi-paso), xi};
+                        vector<double> yVec = {yim2, yim1, y};
+                        imprimir_tabla(xVec, yVec, "X", "Y", "Tabla:");
                         return ((3.0f * y) - (4.0f * yim1) + yim2) / (2.0f * paso);
                     }
                     else {
+                        vector<double> xVec = {(xi-(2.0f*paso)), (xi-paso), xi, (xi+paso), (xi+(2.0f*paso))};
+                        vector<double> yVec = {yim2, yim1, y, yip1, yip2};
+                        imprimir_tabla(xVec, yVec, "X", "Y", "Tabla:");
                         return ((-1.0f * yip2) + (8.0f * yip1) - (8.0f * yim1) + yim2) / (12.0f * paso);
                     }
             }

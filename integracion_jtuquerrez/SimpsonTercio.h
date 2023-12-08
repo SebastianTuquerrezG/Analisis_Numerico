@@ -101,7 +101,7 @@ namespace integracion{
                 k++;
             }
 
-            if (error < 5* pow(10, -(k+1))){
+            if (errorAux < 5* pow(10, -(k+1))){
                 if(k == 0)
                     cout << "Error: " << error << " con cifras significativas k = " << k << endl;
                 else

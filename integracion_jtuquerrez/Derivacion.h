@@ -76,6 +76,7 @@ namespace derivacion {
                         return ((-1.0f * yip2) + (8.0f * yip1) - (8.0f * yim1) + yim2) / (12.0f * paso);
                     }
             }
+            return NAN;
         };
 
         double segundaDerivada(double xi, double paso, int diferencias, int direccion){
@@ -121,6 +122,7 @@ namespace derivacion {
                         return ((-1.0f * yip2) + (16.0f * yip1) - (30.0f * y) + (17.0f * yim1) - yim2) / (12.0f * (2.0f * paso));
                     }
             }
+            return NAN;
         }
 
     private:

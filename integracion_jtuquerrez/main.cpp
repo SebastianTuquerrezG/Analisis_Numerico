@@ -80,6 +80,8 @@ void caso_2_simpson13();
  */
 void caso_3_simpson13();
 
+void caso_proyecto_simpson13();
+
 /**
  * @brief Integracion usando el metodo de simpson 3/8
  * @param title Contexto del caso
@@ -116,7 +118,9 @@ void caso_romberg(string title,
 
 void caso_1_romberg();
 
-void caso_diferenciacion();
+void caso_proyecto_romberg();
+
+void caso_diferenciacion(string title, string str_fn);
 
 void caso_1_diferenciacion();
 
@@ -262,6 +266,21 @@ void caso_3_simpson13(){
                    "120");
 }
 
+void caso_proyecto_simpson13(){
+    caso_simpson13("Momento X = ((sin(x-1) + cos(2.5*(x-1))^3)/2) * (sin(x-1) + cos(2.5*(x-1))^3)",
+                   "((sin(x-1) + cos(2.5*(x-1))^3)/2) * (sin(x-1) + cos(2.5*(x-1))^3)",
+                   "-9375*(cos(2.5*(x-1))^4)*(sin(2.5*(x-1))^2) + 1875*(cos(2.5*(x-1))^6) - 2568.75*(sin(2.5*(x-1))^2)*cos(2.5*(x-1))*sin(x-1)"
+                   " + 933.8125*(cos(2.5*(x-1))^3)*sin(x-1) + 1342.5*(cos(2.5*(x-1))^2)*sin(2.5*(x-1))*cos(x-1) - 7031.25*(cos(2.5*(x-1))^2)"
+                   "*(sin(2.5*(x-1))^2)*cos(5*(x-1)) - 375*(sin(2.5*(x-1))^3)*cos(x-1) - 4*cos(2*(x-1))");
+    caso_simpson13("Momento Y = x*(sin(x-1) + cos(2.5*(x-1))^3)",
+                   "x*(sin(x-1) + cos(2.5*(x-1))^3)",
+                   "-x*sin(x-1) -2344.375*x*(sin(2.5(x-1))^2)*cos(2.5*(x-1)) +820.625*x*(cos(2.5*(x-1))^3) -2*cos(x-1) + 1312.625*(cos(2.5*(x-1))^2)*sin(2.5*(x-1))"
+                   " - 375*(sin(2.5*(x-1))^3)");
+    caso_simpson13("Masa de la lamina = sin(x-1) + cos(2.5*(x-1))^3",
+                       "sin(x-1) + cos(2.5*(x-1))^3",
+                   "sin(x-1) - 7.5(312.5*(sin(2.5*(x-1))^2)*cos(2.5*(x-1)) - 109.375*cos(2.5*(x-1))^3)");
+}
+
 void caso_simpson38(string title,
                       string str_fn,
                       string str_dfn) {
@@ -366,6 +385,15 @@ void caso_romberg(string title,
 void caso_1_romberg(){
     caso_romberg("Caso 1. sen(x)^2",
                  "(sin(x))^2");
+}
+
+void caso_proyecto_romberg(){
+    caso_romberg("Momento X = ((sin(x-1) + cos(2.5*(x-1))^3)/2) * (sin(x-1) + cos(2.5*(x-1))^3)",
+                 "((sin(x-1) + cos(2.5*(x-1))^3)/2) * (sin(x-1) + cos(2.5*(x-1))^3)");
+    caso_romberg("Momento Y = x*(sin(x-1) + cos(2.5*(x-1))^3)",
+                 "x*(sin(x-1) + cos(2.5*(x-1))^3)");
+    caso_romberg("Masa de la lamina = sin(x-1) + cos(2.5*(x-1))^3",
+                 "sin(x-1) + cos(2.5*(x-1))^3");
 }
 
 void caso_diferenciacion(string title, string str_fn) {

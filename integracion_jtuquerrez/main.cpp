@@ -80,6 +80,9 @@ void caso_2_simpson13();
  */
 void caso_3_simpson13();
 
+/**
+ * @brief Proyecto de integracion de momento X, momento Y y masa de la lamina por simpson 1/3
+ */
 void caso_proyecto_simpson13();
 
 /**
@@ -113,15 +116,34 @@ void caso_simpson(string title, vector<double> &x, vector<double> &y);
  */
 void caso_1_simpson();
 
+/**
+ * @brief Integracion usando el metodo de Romberg
+ * @param title
+ * @param str_fn
+ */
 void caso_romberg(string title,
                   string str_fn);
 
+/**
+ * @brief Integracion de sen(x)^2 por romberg
+ */
 void caso_1_romberg();
 
+/**
+ * @brief Proyecto de integracion de momento X, momento Y y masa de la lamina por romberg
+ */
 void caso_proyecto_romberg();
 
+/**
+ * @brief Diferenciacion numerica
+ * @param title Contexto del caso
+ * @param str_fn Funcion
+ */
 void caso_diferenciacion(string title, string str_fn);
 
+/**
+ * @brief Diferenciacion numerica caso 1
+ */
 void caso_1_diferenciacion();
 
 /**
@@ -141,6 +163,8 @@ int main() {
         {"Caso 1. e^(x^2) simpson", caso_1_simpson},
         {"Caso 1. sen(x)^2 romberg", caso_1_romberg},
         {"Diferenciacion numerica", caso_1_diferenciacion},
+        {"Proyecto Simpson 1/3", caso_proyecto_simpson13},
+        {"Proyecto Romberg", caso_proyecto_romberg},
         {"Salir", salir}
     };
     cout << "Integracion" << endl;

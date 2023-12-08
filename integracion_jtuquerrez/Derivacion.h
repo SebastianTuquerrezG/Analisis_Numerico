@@ -79,6 +79,14 @@ namespace derivacion {
             return NAN;
         };
 
+        /**
+         * @brief Calcula la segunda derivada de la funcion
+         * @param xi
+         * @param paso
+         * @param diferencias
+         * @param direccion
+         * @return valor de la segunda derivada
+         */
         double segundaDerivada(double xi, double paso, int diferencias, int direccion){
             //Comprobar que la cantidad de diferencias sea o 1 o 2.
             if((diferencias != 1) && (diferencias != 2)) {
@@ -127,9 +135,9 @@ namespace derivacion {
 
     private:
         Expression f; /*!< Función a derivar. */
-        const int adelante = 0;
-        const int atras = 1;
-        const int central = 2;
+        const int adelante = 0; /*!< Dirección de la derivada hacia adelante. */
+        const int atras = 1; /*!< Dirección de la derivada hacia atrás. */
+        const int central = 2; /*!< Dirección de la derivada central. */
     };
 }
 

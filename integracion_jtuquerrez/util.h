@@ -48,6 +48,7 @@ namespace util{
      * @param y variable dependiente
      * @param x_label Etiqueta de la variable independiente
      * @param y_label Etiqueta de la variable dependiente
+     * @param title Titulo de la tabla
      */
     void imprimir_tabla(
             vector<double> X,
@@ -80,8 +81,10 @@ namespace util{
             cout << setw(title_width)
                  << (opcional.size() > i ? opcional[i] : i+1) // Si opcional no tiene un valor en esta posición, usa 0.0
                  << setw(x_width)
+                 << setprecision(5)
                  << X[i]
                  << setw(y_width)
+                 << setprecision(5)
                  << Y[i]
                  <<endl;
         }

@@ -4,6 +4,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <cmath>
 
 #include "Expression.h"
 #include "util.h"
@@ -147,6 +148,10 @@ namespace derivacion {
                     }
             }
             return NAN;
+        }
+
+        double calcularError(double va, double vm){
+            return fabs((va-vm)/va)*100;
         }
 
     private:

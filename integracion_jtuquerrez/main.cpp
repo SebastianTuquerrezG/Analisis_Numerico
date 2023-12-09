@@ -428,7 +428,7 @@ void caso_proyecto_romberg(){
 }
 
 void caso_diferenciacion(string title, string str_fn) {
-    double xi, paso, resultado;
+    double xi, paso, resultado, error, analitica;
     int diferencias, direccion, der;
 
     derivada d(str_fn);
@@ -456,6 +456,12 @@ void caso_diferenciacion(string title, string str_fn) {
     }
 
     cout << "La derivada de la funcion evaluada en el punto x = " << xi << " es: " << setprecision(5) << resultado << endl;
+    cout << "Ingrese el valor de la derivada calculada de forma analitica para calcular el error relativo porcentual: " << endl;
+    cin >> analitica;
+
+    error = d.calcularError(analitica, resultado);
+
+    cout << "Error relativo porcentual: " << setprecision(5) << error << "%" << endl;
 }
 
 void caso_1_diferenciacion(){
